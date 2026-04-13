@@ -7,6 +7,8 @@ import { BlogSection } from "@/components/sections/blog-section";
 import { EventsSection } from "@/components/sections/events-section";
 import { JoinSection } from "@/components/sections/join-section";
 
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
