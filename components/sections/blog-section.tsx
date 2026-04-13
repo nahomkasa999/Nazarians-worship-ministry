@@ -2,12 +2,7 @@ import { BlogRow } from "@/components/blocks/blog-row";
 import { SectionHeader } from "@/components/common/section-header";
 import { figmaAssets } from "@/content/images";
 import { getPublishedBlogs } from "@/lib/data/blogs-public";
-
-const FALLBACK_IMAGES = [
-  figmaAssets.imgBlog1,
-  figmaAssets.imgBlog2,
-  figmaAssets.imgBlog3,
-] as const;
+import { BLOG_FALLBACK_IMAGE } from "@/lib/blog/fallback-image";
 
 export async function BlogSection() {
   const posts = await getPublishedBlogs({ take: 3 });
@@ -26,11 +21,11 @@ export async function BlogSection() {
             New posts will appear here when published.
           </p>
         ) : (
-          posts.map((blog, index) => (
+          posts.map((blog) => (
             <BlogRow
               key={blog.id}
               href={`/blog/${blog.slug}`}
-              image={blog.coverImage ?? FALLBACK_IMAGES[index % FALLBACK_IMAGES.length]}
+              image={blog.coverImage ?? BLOG_FALLBACK_IMAGE}
               title={blog.title}
               subtitle={
                 blog.publishedAt

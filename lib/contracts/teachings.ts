@@ -30,6 +30,7 @@ export type TeachingPatchBody = z.infer<typeof teachingPatchBodySchema>;
 
 export const adminTeachingListItemSchema = z.object({
   id: z.string(),
+  slug: z.string().nullable(),
   youtubeUrl: z.string(),
   youtubeId: z.string(),
   thumbnailUrl: z.string().nullable(),

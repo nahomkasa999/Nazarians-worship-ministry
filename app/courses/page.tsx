@@ -1,8 +1,25 @@
 import { Nav } from "@/components/layout/nav";
 import { Footer } from "@/components/layout/footer";
+import type { Metadata } from "next";
 import { TeachingCard } from "@/components/blocks/teaching-card";
 import { getAllPublishedTeachings } from "@/lib/data/teachings-public";
 import { formatDurationSeconds } from "@/lib/youtube/duration";
+
+export const metadata: Metadata = {
+  title: "Worship Courses",
+  description:
+    "Explore worship ministry teachings, biblical music guidance, and practical course videos for Ethiopian church worship teams.",
+  alternates: {
+    canonical: "/courses",
+  },
+  openGraph: {
+    title: "Worship Courses | Nazarian Worship Ministry",
+    description:
+      "Explore worship ministry teachings, biblical music guidance, and practical course videos for Ethiopian church worship teams.",
+    url: "/courses",
+    type: "website",
+  },
+};
 
 export default async function CoursesPage() {
   const teachings = await getAllPublishedTeachings();
@@ -35,7 +52,7 @@ export default async function CoursesPage() {
                   meeting={t.scheduleLine}
                   location={t.venueLine}
                   description={t.description}
-                  href={`/teaching/${t.id}`}
+                  href={`/teaching/${t.slug || t.id}`}
                   durationLabel={
                     t.durationSeconds != null ? formatDurationSeconds(t.durationSeconds) : null
                   }

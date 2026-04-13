@@ -32,7 +32,7 @@ export async function TeachingSection() {
             meeting={t.scheduleLine}
             location={t.venueLine}
             description={t.description}
-            href={`/teaching/${t.id}`}
+            href={`/teaching/${t.slug || t.id}`}
             durationLabel={
               t.durationSeconds != null ? formatDurationSeconds(t.durationSeconds) : null
             }

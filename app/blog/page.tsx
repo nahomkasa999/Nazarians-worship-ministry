@@ -1,10 +1,27 @@
 import Link from "next/link";
 import Image from "next/image";
+import type { Metadata } from "next";
 import { Nav } from "@/components/layout/nav";
 import { Footer } from "@/components/layout/footer";
 import { getPublishedBlogs } from "@/lib/data/blogs-public";
-import { figmaAssets } from "@/content/images";
+import { BLOG_FALLBACK_IMAGE } from "@/lib/blog/fallback-image";
 import { getRelativeDateLabel } from "@/lib/relative-date";
+
+export const metadata: Metadata = {
+  title: "Worship Blog",
+  description:
+    "Practical worship ministry articles, voice training tips, and biblical worship guidance for churches in Ethiopia.",
+  alternates: {
+    canonical: "/blog",
+  },
+  openGraph: {
+    title: "Worship Blog | Nazarian Worship Ministry",
+    description:
+      "Practical worship ministry articles, voice training tips, and biblical worship guidance for churches in Ethiopia.",
+    url: "/blog",
+    type: "website",
+  },
+};
 
 export default async function BlogListPage() {
   const posts = await getPublishedBlogs();
@@ -32,7 +49,7 @@ export default async function BlogListPage() {
                     <Link href={`/blog/${post.slug}`} className="group block h-full">
                       <div className="relative aspect-[16/9] w-full bg-muted">
                         <Image
-                          src={post.coverImage || figmaAssets.imgBlog1}
+                          src={post.coverImage || BLOG_FALLBACK_IMAGE}
                           alt={post.title}
                           fill
                           className="object-cover"

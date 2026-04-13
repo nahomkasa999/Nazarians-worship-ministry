@@ -50,16 +50,23 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-svh items-center justify-center bg-gradient-to-b from-muted/40 via-background to-background p-4 md:p-8">
-      <div className="w-full max-w-sm md:max-w-4xl">
-        <Card className="overflow-hidden border-border/60 p-0 shadow-xl">
+    <div className="relative flex min-h-svh items-center justify-center overflow-hidden p-4 md:p-8">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/images/background.jpg')" }}
+      />
+      <div aria-hidden="true" className="absolute inset-0 bg-black/55 backdrop-blur-md" />
+
+      <div className="relative z-10 w-full max-w-sm md:max-w-4xl">
+        <Card className="overflow-hidden border-border/60 bg-card/95 p-0 shadow-xl backdrop-blur-sm">
           <CardContent className="grid p-0 md:grid-cols-2">
             <form className="p-6 md:p-8" onSubmit={handleSignIn}>
               <div className="flex flex-col gap-6">
                 <div className="space-y-2 text-center">
                   <h1 className="text-2xl font-bold">Welcome back</h1>
                   <p className="text-sm text-muted-foreground">
-                    Sign in to manage church content and membership requests.
+                    Sign in to access the admin dashboard and manage ministry content securely.
                   </p>
                 </div>
 
@@ -76,11 +83,11 @@ export default function LoginPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium leading-none">Email</label>
+                  <label htmlFor="email" className="text-sm font-medium leading-none">Email address</label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="m@example.com"
+                    placeholder="you@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -106,23 +113,27 @@ export default function LoginPage() {
                 </Button>
 
                 <p className="text-center text-sm text-muted-foreground">
-                  Don&apos;t have an account?{" "}
+                  New here?{" "}
                   <Link href="/register" className="underline underline-offset-4">
-                    Create one
+                    Create your account
                   </Link>
                 </p>
               </div>
             </form>
-            <div className="hidden md:flex md:flex-col md:justify-between md:bg-muted/60 md:p-8">
-              <div className="space-y-3">
-                <p className="text-xs uppercase tracking-wider text-muted-foreground">Nazarian Worship Ministry</p>
-                <h2 className="text-2xl font-semibold">Serve your church with clarity and consistency.</h2>
-                <p className="text-sm text-muted-foreground">
-                  Manage events, teachings, and YouTube posts from a single dashboard optimized for mobile-first workflows.
+            <div
+              className="relative hidden md:flex md:flex-col md:justify-between md:p-8"
+              style={{ backgroundImage: "url('/images/background.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}
+            >
+              <div className="absolute inset-0 bg-black/45 backdrop-blur-[1px]" />
+              <div className="relative space-y-3 text-white">
+                <p className="text-xs uppercase tracking-wider text-white/80">Nazarian Worship Ministry</p>
+                <h2 className="text-2xl font-semibold text-white">Lead your ministry with focus and confidence.</h2>
+                <p className="text-sm text-white/80">
+                  This portal is for admins managing teachings, events, and member-related workflows.
                 </p>
               </div>
-              <div className="rounded-xl border bg-background/70 p-4 text-sm text-muted-foreground backdrop-blur">
-                Public users can browse content freely. Only admins and authenticated users can handle protected workflows.
+              <div className="relative rounded-xl border border-white/30 bg-black/35 p-4 text-sm text-white/85 backdrop-blur">
+                Keep credentials private and sign in only from trusted devices.
               </div>
             </div>
           </CardContent>

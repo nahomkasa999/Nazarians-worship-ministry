@@ -52,16 +52,23 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex min-h-svh items-center justify-center bg-gradient-to-b from-muted/40 via-background to-background p-4 md:p-8">
-      <div className="w-full max-w-sm md:max-w-4xl">
-        <Card className="overflow-hidden border-border/60 p-0 shadow-xl">
+    <div className="relative flex min-h-svh items-center justify-center overflow-hidden p-4 md:p-8">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/images/background.jpg')" }}
+      />
+      <div aria-hidden="true" className="absolute inset-0 bg-black/55 backdrop-blur-md" />
+
+      <div className="relative z-10 w-full max-w-sm md:max-w-4xl">
+        <Card className="overflow-hidden border-border/60 bg-card/95 p-0 shadow-xl backdrop-blur-sm">
           <CardContent className="grid p-0 md:grid-cols-2">
             <form className="p-6 md:p-8" onSubmit={handleSignUp}>
               <div className="flex flex-col gap-6">
                 <div className="space-y-2 text-center">
                   <h1 className="text-2xl font-bold">Create your account</h1>
                   <p className="text-sm text-muted-foreground">
-                    Sign up to request church membership and access protected actions.
+                    Create an admin account to access the ministry dashboard and protected workflows.
                   </p>
                 </div>
 
@@ -81,18 +88,18 @@ export default function RegisterPage() {
                   <label htmlFor="name" className="text-sm font-medium leading-none">Full name</label>
                   <Input
                     id="name"
-                    placeholder="John Doe"
+                    placeholder="Your full name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
                   />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium leading-none">Email</label>
+                  <label htmlFor="email" className="text-sm font-medium leading-none">Email address</label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="m@example.com"
+                    placeholder="you@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -113,23 +120,27 @@ export default function RegisterPage() {
                 </Button>
 
                 <p className="text-center text-sm text-muted-foreground">
-                  Already have an account?{" "}
+                  Already registered?{" "}
                   <Link href="/login" className="underline underline-offset-4">
-                    Sign in
+                    Sign in here
                   </Link>
                 </p>
               </div>
             </form>
-            <div className="hidden md:flex md:flex-col md:justify-between md:bg-muted/60 md:p-8">
-              <div className="space-y-3">
-                <p className="text-xs uppercase tracking-wider text-muted-foreground">Join The Mission</p>
-                <h2 className="text-2xl font-semibold">Grow with the church community.</h2>
-                <p className="text-sm text-muted-foreground">
-                  Your account helps you submit membership requests and stay connected to church updates.
+            <div
+              className="relative hidden md:flex md:flex-col md:justify-between md:p-8"
+              style={{ backgroundImage: "url('/images/background.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}
+            >
+              <div className="absolute inset-0 bg-black/45 backdrop-blur-[1px]" />
+              <div className="relative space-y-3 text-white">
+                <p className="text-xs uppercase tracking-wider text-white/80">Join the mission</p>
+                <h2 className="text-2xl font-semibold text-white">Set up secure admin access.</h2>
+                <p className="text-sm text-white/80">
+                  This signup is intended for authorized admins who manage church updates and operations.
                 </p>
               </div>
-              <div className="rounded-xl border bg-background/70 p-4 text-sm text-muted-foreground backdrop-blur">
-                Admins approve membership requests. Public pages remain accessible for everyone.
+              <div className="relative rounded-xl border border-white/30 bg-black/35 p-4 text-sm text-white/85 backdrop-blur">
+                If you are not part of the admin team, please contact the church office before registering.
               </div>
             </div>
           </CardContent>

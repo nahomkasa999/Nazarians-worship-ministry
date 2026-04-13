@@ -21,6 +21,7 @@ enum MembershipStatus {
 
 model Teaching {
   id              String   @id @default(cuid())
+  slug            String?  @unique
   youtubeUrl      String
   youtubeId       String   @unique
   thumbnailUrl    String?
@@ -36,6 +37,7 @@ model Teaching {
   updatedAt       DateTime @updatedAt
 
   @@index([published, position])
+  @@index([slug])
   @@map("teachings")
 }
 

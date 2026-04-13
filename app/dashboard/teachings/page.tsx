@@ -14,6 +14,7 @@ export default async function DashboardTeachingsPage() {
 
   const initialTeachings = teachings.map((t) => ({
     id: t.id,
+    slug: t.slug,
     youtubeUrl: t.youtubeUrl,
     youtubeId: t.youtubeId,
     thumbnailUrl: t.thumbnailUrl,

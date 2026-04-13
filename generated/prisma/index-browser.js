@@ -122,6 +122,7 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.TeachingScalarFieldEnum = {
   id: 'id',
+  slug: 'slug',
   youtubeUrl: 'youtubeUrl',
   youtubeId: 'youtubeId',
   thumbnailUrl: 'thumbnailUrl',

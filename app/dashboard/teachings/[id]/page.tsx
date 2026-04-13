@@ -37,6 +37,7 @@ export default async function DashboardEditTeachingPage({ params }: { params: Pr
             mode="edit"
             initial={{
               id: row.id,
+              slug: row.slug,
               youtubeUrl: row.youtubeUrl,
               youtubeId: row.youtubeId,
               thumbnailUrl: row.thumbnailUrl,

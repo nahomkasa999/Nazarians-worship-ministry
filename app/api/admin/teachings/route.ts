@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/prisma";
 import { getAdminSessionFromHeaders } from "@/lib/admin-session";
 import { teachingCreateBodySchema } from "@/lib/contracts/teachings";
+import { generateUniqueTeachingSlug } from "@/lib/teachings/slug";
 import { fetchYoutubeVideoMetadata } from "@/lib/youtube/fetch-metadata";
 import { canonicalWatchUrl, parseYoutubeVideoId } from "@/lib/youtube/parse-id";
 
@@ -119,6 +120,7 @@ export async function POST(request: Request) {
 
   const created = await db.teaching.create({
     data: {
+      slug: await generateUniqueTeachingSlug(title),
       youtubeUrl: canonicalWatchUrl(meta.data.youtubeId),
       youtubeId: meta.data.youtubeId,
       thumbnailUrl,

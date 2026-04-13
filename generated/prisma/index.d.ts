@@ -1687,6 +1687,7 @@ export namespace Prisma {
 
   export type TeachingMinAggregateOutputType = {
     id: string | null
+    slug: string | null
     youtubeUrl: string | null
     youtubeId: string | null
     thumbnailUrl: string | null
@@ -1704,6 +1705,7 @@ export namespace Prisma {
 
   export type TeachingMaxAggregateOutputType = {
     id: string | null
+    slug: string | null
     youtubeUrl: string | null
     youtubeId: string | null
     thumbnailUrl: string | null
@@ -1721,6 +1723,7 @@ export namespace Prisma {
 
   export type TeachingCountAggregateOutputType = {
     id: number
+    slug: number
     youtubeUrl: number
     youtubeId: number
     thumbnailUrl: number
@@ -1750,6 +1753,7 @@ export namespace Prisma {
 
   export type TeachingMinAggregateInputType = {
     id?: true
+    slug?: true
     youtubeUrl?: true
     youtubeId?: true
     thumbnailUrl?: true
@@ -1767,6 +1771,7 @@ export namespace Prisma {
 
   export type TeachingMaxAggregateInputType = {
     id?: true
+    slug?: true
     youtubeUrl?: true
     youtubeId?: true
     thumbnailUrl?: true
@@ -1784,6 +1789,7 @@ export namespace Prisma {
 
   export type TeachingCountAggregateInputType = {
     id?: true
+    slug?: true
     youtubeUrl?: true
     youtubeId?: true
     thumbnailUrl?: true
@@ -1888,6 +1894,7 @@ export namespace Prisma {
 
   export type TeachingGroupByOutputType = {
     id: string
+    slug: string | null
     youtubeUrl: string
     youtubeId: string
     thumbnailUrl: string | null
@@ -1924,6 +1931,7 @@ export namespace Prisma {
 
   export type TeachingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    slug?: boolean
     youtubeUrl?: boolean
     youtubeId?: boolean
     thumbnailUrl?: boolean
@@ -1941,6 +1949,7 @@ export namespace Prisma {
 
   export type TeachingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    slug?: boolean
     youtubeUrl?: boolean
     youtubeId?: boolean
     thumbnailUrl?: boolean
@@ -1958,6 +1967,7 @@ export namespace Prisma {
 
   export type TeachingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    slug?: boolean
     youtubeUrl?: boolean
     youtubeId?: boolean
     thumbnailUrl?: boolean
@@ -1975,6 +1985,7 @@ export namespace Prisma {
 
   export type TeachingSelectScalar = {
     id?: boolean
+    slug?: boolean
     youtubeUrl?: boolean
     youtubeId?: boolean
     thumbnailUrl?: boolean
@@ -1990,13 +2001,14 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type TeachingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "youtubeUrl" | "youtubeId" | "thumbnailUrl" | "title" | "description" | "durationSeconds" | "semesterLabel" | "scheduleLine" | "venueLine" | "position" | "published" | "createdAt" | "updatedAt", ExtArgs["result"]["teaching"]>
+  export type TeachingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "slug" | "youtubeUrl" | "youtubeId" | "thumbnailUrl" | "title" | "description" | "durationSeconds" | "semesterLabel" | "scheduleLine" | "venueLine" | "position" | "published" | "createdAt" | "updatedAt", ExtArgs["result"]["teaching"]>
 
   export type $TeachingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Teaching"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      slug: string | null
       youtubeUrl: string
       youtubeId: string
       thumbnailUrl: string | null
@@ -2434,6 +2446,7 @@ export namespace Prisma {
    */
   interface TeachingFieldRefs {
     readonly id: FieldRef<"Teaching", 'String'>
+    readonly slug: FieldRef<"Teaching", 'String'>
     readonly youtubeUrl: FieldRef<"Teaching", 'String'>
     readonly youtubeId: FieldRef<"Teaching", 'String'>
     readonly thumbnailUrl: FieldRef<"Teaching", 'String'>
@@ -11558,6 +11571,7 @@ export namespace Prisma {
 
   export const TeachingScalarFieldEnum: {
     id: 'id',
+    slug: 'slug',
     youtubeUrl: 'youtubeUrl',
     youtubeId: 'youtubeId',
     thumbnailUrl: 'thumbnailUrl',
@@ -11855,6 +11869,7 @@ export namespace Prisma {
     OR?: TeachingWhereInput[]
     NOT?: TeachingWhereInput | TeachingWhereInput[]
     id?: StringFilter<"Teaching"> | string
+    slug?: StringNullableFilter<"Teaching"> | string | null
     youtubeUrl?: StringFilter<"Teaching"> | string
     youtubeId?: StringFilter<"Teaching"> | string
     thumbnailUrl?: StringNullableFilter<"Teaching"> | string | null
@@ -11872,6 +11887,7 @@ export namespace Prisma {
 
   export type TeachingOrderByWithRelationInput = {
     id?: SortOrder
+    slug?: SortOrderInput | SortOrder
     youtubeUrl?: SortOrder
     youtubeId?: SortOrder
     thumbnailUrl?: SortOrderInput | SortOrder
@@ -11889,6 +11905,7 @@ export namespace Prisma {
 
   export type TeachingWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    slug?: string
     youtubeId?: string
     AND?: TeachingWhereInput | TeachingWhereInput[]
     OR?: TeachingWhereInput[]
@@ -11905,10 +11922,11 @@ export namespace Prisma {
     published?: BoolFilter<"Teaching"> | boolean
     createdAt?: DateTimeFilter<"Teaching"> | Date | string
     updatedAt?: DateTimeFilter<"Teaching"> | Date | string
-  }, "id" | "youtubeId">
+  }, "id" | "slug" | "youtubeId">
 
   export type TeachingOrderByWithAggregationInput = {
     id?: SortOrder
+    slug?: SortOrderInput | SortOrder
     youtubeUrl?: SortOrder
     youtubeId?: SortOrder
     thumbnailUrl?: SortOrderInput | SortOrder
@@ -11934,6 +11952,7 @@ export namespace Prisma {
     OR?: TeachingScalarWhereWithAggregatesInput[]
     NOT?: TeachingScalarWhereWithAggregatesInput | TeachingScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Teaching"> | string
+    slug?: StringNullableWithAggregatesFilter<"Teaching"> | string | null
     youtubeUrl?: StringWithAggregatesFilter<"Teaching"> | string
     youtubeId?: StringWithAggregatesFilter<"Teaching"> | string
     thumbnailUrl?: StringNullableWithAggregatesFilter<"Teaching"> | string | null
@@ -12549,6 +12568,7 @@ export namespace Prisma {
 
   export type TeachingCreateInput = {
     id?: string
+    slug?: string | null
     youtubeUrl: string
     youtubeId: string
     thumbnailUrl?: string | null
@@ -12566,6 +12586,7 @@ export namespace Prisma {
 
   export type TeachingUncheckedCreateInput = {
     id?: string
+    slug?: string | null
     youtubeUrl: string
     youtubeId: string
     thumbnailUrl?: string | null
@@ -12583,6 +12604,7 @@ export namespace Prisma {
 
   export type TeachingUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     youtubeId?: StringFieldUpdateOperationsInput | string
     thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12600,6 +12622,7 @@ export namespace Prisma {
 
   export type TeachingUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     youtubeId?: StringFieldUpdateOperationsInput | string
     thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12617,6 +12640,7 @@ export namespace Prisma {
 
   export type TeachingCreateManyInput = {
     id?: string
+    slug?: string | null
     youtubeUrl: string
     youtubeId: string
     thumbnailUrl?: string | null
@@ -12634,6 +12658,7 @@ export namespace Prisma {
 
   export type TeachingUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     youtubeId?: StringFieldUpdateOperationsInput | string
     thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12651,6 +12676,7 @@ export namespace Prisma {
 
   export type TeachingUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
     youtubeUrl?: StringFieldUpdateOperationsInput | string
     youtubeId?: StringFieldUpdateOperationsInput | string
     thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13426,6 +13452,7 @@ export namespace Prisma {
 
   export type TeachingCountOrderByAggregateInput = {
     id?: SortOrder
+    slug?: SortOrder
     youtubeUrl?: SortOrder
     youtubeId?: SortOrder
     thumbnailUrl?: SortOrder
@@ -13448,6 +13475,7 @@ export namespace Prisma {
 
   export type TeachingMaxOrderByAggregateInput = {
     id?: SortOrder
+    slug?: SortOrder
     youtubeUrl?: SortOrder
     youtubeId?: SortOrder
     thumbnailUrl?: SortOrder
@@ -13465,6 +13493,7 @@ export namespace Prisma {
 
   export type TeachingMinOrderByAggregateInput = {
     id?: SortOrder
+    slug?: SortOrder
     youtubeUrl?: SortOrder
     youtubeId?: SortOrder
     thumbnailUrl?: SortOrder

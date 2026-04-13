@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/prisma";
 import { getAdminSessionFromHeaders } from "@/lib/admin-session";
 import { teachingIdParamsSchema, teachingPatchBodySchema } from "@/lib/contracts/teachings";
+import { generateUniqueTeachingSlug } from "@/lib/teachings/slug";
 import { fetchYoutubeVideoMetadata } from "@/lib/youtube/fetch-metadata";
 import { canonicalWatchUrl, parseYoutubeVideoId } from "@/lib/youtube/parse-id";
 
@@ -133,6 +134,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   const updated = await db.teaching.update({
     where: { id: row.id },
     data: {
+      slug: await generateUniqueTeachingSlug(title, row.id),
       youtubeUrl,
       youtubeId,
       title,

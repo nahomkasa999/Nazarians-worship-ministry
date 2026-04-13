@@ -69,7 +69,7 @@ export function TeachingsAdminPanel({ initialTeachings }: TeachingsAdminPanelPro
               key={t.id}
               className="overflow-hidden rounded-lg border bg-card"
             >
-              <Link href={`/teaching/${t.id}`} className="block">
+              <Link href={`/teaching/${t.slug || t.id}`} className="block">
                 <div className="relative aspect-video w-full bg-muted">
                   <Image
                     src={t.thumbnailUrl?.trim() || fallbackThumbnailUrl(t.youtubeId)}
