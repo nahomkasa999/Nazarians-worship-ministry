@@ -33,26 +33,28 @@ export default async function DashboardEditTeachingPage({ params }: { params: Pr
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0 lg:p-6">
-          <TeachingEditorForm
-            mode="edit"
-            initial={{
-              id: row.id,
-              slug: row.slug,
-              youtubeUrl: row.youtubeUrl,
-              youtubeId: row.youtubeId,
-              thumbnailUrl: row.thumbnailUrl,
-              title: row.title,
-              description: row.description,
-              durationSeconds: row.durationSeconds,
-              semesterLabel: row.semesterLabel,
-              scheduleLine: row.scheduleLine,
-              venueLine: row.venueLine,
-              position: row.position,
-              published: row.published,
-              createdAt: row.createdAt.toISOString(),
-              updatedAt: row.updatedAt.toISOString(),
-            }}
-          />
+          <div className="mx-auto w-full max-w-5xl">
+            <TeachingEditorForm
+              mode="edit"
+              initial={{
+                id: row.id,
+                slug: row.slug,
+                youtubeUrl: row.youtubeUrl,
+                youtubeId: row.youtubeId,
+                thumbnailUrl: row.thumbnailUrl,
+                title: row.title,
+                description: row.description,
+                durationSeconds: row.durationSeconds,
+                semesterLabel: row.semesterLabel,
+                scheduleLine: row.scheduleLine,
+                venueLine: row.venueLine,
+                position: row.position,
+                published: row.published,
+                createdAt: row.createdAt.toISOString(),
+                updatedAt: row.updatedAt.toISOString(),
+              }}
+            />
+          </div>
         </div>
       </SidebarInset>
     </SidebarProvider>

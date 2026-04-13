@@ -1,5 +1,4 @@
-import { Resend } from "resend";
-import { maskResendApiKeyForLog } from "@/lib/email/resend-debug";
+import nodemailer from "nodemailer";
 
 function escapeHtml(text: string): string {
   return text
@@ -70,13 +69,93 @@ function resourceItemsPlain(): string[] {
   return items;
 }
 
+type SmtpSendResult =
+  | { sent: true }
+  | { sent: false; reason: "missing_env" | "smtp_error"; message: string };
+
+type SmtpEmailInput = {
+  logPrefix: string;
+  to: string;
+  subject: string;
+  html: string;
+  text: string;
+  replyTo?: string;
+};
+
+async function sendThroughSmtp(input: SmtpEmailInput): Promise<SmtpSendResult> {
+  const smtpUser = process.env.SMTP_USER?.trim();
+  const smtpPass = process.env.SMTP_PASS?.trim();
+  const from = process.env.SMTP_FROM_EMAIL?.trim() || smtpUser;
+
+  if (!smtpUser || !smtpPass || !from) {
+    const message =
+      "Missing SMTP config. Set SMTP_USER, SMTP_PASS, and SMTP_FROM_EMAIL in your deployment environment (Vercel).";
+    console.warn(`${input.logPrefix} abort: missing SMTP env`, {
+      hasSmtpUser: Boolean(smtpUser),
+      hasSmtpPass: Boolean(smtpPass),
+      hasFrom: Boolean(from),
+    });
+    return { sent: false, reason: "missing_env", message };
+  }
+
+  console.info(`${input.logPrefix} config`, {
+    provider: "smtp",
+    smtpService: process.env.SMTP_SERVICE?.trim() || "gmail",
+    from,
+    subject: input.subject,
+    replyTo: input.replyTo ?? "(none)",
+  });
+
+  try {
+    console.info(`${input.logPrefix} calling Nodemailer transporter.sendMail...`);
+    const transporter = nodemailer.createTransport({
+      service: process.env.SMTP_SERVICE?.trim() || "gmail",
+      auth: {
+        user: smtpUser,
+        pass: smtpPass,
+      },
+    });
+    const info = await transporter.sendMail({
+      from,
+      to: input.to,
+      subject: input.subject,
+      html: input.html,
+      text: input.text,
+      ...(input.replyTo ? { replyTo: input.replyTo } : {}),
+    });
+    console.info(`${input.logPrefix} outcome: success`, {
+      messageId: info.messageId ?? "(no message id)",
+      accepted: info.accepted,
+      to: input.to,
+    });
+    return { sent: true };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Unknown SMTP send error.";
+    console.error(`${input.logPrefix} outcome: exception`, {
+      message,
+      err:
+        err instanceof Error ?
+          { name: err.name, stack: err.stack?.split("\n").slice(0, 5).join("\n") }
+        : err,
+    });
+    return { sent: false, reason: "smtp_error", message };
+  }
+}
+
 export type MembershipApprovedEmailResult =
   | { sent: true }
-  | { sent: false; reason: "missing_env" | "resend_error" | "exception"; message: string };
+  | { sent: false; reason: "missing_env" | "smtp_error" | "exception"; message: string };
 
 /**
- * Sends welcome email after membership approval. Returns whether Resend accepted the send;
- * callers can surface failures to admins without rolling back approval.
+ * Sends welcome email after membership approval via SMTP (Nodemailer).
+ *
+ * Temporary provider note:
+ * - We are using SMTP now because Resend requires a verified custom sender domain.
+ * - To switch back later, replace the transporter.sendMail(...) call with Resend API call,
+ *   then use RESEND_API_KEY + RESEND_FROM_EMAIL env values.
+ *
+ * Returns whether the send was accepted; callers can surface failures to admins
+ * without rolling back approval.
  */
 export async function sendMembershipApprovedEmail(input: {
   to: string;
@@ -90,34 +169,16 @@ export async function sendMembershipApprovedEmail(input: {
     hasTelegram: Boolean(input.telegram?.trim()),
   });
 
-  const apiKey = process.env.RESEND_API_KEY?.trim();
-  const from = process.env.RESEND_FROM_EMAIL?.trim();
-  if (!apiKey || !from) {
-    const message =
-      "RESEND_API_KEY or RESEND_FROM_EMAIL is not set; welcome email was skipped.";
-    console.warn(`${logPrefix} abort: missing env`, {
-      hasApiKey: Boolean(apiKey),
-      hasFrom: Boolean(from),
-      apiKey: maskResendApiKeyForLog(apiKey),
-      from: from || "(not set)",
-    });
-    return { sent: false, reason: "missing_env", message };
-  }
-
   const subject =
     process.env.MEMBERSHIP_APPROVAL_SUBJECT?.trim() ||
     "Welcome — your community membership is approved";
 
   const replyTo =
     process.env.MEMBERSHIP_REPLY_TO?.trim() ||
-    process.env.RESEND_REPLY_TO?.trim() ||
+    process.env.SMTP_REPLY_TO?.trim() ||
     undefined;
 
-  console.info(`${logPrefix} config`, {
-    apiKey: maskResendApiKeyForLog(apiKey),
-    from,
-    subject,
-    replyTo: replyTo ?? "(none)",
+  console.info(`${logPrefix} resources`, {
     hasMembershipTelegramUrl: Boolean(process.env.MEMBERSHIP_TELEGRAM_URL?.trim()),
     hasMembershipSecondaryUrl: Boolean(process.env.MEMBERSHIP_SECONDARY_URL?.trim()),
   });
@@ -153,20 +214,32 @@ export async function sendMembershipApprovedEmail(input: {
   const html = `
 <!DOCTYPE html>
 <html>
-<body style="font-family: system-ui, sans-serif; line-height: 1.5; color: #111;">
-  <p>Hi ${safeName},</p>
-  <p>Your membership request has been <strong>approved</strong>. We’re glad to have you with us.</p>
-  ${telegramOnFile}
-  ${resourcesBlockHtml}
-  ${notesHtml}
-  <p><strong>What you can do next</strong></p>
-  <ul>
-    <li>Join the channels above to stay connected with the community.</li>
-    <li>Check the website for events, courses, and updates.</li>
-    <li>Reply to this email if you have questions.</li>
-  </ul>
-  ${extraHtml ? `<div>${extraHtml}</div>` : ""}
-  <p>— Nazarian Worship</p>
+<body style="margin:0; padding:24px; background:#f5f7fb; font-family:Inter,Segoe UI,Arial,sans-serif; color:#111827;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px; margin:0 auto; background:#ffffff; border:1px solid #e5e7eb; border-radius:12px; overflow:hidden;">
+    <tr>
+      <td style="padding:24px 28px; background:#0f172a; color:#f8fafc;">
+        <h1 style="margin:0; font-size:22px; line-height:1.3;">Nazarian Worship Ministry</h1>
+        <p style="margin:8px 0 0; font-size:14px; color:#cbd5e1;">Membership approval update</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:28px; line-height:1.6; font-size:15px;">
+        <p style="margin-top:0;">Hi ${safeName},</p>
+        <p>Your membership request has been <strong>approved</strong>. We are glad to have you with us.</p>
+        ${telegramOnFile}
+        ${resourcesBlockHtml}
+        ${notesHtml}
+        <p><strong>What you can do next</strong></p>
+        <ul>
+          <li>Join the channels above to stay connected with the community.</li>
+          <li>Check the website for events, teachings, and updates.</li>
+          <li>Reply to this email if you have questions.</li>
+        </ul>
+        ${extraHtml ? `<div>${extraHtml}</div>` : ""}
+        <p style="margin-bottom:0;">- Nazarian Worship Ministry</p>
+      </td>
+    </tr>
+  </table>
 </body>
 </html>
 `.trim();
@@ -193,46 +266,69 @@ export async function sendMembershipApprovedEmail(input: {
     subjectChars: subject.length,
   });
 
-  try {
-    console.info(`${logPrefix} calling Resend.emails.send…`);
-    const resend = new Resend(apiKey);
-    const { data, error } = await resend.emails.send({
-      from,
-      to: input.to,
-      subject,
-      html,
-      text,
-      ...(replyTo ? { replyTo } : {}),
-    });
-    if (error) {
-      const message =
-        typeof error === "object" && error && "message" in error &&
-        typeof (error as { message?: unknown }).message === "string" ?
-          (error as { message: string }).message
-        : "Resend returned an error.";
-      console.error(`${logPrefix} Resend API returned error object:`, error);
-      try {
-        console.error(`${logPrefix} Resend error (JSON):`, JSON.stringify(error));
-      } catch {
-        /* non-serializable */
-      }
-      console.error(`${logPrefix} outcome: failed (resend_error)`, { message });
-      return { sent: false, reason: "resend_error", message };
-    }
-    console.info(`${logPrefix} outcome: success`, {
-      resendEmailId: data?.id ?? "(no id in response)",
-      to: input.to,
-    });
-    return { sent: true };
-  } catch (err) {
-    const message = err instanceof Error ? err.message : "Unknown error sending email.";
-    console.error(`${logPrefix} outcome: exception`, {
-      message,
-      err:
-        err instanceof Error ?
-          { name: err.name, stack: err.stack?.split("\n").slice(0, 5).join("\n") }
-        : err,
-    });
-    return { sent: false, reason: "exception", message };
-  }
+  return sendThroughSmtp({
+    logPrefix,
+    to: input.to,
+    subject,
+    html,
+    text,
+    replyTo,
+  });
+}
+
+export type MembershipRequestReceivedEmailResult = SmtpSendResult;
+
+export async function sendMembershipRequestReceivedEmail(input: {
+  to: string;
+  fullName: string;
+}): Promise<MembershipRequestReceivedEmailResult> {
+  const logPrefix = "[membership-request-email]";
+  const subject =
+    process.env.MEMBERSHIP_REQUEST_SUBJECT?.trim() ||
+    "We received your membership request";
+  const safeName = escapeHtml(input.fullName.trim() || "there");
+  const plainName = (input.fullName.trim() || "there").replace(/\r?\n/g, " ");
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<body style="margin:0; padding:24px; background:#f5f7fb; font-family:Inter,Segoe UI,Arial,sans-serif; color:#111827;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px; margin:0 auto; background:#ffffff; border:1px solid #e5e7eb; border-radius:12px; overflow:hidden;">
+    <tr>
+      <td style="padding:24px 28px; background:#0f172a; color:#f8fafc;">
+        <h1 style="margin:0; font-size:22px; line-height:1.3;">Nazarian Worship Ministry</h1>
+        <p style="margin:8px 0 0; font-size:14px; color:#cbd5e1;">Membership request received</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:28px; line-height:1.6; font-size:15px;">
+        <p style="margin-top:0;">Hi ${safeName},</p>
+        <p>Thank you for your interest in joining our community. We have received your request successfully.</p>
+        <p>Our team will review it soon. You will receive another email once your request is approved.</p>
+        <p style="margin-bottom:0;">- Nazarian Worship Ministry</p>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+`.trim();
+
+  const text = [
+    `Hi ${plainName},`,
+    "",
+    "Thank you for your interest in joining our community.",
+    "We received your membership request successfully.",
+    "",
+    "Our team will review it soon. You will receive another email once your request is approved.",
+    "",
+    "- Nazarian Worship Ministry",
+  ].join("\n");
+
+  return sendThroughSmtp({
+    logPrefix,
+    to: input.to,
+    subject,
+    html,
+    text,
+  });
 }

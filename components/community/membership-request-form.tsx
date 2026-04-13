@@ -91,7 +91,16 @@ export function MembershipRequestForm() {
     setTelegram("");
     setMessage("");
     setFieldErrors({});
-    setSuccessMessage("Membership request submitted. Our admin team will review it soon.");
+    const data = response.data;
+    if (data?.email && !data.email.sent) {
+      setSuccessMessage(
+        `Membership request submitted. We could not send your confirmation email right now: ${data.email.message}`,
+      );
+    } else {
+      setSuccessMessage(
+        "Membership request submitted. We sent a confirmation email and our admin team will review it soon.",
+      );
+    }
   };
 
   return (

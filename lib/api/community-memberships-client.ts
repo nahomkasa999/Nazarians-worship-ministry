@@ -8,7 +8,10 @@ type ApiErrorShape = {
 };
 
 export async function submitMembershipRequest(payload: MembershipWriteInput) {
-  return betterFetch<{ id: string }, ApiErrorShape>("/api/community/memberships", {
+  return betterFetch<
+    { id: string; email?: { sent: true } | { sent: false; message: string } },
+    ApiErrorShape
+  >("/api/community/memberships", {
     method: "POST",
     body: payload,
   });

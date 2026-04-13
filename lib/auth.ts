@@ -1,7 +1,7 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { admin } from "better-auth/plugins";
-import { maskResendApiKeyForLog } from "@/lib/email/resend-debug";
+import nodemailer from "nodemailer";
 import { db } from "./prisma";
 
 const appUrl = process.env.BETTER_AUTH_URL ?? "http://localhost:3000";
@@ -10,63 +10,59 @@ const trustedOrigins = [
   ...(process.env.BETTER_AUTH_TRUSTED_ORIGINS?.split(",").map((origin) => origin.trim()) ?? []),
 ].filter(Boolean);
 
-async function sendEmailWithResend(input: {
+/**
+ * Temporary SMTP sender.
+ * We are pausing Resend until a verified custom sending domain is available.
+ * To return to Resend, swap this function's sendMail call for the Resend API.
+ */
+async function sendEmailWithSmtp(input: {
   to: string;
   subject: string;
   html: string;
 }) {
   const logPrefix = "[auth-email]";
-  console.info(`${logPrefix} sendEmailWithResend: start`, {
+  console.info(`${logPrefix} sendEmailWithSmtp: start`, {
     to: input.to,
     subject: input.subject,
     htmlLength: input.html.length,
   });
 
-  const apiKey = process.env.RESEND_API_KEY?.trim();
-  const from = process.env.RESEND_FROM_EMAIL?.trim();
+  const smtpUser = process.env.SMTP_USER?.trim();
+  const smtpPass = process.env.SMTP_PASS?.trim();
+  const from = process.env.SMTP_FROM_EMAIL?.trim() || smtpUser;
 
-  if (!apiKey || !from) {
-    console.warn(`${logPrefix} abort: Resend not configured`, {
-      hasApiKey: Boolean(apiKey),
+  if (!smtpUser || !smtpPass || !from) {
+    console.warn(`${logPrefix} abort: SMTP not configured`, {
+      hasSmtpUser: Boolean(smtpUser),
+      hasSmtpPass: Boolean(smtpPass),
       hasFrom: Boolean(from),
-      apiKey: maskResendApiKeyForLog(apiKey),
     });
     return;
   }
 
   console.info(`${logPrefix} config`, {
-    apiKey: maskResendApiKeyForLog(apiKey),
+    provider: "smtp",
+    smtpService: process.env.SMTP_SERVICE?.trim() || "gmail",
     from,
   });
 
-  console.info(`${logPrefix} POST https://api.resend.com/emails …`);
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
+  const transporter = nodemailer.createTransport({
+    service: process.env.SMTP_SERVICE?.trim() || "gmail",
+    auth: {
+      user: smtpUser,
+      pass: smtpPass,
     },
-    body: JSON.stringify({
-      from,
-      to: [input.to],
-      subject: input.subject,
-      html: input.html,
-    }),
+  });
+  const response = await transporter.sendMail({
+    from,
+    to: input.to,
+    subject: input.subject,
+    html: input.html,
   });
 
-  const responseText = await response.text();
-  if (!response.ok) {
-    console.error(`${logPrefix} HTTP error`, {
-      status: response.status,
-      statusText: response.statusText,
-      body: responseText.slice(0, 2000),
-    });
-    throw new Error(`Resend request failed (${response.status}): ${responseText}`);
-  }
-
   console.info(`${logPrefix} outcome: success`, {
-    status: response.status,
-    bodyPreview: responseText.slice(0, 500),
+    messageId: response.messageId ?? "(no message id)",
+    accepted: response.accepted,
   });
 }
 
@@ -82,7 +78,7 @@ export const auth = betterAuth({
     enabled: true,
     requireEmailVerification: false,
     sendResetPassword: async ({ user, url }) => {
-      await sendEmailWithResend({
+      await sendEmailWithSmtp({
         to: user.email,
         subject: "Reset your password",
         html: `<p>Hello ${user.name ?? "there"},</p><p>Click <a href="${url}">here</a> to reset your password.</p>`,
@@ -93,7 +89,7 @@ export const auth = betterAuth({
     sendOnSignUp: false,
     sendOnSignIn: false,
     sendVerificationEmail: async ({ user, url }) => {
-      await sendEmailWithResend({
+      await sendEmailWithSmtp({
         to: user.email,
         subject: "Verify your email",
         html: `<p>Hello ${user.name ?? "there"},</p><p>Click <a href="${url}">here</a> to verify your email.</p>`,

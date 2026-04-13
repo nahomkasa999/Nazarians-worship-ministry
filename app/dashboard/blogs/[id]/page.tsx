@@ -52,7 +52,9 @@ export default async function DashboardEditBlogPage({ params }: { params: Promis
         </header>
 
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0 lg:p-6">
-          <BlogEditorForm mode="edit" initial={initial} />
+          <div className="mx-auto w-full max-w-5xl">
+            <BlogEditorForm mode="edit" initial={initial} />
+          </div>
         </div>
       </SidebarInset>
     </SidebarProvider>

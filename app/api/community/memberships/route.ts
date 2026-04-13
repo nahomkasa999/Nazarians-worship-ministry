@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Prisma } from "@/generated/prisma";
 import { db } from "@/lib/prisma";
+import { sendMembershipRequestReceivedEmail } from "@/lib/email/send-membership-approved";
 import { membershipWriteSchema } from "@/lib/validation/schemas";
 import { flattenError } from "zod";
 
@@ -119,7 +120,14 @@ export async function POST(request: Request) {
       },
       select: { id: true },
     });
-    return NextResponse.json({ id: created.id });
+    const emailOutcome = await sendMembershipRequestReceivedEmail({
+      to: email,
+      fullName,
+    });
+    return NextResponse.json({
+      id: created.id,
+      email: emailOutcome.sent ? { sent: true } : { sent: false, message: emailOutcome.message },
+    });
   } catch (err) {
     if (err instanceof Prisma.PrismaClientValidationError) {
       const hint =

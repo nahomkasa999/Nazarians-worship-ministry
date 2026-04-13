@@ -24,6 +24,7 @@
         "dotenv": "^17.4.1",
         "lucide-react": "^1.8.0",
         "next": "16.2.2",
+        "nodemailer": "^8.0.5",
         "pg": "^8.20.0",
         "prisma": "^7.7.0",
         "radix-ui": "^1.4.3",
@@ -42,6 +43,7 @@
       "devDependencies": {
         "@tailwindcss/postcss": "^4",
         "@types/node": "^20",
+        "@types/nodemailer": "^8.0.0",
         "@types/pg": "^8.20.0",
         "@types/react": "^19",
         "@types/react-dom": "^19",
@@ -596,6 +598,8 @@
     "@types/mdurl": ["@types/mdurl@2.0.0", "", {}, "sha512-RGdgjQUZba5p6QEFAVx2OGb8rQDL/cPRG7GiedRzMcJ1tYnUANBncjbSB1NRGwbvjcPeikRABz2nshyPk1bhWg=="],
 
     "@types/node": ["@types/node@20.19.39", "", { "dependencies": { "undici-types": "~6.21.0" } }, "sha512-orrrD74MBUyK8jOAD/r0+lfa1I2MO6I+vAkmAWzMYbCcgrN4lCrmK52gRFQq/JRxfYPfonkr4b0jcY7Olqdqbw=="],
+
+    "@types/nodemailer": ["@types/nodemailer@8.0.0", "", { "dependencies": { "@types/node": "*" } }, "sha512-fyf8jWULsCo0d0BuoQ75i6IeoHs47qcqxWc7yUdUcV0pOZGjUTTOvwdG1PRXUDqN/8A64yQdQdnA2pZgcdi+cA=="],
 
     "@types/pg": ["@types/pg@8.20.0", "", { "dependencies": { "@types/node": "*", "pg-protocol": "*", "pg-types": "^2.2.0" } }, "sha512-bEPFOaMAHTEP1EzpvHTbmwR8UsFyHSKsRisLIHVMXnpNefSbGA1bD6CVy+qKjGSqmZqNqBDV2azOBo8TgkcVow=="],
 
@@ -1640,6 +1644,8 @@
     "node-fetch-native": ["node-fetch-native@1.6.7", "", {}, "sha512-g9yhqoedzIUm0nTnTqAQvueMPVOuIY16bqgAJJC8XOOubYFNwz6IER9qs0Gq2Xd0+CecCKFjtdDTMA4u4xG06Q=="],
 
     "node-releases": ["node-releases@2.0.37", "", {}, "sha512-1h5gKZCF+pO/o3Iqt5Jp7wc9rH3eJJ0+nh/CIoiRwjRxde/hAHyLPXYN4V3CqKAbiZPSeJFSWHmJsbkicta0Eg=="],
+
+    "nodemailer": ["nodemailer@8.0.5", "", {}, "sha512-0PF8Yb1yZuQfQbq+5/pZJrtF6WQcjTd5/S4JOHs9PGFxuTqoB/icwuB44pOdURHJbRKX1PPoJZtY7R4VUoCC8w=="],
 
     "nodemon": ["nodemon@1.19.4", "", { "dependencies": { "chokidar": "^2.1.8", "debug": "^3.2.6", "ignore-by-default": "^1.0.1", "minimatch": "^3.0.4", "pstree.remy": "^1.1.7", "semver": "^5.7.1", "supports-color": "^5.5.0", "touch": "^3.1.0", "undefsafe": "^2.0.2", "update-notifier": "^2.5.0" }, "bin": { "nodemon": "./bin/nodemon.js" } }, "sha512-VGPaqQBNk193lrJFotBU8nvWZPqEZY2eIzymy2jjY0fJ9qIsxA0sxQ8ATPl0gZC645gijYEc1jtZvpS8QWzJGQ=="],
 

@@ -19,9 +19,33 @@ import {
 } from "@/components/ui/sidebar"
 import { headers } from "next/headers"
 import { redirect } from "next/navigation"
+import { revalidatePath } from "next/cache"
 import { CalendarDaysIcon, FileTextIcon, PlaySquareIcon, UserCheckIcon } from "lucide-react"
 
 export default async function Page() {
+  async function handleDeleteRecent(formData: FormData) {
+    "use server"
+
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    })
+    if (!session || session.user.role !== "admin") {
+      redirect("/login")
+    }
+
+    const type = formData.get("type")
+    const id = formData.get("id")
+    if (typeof type !== "string" || typeof id !== "string" || !id) return
+
+    if (type === "blog") {
+      await db.blog.delete({ where: { id } })
+    } else if (type === "teaching") {
+      await db.teaching.delete({ where: { id } })
+    }
+
+    revalidatePath("/dashboard")
+  }
+
   const session = await auth.api.getSession({
     headers: await headers(),
   })
@@ -34,12 +58,26 @@ export default async function Page() {
     redirect("/")
   }
 
-  const [activeEvents, publishedBlogs, publishedTeachings, pendingMemberships] = await Promise.all([
+  const [activeEvents, publishedBlogs, publishedTeachings, pendingMemberships, recentBlogs, recentTeachings] = await Promise.all([
     db.event.count({ where: { active: true } }),
     db.blog.count({ where: { status: "PUBLISHED" } }),
     db.teaching.count({ where: { published: true } }),
     db.membershipRequest.count({ where: { status: "PENDING" } }),
+    db.blog.findMany({
+      select: { id: true, title: true, updatedAt: true },
+      orderBy: { updatedAt: "desc" },
+      take: 4,
+    }),
+    db.teaching.findMany({
+      select: { id: true, title: true, updatedAt: true },
+      orderBy: { updatedAt: "desc" },
+      take: 4,
+    }),
   ])
+
+  const recentPosts = [...recentBlogs.map((post) => ({ ...post, type: "blog" as const })), ...recentTeachings.map((post) => ({ ...post, type: "teaching" as const }))]
+    .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())
+    .slice(0, 6)
 
   return (
     <SidebarProvider>
@@ -135,13 +173,40 @@ export default async function Page() {
           <section className="grid gap-4 xl:grid-cols-2">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle>Next actions</CardTitle>
-                <Badge variant="outline">Today</Badge>
+                <CardTitle>Recent posts</CardTitle>
+                <Badge variant="outline">Latest</Badge>
               </CardHeader>
-              <CardContent className="space-y-3 text-sm text-muted-foreground lg:text-base">
-                <p>1. Review membership requests that still need a decision.</p>
-                <p>2. Confirm this week&apos;s event poster and ordering.</p>
-                <p>3. Publish the latest teaching recap blog.</p>
+              <CardContent className="overflow-hidden">
+                {recentPosts.length === 0 ? (
+                  <p className="text-sm text-muted-foreground">No recent posts yet.</p>
+                ) : (
+                  <ul className="space-y-2">
+                    {recentPosts.map((post) => (
+                      <li key={`${post.type}-${post.id}`} className="flex items-center justify-between gap-3 overflow-hidden border-b pb-2 last:border-b-0">
+                        <div className="min-w-0">
+                          <p className="truncate text-sm font-medium lg:text-base">{post.title}</p>
+                          <p className="text-xs uppercase tracking-wide text-muted-foreground">
+                            {post.type === "blog" ? "Blog" : "Teaching"}
+                          </p>
+                        </div>
+                        <div className="flex shrink-0 items-center gap-2">
+                          <Button size="sm" variant="outline" asChild>
+                            <Link href={post.type === "blog" ? `/dashboard/blogs/${post.id}` : `/dashboard/teachings/${post.id}`}>
+                              Edit
+                            </Link>
+                          </Button>
+                          <form action={handleDeleteRecent}>
+                            <input type="hidden" name="type" value={post.type} />
+                            <input type="hidden" name="id" value={post.id} />
+                            <Button size="sm" variant="outline" type="submit">
+                              Delete
+                            </Button>
+                          </form>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </CardContent>
             </Card>
 
