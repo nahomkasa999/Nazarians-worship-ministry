@@ -38,7 +38,7 @@ export function Footer() {
       {/* Bottom bar */}
       <div className="footer__bottom">
         <p className="footer__copyright">
-          © 2024 NAZARIAN WORSHIP MINISTRY. ALL RIGHTS RESERVED.
+          © 2026 NAZARIAN WORSHIP MINISTRY. ALL RIGHTS RESERVED.
         </p>
         <div className="footer__legal-links">
           <a href="#" className="footer__legal-link">
