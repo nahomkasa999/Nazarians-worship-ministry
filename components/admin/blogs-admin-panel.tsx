@@ -9,7 +9,6 @@ import { deleteAdminBlog } from "@/lib/api/admin-blogs-client";
 import { readApiErrorMessage } from "@/lib/api/error-message";
 import type { AdminBlogListItem } from "@/lib/contracts/blog";
 import { Button } from "@/components/ui/button";
-import { figmaAssets } from "@/content/images";
 import { getRelativeDateLabel } from "@/lib/relative-date";
 import {
   AlertDialog,
@@ -67,7 +66,7 @@ export function BlogsAdminPanel({ initialBlogs }: BlogsAdminPanelProps) {
               <Link href={`/blog/${b.slug}`} className="block">
                 <div className="relative aspect-[16/9] w-full bg-muted">
                   <Image
-                    src={b.coverImage || figmaAssets.imgBlog1}
+                    src={b.coverImage || "/images/defult-image.jpg"}
                     alt={b.title}
                     fill
                     className="object-cover"

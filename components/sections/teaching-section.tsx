@@ -1,4 +1,3 @@
-import { figmaAssets } from "@/content/images";
 import { SectionHeader } from "@/components/common/section-header";
 import { TeachingCard } from "@/components/blocks/teaching-card";
 import { getTeachingsForHome } from "@/lib/data/teachings-public";
@@ -18,7 +17,6 @@ export async function TeachingSection() {
         title="Latest Teaching"
         showViewAll
         viewAllHref="/courses"
-        arrowSrc={figmaAssets.imgArrowRight1}
       />
       <div className="teaching__grid">
         {rows.map((t) => (

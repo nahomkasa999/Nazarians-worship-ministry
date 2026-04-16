@@ -1,6 +1,5 @@
 import { BlogRow } from "@/components/blocks/blog-row";
 import { SectionHeader } from "@/components/common/section-header";
-import { figmaAssets } from "@/content/images";
 import { getPublishedBlogs } from "@/lib/data/blogs-public";
 import { BLOG_FALLBACK_IMAGE } from "@/lib/blog/fallback-image";
 
@@ -13,7 +12,6 @@ export async function BlogSection() {
         title="Latest Blogs"
         showViewAll
         viewAllHref="/blog"
-        arrowSrc={figmaAssets.imgArrowRight3}
       />
       <div className="blogs__list">
         {posts.length === 0 ? (

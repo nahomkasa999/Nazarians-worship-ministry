@@ -2,13 +2,13 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Divider } from "./divider";
 import { cn } from "@/lib/utils";
+import { ChevronRightIcon } from "lucide-react";
 
 interface SectionHeaderProps {
   title: string;
   showViewAll?: boolean;
   /** When set with `showViewAll`, "VIEW ALL" links here (e.g. `/courses`). */
   viewAllHref?: string;
-  arrowSrc?: string;
   className?: string;
 }
 
@@ -16,15 +16,12 @@ export function SectionHeader({
   title,
   showViewAll = false,
   viewAllHref,
-  arrowSrc,
   className,
 }: SectionHeaderProps) {
   const viewAllButton = (
     <>
       <span>VIEW ALL</span>
-      {arrowSrc ? (
-        <img src={arrowSrc} alt="" className="btn__icon" />
-      ) : null}
+      <ChevronRightIcon className="btn__icon" aria-hidden="true" />
     </>
   );
 
