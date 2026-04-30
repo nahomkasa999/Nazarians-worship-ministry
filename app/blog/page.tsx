@@ -7,6 +7,8 @@ import { getPublishedBlogs } from "@/lib/data/blogs-public";
 import { BLOG_FALLBACK_IMAGE } from "@/lib/blog/fallback-image";
 import { getRelativeDateLabel } from "@/lib/relative-date";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Worship Blog",
   description:
@@ -30,20 +32,20 @@ export default async function BlogListPage() {
     <div className="flex min-h-screen flex-col">
       <Nav />
       <main className="flex-1">
-        <section className="pb-16">
-          <div className="mx-auto max-w-3xl px-[var(--page-side)] pt-10 pb-8 sm:pt-14">
+        <section className="pb-16 text-left">
+          <div className="mx-auto max-w-6xl px-[var(--page-side)] pt-10 pb-8 sm:pt-14">
             <h1 className="text-2xl font-semibold sm:text-4xl">Blog</h1>
             <p className="mt-2 text-sm text-muted-foreground sm:text-base">
               News and articles from Nazarian Worship Ministry.
             </p>
           </div>
           {posts.length === 0 ? (
-            <p className="px-[var(--page-side)] text-center text-sm text-muted-foreground">
+            <p className="px-[var(--page-side)] text-sm text-muted-foreground">
               No posts yet. Check back soon.
             </p>
           ) : (
             <ul className="mx-auto grid max-w-6xl gap-6 px-[var(--page-side)] md:grid-cols-2 xl:grid-cols-3">
-              {posts.map((post) => (
+              {posts.map((post, index) => (
                 <li key={post.id} className="overflow-hidden rounded-lg border bg-card">
                   <article>
                     <Link href={`/blog/${post.slug}`} className="group block h-full">
@@ -54,6 +56,8 @@ export default async function BlogListPage() {
                           fill
                           className="object-cover"
                           sizes="(max-width: 768px) 100vw, 33vw"
+                          loading={index === 0 ? "eager" : "lazy"}
+                          priority={index === 0}
                         />
                       </div>
                       <div className="space-y-3 p-4">

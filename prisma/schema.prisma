@@ -91,6 +91,8 @@ model MembershipRequest {
   telegram    String?
   message     String?          @db.Text
   status      MembershipStatus @default(PENDING)
+  paymentProofStoragePath String?
+  paymentSubmittedAt      DateTime?
   approvedAt  DateTime?
   approvedBy  String?
   createdAt   DateTime         @default(now())
