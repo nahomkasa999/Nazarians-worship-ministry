@@ -18,7 +18,7 @@ export async function requireAdminPage() {
   const headerList = await headers();
   const session = await auth.api.getSession({ headers: headerList });
   if (!session?.user) {
-    redirect("/login");
+    redirect("/login?next=/dashboard");
   }
   const role = (session.user as { role?: string | null }).role;
   if (!isAdminRole(role ?? undefined)) {

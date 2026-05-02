@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
@@ -16,6 +17,10 @@ export default function LoginPage() {
   const [isEmailLoading, setIsEmailLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const next = searchParams.get("next") || "/members";
+  const isDashboardDest = next === "/dashboard" || next.startsWith("/dashboard/");
+  const registerHref = `/register?next=${encodeURIComponent(next)}`;
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,7 +29,7 @@ export default function LoginPage() {
     const { error } = await authClient.signIn.email({
       email,
       password,
-      callbackURL: "/dashboard",
+      callbackURL: next,
     });
 
     setIsEmailLoading(false);
@@ -32,7 +37,7 @@ export default function LoginPage() {
     if (error) {
       toast.error(error.message || "Something went wrong");
     } else {
-      router.push("/dashboard");
+      router.push(next);
     }
   };
 
@@ -40,7 +45,7 @@ export default function LoginPage() {
     setIsGoogleLoading(true);
     const { error } = await authClient.signIn.social({
       provider: "google",
-      callbackURL: "/dashboard",
+      callbackURL: next,
     });
 
     if (error) {
@@ -66,7 +71,17 @@ export default function LoginPage() {
                 <div className="space-y-2 text-center">
                   <h1 className="text-2xl font-bold">Welcome back</h1>
                   <p className="text-sm text-muted-foreground">
-                    Sign in to access the admin dashboard and manage ministry content securely.
+                    {isDashboardDest ? (
+                      <>
+                        Sign in to open the church admin dashboard and manage teachings, events, and membership
+                        workflows securely.
+                      </>
+                    ) : (
+                      <>
+                        Sign in to continue—finish membership checkout, open your member portal, and access
+                        teachings and articles reserved for our community.
+                      </>
+                    )}
                   </p>
                 </div>
 
@@ -112,12 +127,19 @@ export default function LoginPage() {
                   {isEmailLoading ? "Signing in..." : "Sign in"}
                 </Button>
 
-                <p className="text-center text-sm text-muted-foreground">
-                  New here?{" "}
-                  <Link href="/register" className="underline underline-offset-4">
-                    Create your account
-                  </Link>
-                </p>
+                {isDashboardDest ? (
+                  <p className="text-center text-sm text-muted-foreground">
+                    Staff accounts are issued by your ministry lead. This sign-in page does not create new dashboard
+                    users.
+                  </p>
+                ) : (
+                  <p className="text-center text-sm text-muted-foreground">
+                    New here?{" "}
+                    <Link href={registerHref} className="underline underline-offset-4">
+                      Create your account
+                    </Link>
+                  </p>
+                )}
               </div>
             </form>
             <div
@@ -127,13 +149,29 @@ export default function LoginPage() {
               <div className="absolute inset-0 bg-black/45 backdrop-blur-[1px]" />
               <div className="relative space-y-3 text-white">
                 <p className="text-xs uppercase tracking-wider text-white/80">Nazarian Worship Ministry</p>
-                <h2 className="text-2xl font-semibold text-white">Lead your ministry with focus and confidence.</h2>
-                <p className="text-sm text-white/80">
-                  This portal is for admins managing teachings, events, and member-related workflows.
-                </p>
+                {isDashboardDest ? (
+                  <>
+                    <h2 className="text-2xl font-semibold text-white">Lead your ministry with focus and confidence.</h2>
+                    <p className="text-sm text-white/80">
+                      This side of the site is for trusted team members updating teachings, events, and member
+                      requests.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <h2 className="text-2xl font-semibold text-white">Grow with your worship community.</h2>
+                    <p className="text-sm text-white/80">
+                      Your account connects you to membership, the member portal, and resources that support your
+                      walk in worship ministry—not a public bulletin board, just what we share with people who are
+                      part of the journey.
+                    </p>
+                  </>
+                )}
               </div>
               <div className="relative rounded-xl border border-white/30 bg-black/35 p-4 text-sm text-white/85 backdrop-blur">
-                Keep credentials private and sign in only from trusted devices.
+                {isDashboardDest
+                  ? "Keep admin credentials private and sign in only from trusted devices."
+                  : "Use a strong password, and sign out when you’re done on shared or public devices."}
               </div>
             </div>
           </CardContent>

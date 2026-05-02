@@ -5,6 +5,7 @@ import { BLOG_EMPTY_DOC } from "@/lib/blog/default-content";
 import { getAdminSessionFromHeaders } from "@/lib/admin-session";
 import { adminBlogCreateBodySchema } from "@/lib/contracts/blog";
 import { db } from "@/lib/prisma";
+import { notifyMembersNewBlog } from "@/lib/members/notify-new-content";
 
 async function ensureUniqueSlug(base: string, excludeId?: string) {
   let slug = base;
@@ -42,6 +43,7 @@ export async function GET(request: Request) {
       status: b.status,
       publishedAt: b.publishedAt?.toISOString() ?? null,
       viewCount: b.viewCount,
+      membersOnly: b.membersOnly,
       createdAt: b.createdAt.toISOString(),
       updatedAt: b.updatedAt.toISOString(),
     })),
@@ -76,7 +78,7 @@ export async function POST(request: Request) {
     "post";
   const slug = await ensureUniqueSlug(baseSlug);
 
-  const status = body.status === "PUBLISHED" ? BlogStatus.PUBLISHED : BlogStatus.DRAFT;
+  const status = body.status === "DRAFT" ? BlogStatus.DRAFT : BlogStatus.PUBLISHED;
   const publishedAt = status === BlogStatus.PUBLISHED ? new Date() : null;
 
   const content: Prisma.InputJsonValue =
@@ -85,15 +87,42 @@ export async function POST(request: Request) {
   const created = await db.blog.create({
     data: {
       title: body.title.trim(),
+      titleAm: body.titleAm?.trim() || null,
+      titleOm: body.titleOm?.trim() || null,
       slug,
       excerpt: body.excerpt?.trim() || null,
+      excerptAm: body.excerptAm?.trim() || null,
+      excerptOm: body.excerptOm?.trim() || null,
       content,
+      ...(body.contentAm !== undefined
+        ? {
+            contentAm:
+              body.contentAm === null
+                ? Prisma.DbNull
+                : (body.contentAm as Prisma.InputJsonValue),
+          }
+        : {}),
+      ...(body.contentOm !== undefined
+        ? {
+            contentOm:
+              body.contentOm === null
+                ? Prisma.DbNull
+                : (body.contentOm as Prisma.InputJsonValue),
+          }
+        : {}),
       coverImage: body.coverImage?.trim() || null,
       status,
       publishedAt,
+      membersOnly: body.membersOnly ?? false,
     },
     select: { id: true, slug: true },
   });
+
+  if (status === BlogStatus.PUBLISHED) {
+    void notifyMembersNewBlog({ title: body.title.trim(), slug: created.slug }).catch((err) =>
+      console.error("[notifyMembersNewBlog]", err)
+    );
+  }
 
   return NextResponse.json({ id: created.id, slug: created.slug });
 }

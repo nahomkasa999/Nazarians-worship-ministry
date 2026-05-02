@@ -87,7 +87,7 @@ export function TeachingsAdminPanel({ initialTeachings }: TeachingsAdminPanelPro
                     </p>
                   ) : null}
                   <p className="text-xs text-muted-foreground">
-                    {t.published ? "Published" : "Draft"} · position {t.position}
+                    {t.published ? "Published" : "Not published — open and click Publish"} · position {t.position}
                   </p>
                 </div>
               </Link>

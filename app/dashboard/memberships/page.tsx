@@ -21,6 +21,7 @@ export default async function MembershipRequestsPage() {
       telegram: true,
       message: true,
       createdAt: true,
+      paymentSubmittedAt: true,
     },
   });
 
@@ -65,12 +66,18 @@ export default async function MembershipRequestsPage() {
                       </div>
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <MembershipDetailTrigger
+                          id={membership.id}
                           fullName={membership.fullName}
                           email={membership.email}
                           phone={membership.phone}
                           telegram={membership.telegram}
                           message={membership.message}
                           requestedAt={new Date(membership.createdAt).toLocaleString()}
+                          paymentSubmittedAt={
+                            membership.paymentSubmittedAt
+                              ? new Date(membership.paymentSubmittedAt).toLocaleString()
+                              : undefined
+                          }
                         />
                         <MembershipRowActions id={membership.id} />
                       </div>

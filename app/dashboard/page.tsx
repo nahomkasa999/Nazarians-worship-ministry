@@ -20,7 +20,7 @@ import {
 import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 import { revalidatePath } from "next/cache"
-import { CalendarDaysIcon, FileTextIcon, PlaySquareIcon, UserCheckIcon } from "lucide-react"
+import { EyeIcon, FileTextIcon, PlaySquareIcon, UserCheckIcon } from "lucide-react"
 
 export default async function Page() {
   async function handleDeleteRecent(formData: FormData) {
@@ -30,7 +30,7 @@ export default async function Page() {
       headers: await headers(),
     })
     if (!session || session.user.role !== "admin") {
-      redirect("/login")
+      redirect("/login?next=/dashboard")
     }
 
     const type = formData.get("type")
@@ -51,15 +51,16 @@ export default async function Page() {
   })
 
   if (!session) {
-    redirect("/login")
+    redirect("/login?next=/dashboard")
   }
 
   if (session.user.role !== "admin") {
     redirect("/")
   }
 
-  const [activeEvents, publishedBlogs, publishedTeachings, pendingMemberships, recentBlogs, recentTeachings] = await Promise.all([
+  const [activeEvents, blogViewsAgg, publishedBlogs, publishedTeachings, pendingMemberships, recentBlogs, recentTeachings] = await Promise.all([
     db.event.count({ where: { active: true } }),
+    db.blog.aggregate({ _sum: { viewCount: true } }),
     db.blog.count({ where: { status: "PUBLISHED" } }),
     db.teaching.count({ where: { published: true } }),
     db.membershipRequest.count({ where: { status: "PENDING" } }),
@@ -74,6 +75,8 @@ export default async function Page() {
       take: 4,
     }),
   ])
+
+  const totalViews = blogViewsAgg._sum.viewCount ?? 0
 
   const recentPosts = [...recentBlogs.map((post) => ({ ...post, type: "blog" as const })), ...recentTeachings.map((post) => ({ ...post, type: "teaching" as const }))]
     .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())
@@ -130,12 +133,12 @@ export default async function Page() {
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium lg:text-base">Active events</CardTitle>
-                <CalendarDaysIcon className="size-4 text-muted-foreground" />
+                <CardTitle className="text-sm font-medium lg:text-base">Total views</CardTitle>
+                <EyeIcon className="size-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <p className="text-2xl font-semibold lg:text-4xl">{activeEvents}</p>
-                <p className="text-xs text-muted-foreground lg:text-sm">Publish upcoming services and announcements</p>
+                <p className="text-2xl font-semibold lg:text-4xl">{totalViews}</p>
+                <p className="text-xs text-muted-foreground lg:text-sm">Sum of published blog view counts</p>
               </CardContent>
             </Card>
             <Card>
@@ -218,7 +221,7 @@ export default async function Page() {
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Events ready</span>
                   <Badge variant={activeEvents > 0 ? "default" : "outline"}>
-                    {activeEvents > 0 ? "Live" : "None"}
+                    {activeEvents > 0 ? "Active" : "None"}
                   </Badge>
                 </div>
                 <div className="flex items-center justify-between">

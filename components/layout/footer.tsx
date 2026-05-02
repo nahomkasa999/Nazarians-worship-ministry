@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { footerColumns } from "@/content/footer";
 
 export function Footer() {
@@ -5,9 +6,9 @@ export function Footer() {
     <footer className="footer">
       {/* Brand */}
       <div>
-        <p className="footer__brand-name">
+        <Link href="/" className="footer__brand-name">
           NAZARIAN WORSHIP
-        </p>
+        </Link>
         <p className="footer__brand-desc">
           A monumental commitment to<br />
           the sacred truth through<br />

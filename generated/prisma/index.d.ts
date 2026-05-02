@@ -19,10 +19,20 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type Teaching = $Result.DefaultSelection<Prisma.$TeachingPayload>
 /**
+ * Model TeachingAttachment
+ * 
+ */
+export type TeachingAttachment = $Result.DefaultSelection<Prisma.$TeachingAttachmentPayload>
+/**
  * Model Blog
  * 
  */
 export type Blog = $Result.DefaultSelection<Prisma.$BlogPayload>
+/**
+ * Model BlogAttachment
+ * 
+ */
+export type BlogAttachment = $Result.DefaultSelection<Prisma.$BlogAttachmentPayload>
 /**
  * Model Event
  * 
@@ -38,6 +48,11 @@ export type Manifesto = $Result.DefaultSelection<Prisma.$ManifestoPayload>
  * 
  */
 export type MembershipRequest = $Result.DefaultSelection<Prisma.$MembershipRequestPayload>
+/**
+ * Model MembershipNotification
+ * 
+ */
+export type MembershipNotification = $Result.DefaultSelection<Prisma.$MembershipNotificationPayload>
 /**
  * Model User
  * 
@@ -74,6 +89,7 @@ export type BlogStatus = (typeof BlogStatus)[keyof typeof BlogStatus]
 export const MembershipStatus: {
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',
+  EXPIRED: 'EXPIRED',
   REJECTED: 'REJECTED'
 };
 
@@ -221,6 +237,16 @@ export class PrismaClient<
   get teaching(): Prisma.TeachingDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.teachingAttachment`: Exposes CRUD operations for the **TeachingAttachment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TeachingAttachments
+    * const teachingAttachments = await prisma.teachingAttachment.findMany()
+    * ```
+    */
+  get teachingAttachment(): Prisma.TeachingAttachmentDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.blog`: Exposes CRUD operations for the **Blog** model.
     * Example usage:
     * ```ts
@@ -229,6 +255,16 @@ export class PrismaClient<
     * ```
     */
   get blog(): Prisma.BlogDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.blogAttachment`: Exposes CRUD operations for the **BlogAttachment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BlogAttachments
+    * const blogAttachments = await prisma.blogAttachment.findMany()
+    * ```
+    */
+  get blogAttachment(): Prisma.BlogAttachmentDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.event`: Exposes CRUD operations for the **Event** model.
@@ -259,6 +295,16 @@ export class PrismaClient<
     * ```
     */
   get membershipRequest(): Prisma.MembershipRequestDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.membershipNotification`: Exposes CRUD operations for the **MembershipNotification** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MembershipNotifications
+    * const membershipNotifications = await prisma.membershipNotification.findMany()
+    * ```
+    */
+  get membershipNotification(): Prisma.MembershipNotificationDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
@@ -734,10 +780,13 @@ export namespace Prisma {
 
   export const ModelName: {
     Teaching: 'Teaching',
+    TeachingAttachment: 'TeachingAttachment',
     Blog: 'Blog',
+    BlogAttachment: 'BlogAttachment',
     Event: 'Event',
     Manifesto: 'Manifesto',
     MembershipRequest: 'MembershipRequest',
+    MembershipNotification: 'MembershipNotification',
     User: 'User',
     Session: 'Session',
     Account: 'Account',
@@ -757,7 +806,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "teaching" | "blog" | "event" | "manifesto" | "membershipRequest" | "user" | "session" | "account" | "verification"
+      modelProps: "teaching" | "teachingAttachment" | "blog" | "blogAttachment" | "event" | "manifesto" | "membershipRequest" | "membershipNotification" | "user" | "session" | "account" | "verification"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -835,6 +884,80 @@ export namespace Prisma {
           }
         }
       }
+      TeachingAttachment: {
+        payload: Prisma.$TeachingAttachmentPayload<ExtArgs>
+        fields: Prisma.TeachingAttachmentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TeachingAttachmentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TeachingAttachmentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TeachingAttachmentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TeachingAttachmentPayload>
+          }
+          findFirst: {
+            args: Prisma.TeachingAttachmentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TeachingAttachmentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TeachingAttachmentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TeachingAttachmentPayload>
+          }
+          findMany: {
+            args: Prisma.TeachingAttachmentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TeachingAttachmentPayload>[]
+          }
+          create: {
+            args: Prisma.TeachingAttachmentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TeachingAttachmentPayload>
+          }
+          createMany: {
+            args: Prisma.TeachingAttachmentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TeachingAttachmentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TeachingAttachmentPayload>[]
+          }
+          delete: {
+            args: Prisma.TeachingAttachmentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TeachingAttachmentPayload>
+          }
+          update: {
+            args: Prisma.TeachingAttachmentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TeachingAttachmentPayload>
+          }
+          deleteMany: {
+            args: Prisma.TeachingAttachmentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TeachingAttachmentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TeachingAttachmentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TeachingAttachmentPayload>[]
+          }
+          upsert: {
+            args: Prisma.TeachingAttachmentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TeachingAttachmentPayload>
+          }
+          aggregate: {
+            args: Prisma.TeachingAttachmentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTeachingAttachment>
+          }
+          groupBy: {
+            args: Prisma.TeachingAttachmentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TeachingAttachmentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TeachingAttachmentCountArgs<ExtArgs>
+            result: $Utils.Optional<TeachingAttachmentCountAggregateOutputType> | number
+          }
+        }
+      }
       Blog: {
         payload: Prisma.$BlogPayload<ExtArgs>
         fields: Prisma.BlogFieldRefs
@@ -906,6 +1029,80 @@ export namespace Prisma {
           count: {
             args: Prisma.BlogCountArgs<ExtArgs>
             result: $Utils.Optional<BlogCountAggregateOutputType> | number
+          }
+        }
+      }
+      BlogAttachment: {
+        payload: Prisma.$BlogAttachmentPayload<ExtArgs>
+        fields: Prisma.BlogAttachmentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BlogAttachmentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlogAttachmentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BlogAttachmentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlogAttachmentPayload>
+          }
+          findFirst: {
+            args: Prisma.BlogAttachmentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlogAttachmentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BlogAttachmentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlogAttachmentPayload>
+          }
+          findMany: {
+            args: Prisma.BlogAttachmentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlogAttachmentPayload>[]
+          }
+          create: {
+            args: Prisma.BlogAttachmentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlogAttachmentPayload>
+          }
+          createMany: {
+            args: Prisma.BlogAttachmentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BlogAttachmentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlogAttachmentPayload>[]
+          }
+          delete: {
+            args: Prisma.BlogAttachmentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlogAttachmentPayload>
+          }
+          update: {
+            args: Prisma.BlogAttachmentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlogAttachmentPayload>
+          }
+          deleteMany: {
+            args: Prisma.BlogAttachmentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BlogAttachmentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BlogAttachmentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlogAttachmentPayload>[]
+          }
+          upsert: {
+            args: Prisma.BlogAttachmentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlogAttachmentPayload>
+          }
+          aggregate: {
+            args: Prisma.BlogAttachmentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBlogAttachment>
+          }
+          groupBy: {
+            args: Prisma.BlogAttachmentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BlogAttachmentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BlogAttachmentCountArgs<ExtArgs>
+            result: $Utils.Optional<BlogAttachmentCountAggregateOutputType> | number
           }
         }
       }
@@ -1128,6 +1325,80 @@ export namespace Prisma {
           count: {
             args: Prisma.MembershipRequestCountArgs<ExtArgs>
             result: $Utils.Optional<MembershipRequestCountAggregateOutputType> | number
+          }
+        }
+      }
+      MembershipNotification: {
+        payload: Prisma.$MembershipNotificationPayload<ExtArgs>
+        fields: Prisma.MembershipNotificationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MembershipNotificationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipNotificationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MembershipNotificationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipNotificationPayload>
+          }
+          findFirst: {
+            args: Prisma.MembershipNotificationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipNotificationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MembershipNotificationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipNotificationPayload>
+          }
+          findMany: {
+            args: Prisma.MembershipNotificationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipNotificationPayload>[]
+          }
+          create: {
+            args: Prisma.MembershipNotificationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipNotificationPayload>
+          }
+          createMany: {
+            args: Prisma.MembershipNotificationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MembershipNotificationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipNotificationPayload>[]
+          }
+          delete: {
+            args: Prisma.MembershipNotificationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipNotificationPayload>
+          }
+          update: {
+            args: Prisma.MembershipNotificationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipNotificationPayload>
+          }
+          deleteMany: {
+            args: Prisma.MembershipNotificationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MembershipNotificationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MembershipNotificationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipNotificationPayload>[]
+          }
+          upsert: {
+            args: Prisma.MembershipNotificationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipNotificationPayload>
+          }
+          aggregate: {
+            args: Prisma.MembershipNotificationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMembershipNotification>
+          }
+          groupBy: {
+            args: Prisma.MembershipNotificationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MembershipNotificationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MembershipNotificationCountArgs<ExtArgs>
+            result: $Utils.Optional<MembershipNotificationCountAggregateOutputType> | number
           }
         }
       }
@@ -1536,10 +1807,13 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     teaching?: TeachingOmit
+    teachingAttachment?: TeachingAttachmentOmit
     blog?: BlogOmit
+    blogAttachment?: BlogAttachmentOmit
     event?: EventOmit
     manifesto?: ManifestoOmit
     membershipRequest?: MembershipRequestOmit
+    membershipNotification?: MembershipNotificationOmit
     user?: UserOmit
     session?: SessionOmit
     account?: AccountOmit
@@ -1620,15 +1894,81 @@ export namespace Prisma {
 
 
   /**
+   * Count Type TeachingCountOutputType
+   */
+
+  export type TeachingCountOutputType = {
+    attachments: number
+  }
+
+  export type TeachingCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    attachments?: boolean | TeachingCountOutputTypeCountAttachmentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TeachingCountOutputType without action
+   */
+  export type TeachingCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TeachingCountOutputType
+     */
+    select?: TeachingCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TeachingCountOutputType without action
+   */
+  export type TeachingCountOutputTypeCountAttachmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TeachingAttachmentWhereInput
+  }
+
+
+  /**
+   * Count Type BlogCountOutputType
+   */
+
+  export type BlogCountOutputType = {
+    attachments: number
+  }
+
+  export type BlogCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    attachments?: boolean | BlogCountOutputTypeCountAttachmentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * BlogCountOutputType without action
+   */
+  export type BlogCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlogCountOutputType
+     */
+    select?: BlogCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * BlogCountOutputType without action
+   */
+  export type BlogCountOutputTypeCountAttachmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BlogAttachmentWhereInput
+  }
+
+
+  /**
    * Count Type UserCountOutputType
    */
 
   export type UserCountOutputType = {
+    membershipRequests: number
+    membershipNotifications: number
     sessions: number
     accounts: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    membershipRequests?: boolean | UserCountOutputTypeCountMembershipRequestsArgs
+    membershipNotifications?: boolean | UserCountOutputTypeCountMembershipNotificationsArgs
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
   }
@@ -1642,6 +1982,20 @@ export namespace Prisma {
      * Select specific fields to fetch from the UserCountOutputType
      */
     select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMembershipRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MembershipRequestWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMembershipNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MembershipNotificationWhereInput
   }
 
   /**
@@ -1692,13 +2046,18 @@ export namespace Prisma {
     youtubeId: string | null
     thumbnailUrl: string | null
     title: string | null
+    titleAm: string | null
+    titleOm: string | null
     description: string | null
+    descriptionAm: string | null
+    descriptionOm: string | null
     durationSeconds: number | null
     semesterLabel: string | null
     scheduleLine: string | null
     venueLine: string | null
     position: number | null
     published: boolean | null
+    membersOnly: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1710,13 +2069,18 @@ export namespace Prisma {
     youtubeId: string | null
     thumbnailUrl: string | null
     title: string | null
+    titleAm: string | null
+    titleOm: string | null
     description: string | null
+    descriptionAm: string | null
+    descriptionOm: string | null
     durationSeconds: number | null
     semesterLabel: string | null
     scheduleLine: string | null
     venueLine: string | null
     position: number | null
     published: boolean | null
+    membersOnly: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1728,13 +2092,18 @@ export namespace Prisma {
     youtubeId: number
     thumbnailUrl: number
     title: number
+    titleAm: number
+    titleOm: number
     description: number
+    descriptionAm: number
+    descriptionOm: number
     durationSeconds: number
     semesterLabel: number
     scheduleLine: number
     venueLine: number
     position: number
     published: number
+    membersOnly: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1758,13 +2127,18 @@ export namespace Prisma {
     youtubeId?: true
     thumbnailUrl?: true
     title?: true
+    titleAm?: true
+    titleOm?: true
     description?: true
+    descriptionAm?: true
+    descriptionOm?: true
     durationSeconds?: true
     semesterLabel?: true
     scheduleLine?: true
     venueLine?: true
     position?: true
     published?: true
+    membersOnly?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1776,13 +2150,18 @@ export namespace Prisma {
     youtubeId?: true
     thumbnailUrl?: true
     title?: true
+    titleAm?: true
+    titleOm?: true
     description?: true
+    descriptionAm?: true
+    descriptionOm?: true
     durationSeconds?: true
     semesterLabel?: true
     scheduleLine?: true
     venueLine?: true
     position?: true
     published?: true
+    membersOnly?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1794,13 +2173,18 @@ export namespace Prisma {
     youtubeId?: true
     thumbnailUrl?: true
     title?: true
+    titleAm?: true
+    titleOm?: true
     description?: true
+    descriptionAm?: true
+    descriptionOm?: true
     durationSeconds?: true
     semesterLabel?: true
     scheduleLine?: true
     venueLine?: true
     position?: true
     published?: true
+    membersOnly?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1899,13 +2283,18 @@ export namespace Prisma {
     youtubeId: string
     thumbnailUrl: string | null
     title: string
+    titleAm: string | null
+    titleOm: string | null
     description: string | null
+    descriptionAm: string | null
+    descriptionOm: string | null
     durationSeconds: number | null
     semesterLabel: string | null
     scheduleLine: string | null
     venueLine: string | null
     position: number
     published: boolean
+    membersOnly: boolean
     createdAt: Date
     updatedAt: Date
     _count: TeachingCountAggregateOutputType | null
@@ -1936,15 +2325,22 @@ export namespace Prisma {
     youtubeId?: boolean
     thumbnailUrl?: boolean
     title?: boolean
+    titleAm?: boolean
+    titleOm?: boolean
     description?: boolean
+    descriptionAm?: boolean
+    descriptionOm?: boolean
     durationSeconds?: boolean
     semesterLabel?: boolean
     scheduleLine?: boolean
     venueLine?: boolean
     position?: boolean
     published?: boolean
+    membersOnly?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    attachments?: boolean | Teaching$attachmentsArgs<ExtArgs>
+    _count?: boolean | TeachingCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["teaching"]>
 
   export type TeachingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1954,13 +2350,18 @@ export namespace Prisma {
     youtubeId?: boolean
     thumbnailUrl?: boolean
     title?: boolean
+    titleAm?: boolean
+    titleOm?: boolean
     description?: boolean
+    descriptionAm?: boolean
+    descriptionOm?: boolean
     durationSeconds?: boolean
     semesterLabel?: boolean
     scheduleLine?: boolean
     venueLine?: boolean
     position?: boolean
     published?: boolean
+    membersOnly?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["teaching"]>
@@ -1972,13 +2373,18 @@ export namespace Prisma {
     youtubeId?: boolean
     thumbnailUrl?: boolean
     title?: boolean
+    titleAm?: boolean
+    titleOm?: boolean
     description?: boolean
+    descriptionAm?: boolean
+    descriptionOm?: boolean
     durationSeconds?: boolean
     semesterLabel?: boolean
     scheduleLine?: boolean
     venueLine?: boolean
     position?: boolean
     published?: boolean
+    membersOnly?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["teaching"]>
@@ -1990,22 +2396,35 @@ export namespace Prisma {
     youtubeId?: boolean
     thumbnailUrl?: boolean
     title?: boolean
+    titleAm?: boolean
+    titleOm?: boolean
     description?: boolean
+    descriptionAm?: boolean
+    descriptionOm?: boolean
     durationSeconds?: boolean
     semesterLabel?: boolean
     scheduleLine?: boolean
     venueLine?: boolean
     position?: boolean
     published?: boolean
+    membersOnly?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TeachingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "slug" | "youtubeUrl" | "youtubeId" | "thumbnailUrl" | "title" | "description" | "durationSeconds" | "semesterLabel" | "scheduleLine" | "venueLine" | "position" | "published" | "createdAt" | "updatedAt", ExtArgs["result"]["teaching"]>
+  export type TeachingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "slug" | "youtubeUrl" | "youtubeId" | "thumbnailUrl" | "title" | "titleAm" | "titleOm" | "description" | "descriptionAm" | "descriptionOm" | "durationSeconds" | "semesterLabel" | "scheduleLine" | "venueLine" | "position" | "published" | "membersOnly" | "createdAt" | "updatedAt", ExtArgs["result"]["teaching"]>
+  export type TeachingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    attachments?: boolean | Teaching$attachmentsArgs<ExtArgs>
+    _count?: boolean | TeachingCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type TeachingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type TeachingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $TeachingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Teaching"
-    objects: {}
+    objects: {
+      attachments: Prisma.$TeachingAttachmentPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       slug: string | null
@@ -2013,13 +2432,18 @@ export namespace Prisma {
       youtubeId: string
       thumbnailUrl: string | null
       title: string
+      titleAm: string | null
+      titleOm: string | null
       description: string | null
+      descriptionAm: string | null
+      descriptionOm: string | null
       durationSeconds: number | null
       semesterLabel: string | null
       scheduleLine: string | null
       venueLine: string | null
       position: number
       published: boolean
+      membersOnly: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["teaching"]>
@@ -2416,6 +2840,7 @@ export namespace Prisma {
    */
   export interface Prisma__TeachingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    attachments<T extends Teaching$attachmentsArgs<ExtArgs> = {}>(args?: Subset<T, Teaching$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeachingAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2451,13 +2876,18 @@ export namespace Prisma {
     readonly youtubeId: FieldRef<"Teaching", 'String'>
     readonly thumbnailUrl: FieldRef<"Teaching", 'String'>
     readonly title: FieldRef<"Teaching", 'String'>
+    readonly titleAm: FieldRef<"Teaching", 'String'>
+    readonly titleOm: FieldRef<"Teaching", 'String'>
     readonly description: FieldRef<"Teaching", 'String'>
+    readonly descriptionAm: FieldRef<"Teaching", 'String'>
+    readonly descriptionOm: FieldRef<"Teaching", 'String'>
     readonly durationSeconds: FieldRef<"Teaching", 'Int'>
     readonly semesterLabel: FieldRef<"Teaching", 'String'>
     readonly scheduleLine: FieldRef<"Teaching", 'String'>
     readonly venueLine: FieldRef<"Teaching", 'String'>
     readonly position: FieldRef<"Teaching", 'Int'>
     readonly published: FieldRef<"Teaching", 'Boolean'>
+    readonly membersOnly: FieldRef<"Teaching", 'Boolean'>
     readonly createdAt: FieldRef<"Teaching", 'DateTime'>
     readonly updatedAt: FieldRef<"Teaching", 'DateTime'>
   }
@@ -2477,6 +2907,10 @@ export namespace Prisma {
      */
     omit?: TeachingOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingInclude<ExtArgs> | null
+    /**
      * Filter, which Teaching to fetch.
      */
     where: TeachingWhereUniqueInput
@@ -2495,6 +2929,10 @@ export namespace Prisma {
      */
     omit?: TeachingOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingInclude<ExtArgs> | null
+    /**
      * Filter, which Teaching to fetch.
      */
     where: TeachingWhereUniqueInput
@@ -2512,6 +2950,10 @@ export namespace Prisma {
      * Omit specific fields from the Teaching
      */
     omit?: TeachingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingInclude<ExtArgs> | null
     /**
      * Filter, which Teaching to fetch.
      */
@@ -2561,6 +3003,10 @@ export namespace Prisma {
      */
     omit?: TeachingOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingInclude<ExtArgs> | null
+    /**
      * Filter, which Teaching to fetch.
      */
     where?: TeachingWhereInput
@@ -2608,6 +3054,10 @@ export namespace Prisma {
      * Omit specific fields from the Teaching
      */
     omit?: TeachingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingInclude<ExtArgs> | null
     /**
      * Filter, which Teachings to fetch.
      */
@@ -2657,6 +3107,10 @@ export namespace Prisma {
      */
     omit?: TeachingOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingInclude<ExtArgs> | null
+    /**
      * The data needed to create a Teaching.
      */
     data: XOR<TeachingCreateInput, TeachingUncheckedCreateInput>
@@ -2704,6 +3158,10 @@ export namespace Prisma {
      * Omit specific fields from the Teaching
      */
     omit?: TeachingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingInclude<ExtArgs> | null
     /**
      * The data needed to update a Teaching.
      */
@@ -2771,6 +3229,10 @@ export namespace Prisma {
      */
     omit?: TeachingOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingInclude<ExtArgs> | null
+    /**
      * The filter to search for the Teaching to update in case it exists.
      */
     where: TeachingWhereUniqueInput
@@ -2797,6 +3259,10 @@ export namespace Prisma {
      */
     omit?: TeachingOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingInclude<ExtArgs> | null
+    /**
      * Filter which Teaching to delete.
      */
     where: TeachingWhereUniqueInput
@@ -2817,6 +3283,30 @@ export namespace Prisma {
   }
 
   /**
+   * Teaching.attachments
+   */
+  export type Teaching$attachmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TeachingAttachment
+     */
+    select?: TeachingAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TeachingAttachment
+     */
+    omit?: TeachingAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingAttachmentInclude<ExtArgs> | null
+    where?: TeachingAttachmentWhereInput
+    orderBy?: TeachingAttachmentOrderByWithRelationInput | TeachingAttachmentOrderByWithRelationInput[]
+    cursor?: TeachingAttachmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TeachingAttachmentScalarFieldEnum | TeachingAttachmentScalarFieldEnum[]
+  }
+
+  /**
    * Teaching without action
    */
   export type TeachingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2828,6 +3318,1086 @@ export namespace Prisma {
      * Omit specific fields from the Teaching
      */
     omit?: TeachingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TeachingAttachment
+   */
+
+  export type AggregateTeachingAttachment = {
+    _count: TeachingAttachmentCountAggregateOutputType | null
+    _min: TeachingAttachmentMinAggregateOutputType | null
+    _max: TeachingAttachmentMaxAggregateOutputType | null
+  }
+
+  export type TeachingAttachmentMinAggregateOutputType = {
+    id: string | null
+    teachingId: string | null
+    title: string | null
+    storagePath: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TeachingAttachmentMaxAggregateOutputType = {
+    id: string | null
+    teachingId: string | null
+    title: string | null
+    storagePath: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TeachingAttachmentCountAggregateOutputType = {
+    id: number
+    teachingId: number
+    title: number
+    storagePath: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TeachingAttachmentMinAggregateInputType = {
+    id?: true
+    teachingId?: true
+    title?: true
+    storagePath?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TeachingAttachmentMaxAggregateInputType = {
+    id?: true
+    teachingId?: true
+    title?: true
+    storagePath?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TeachingAttachmentCountAggregateInputType = {
+    id?: true
+    teachingId?: true
+    title?: true
+    storagePath?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TeachingAttachmentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TeachingAttachment to aggregate.
+     */
+    where?: TeachingAttachmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TeachingAttachments to fetch.
+     */
+    orderBy?: TeachingAttachmentOrderByWithRelationInput | TeachingAttachmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TeachingAttachmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TeachingAttachments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TeachingAttachments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TeachingAttachments
+    **/
+    _count?: true | TeachingAttachmentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TeachingAttachmentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TeachingAttachmentMaxAggregateInputType
+  }
+
+  export type GetTeachingAttachmentAggregateType<T extends TeachingAttachmentAggregateArgs> = {
+        [P in keyof T & keyof AggregateTeachingAttachment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTeachingAttachment[P]>
+      : GetScalarType<T[P], AggregateTeachingAttachment[P]>
+  }
+
+
+
+
+  export type TeachingAttachmentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TeachingAttachmentWhereInput
+    orderBy?: TeachingAttachmentOrderByWithAggregationInput | TeachingAttachmentOrderByWithAggregationInput[]
+    by: TeachingAttachmentScalarFieldEnum[] | TeachingAttachmentScalarFieldEnum
+    having?: TeachingAttachmentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TeachingAttachmentCountAggregateInputType | true
+    _min?: TeachingAttachmentMinAggregateInputType
+    _max?: TeachingAttachmentMaxAggregateInputType
+  }
+
+  export type TeachingAttachmentGroupByOutputType = {
+    id: string
+    teachingId: string
+    title: string | null
+    storagePath: string
+    createdAt: Date
+    updatedAt: Date
+    _count: TeachingAttachmentCountAggregateOutputType | null
+    _min: TeachingAttachmentMinAggregateOutputType | null
+    _max: TeachingAttachmentMaxAggregateOutputType | null
+  }
+
+  type GetTeachingAttachmentGroupByPayload<T extends TeachingAttachmentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TeachingAttachmentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TeachingAttachmentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TeachingAttachmentGroupByOutputType[P]>
+            : GetScalarType<T[P], TeachingAttachmentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TeachingAttachmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    teachingId?: boolean
+    title?: boolean
+    storagePath?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    teaching?: boolean | TeachingDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["teachingAttachment"]>
+
+  export type TeachingAttachmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    teachingId?: boolean
+    title?: boolean
+    storagePath?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    teaching?: boolean | TeachingDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["teachingAttachment"]>
+
+  export type TeachingAttachmentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    teachingId?: boolean
+    title?: boolean
+    storagePath?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    teaching?: boolean | TeachingDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["teachingAttachment"]>
+
+  export type TeachingAttachmentSelectScalar = {
+    id?: boolean
+    teachingId?: boolean
+    title?: boolean
+    storagePath?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TeachingAttachmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "teachingId" | "title" | "storagePath" | "createdAt" | "updatedAt", ExtArgs["result"]["teachingAttachment"]>
+  export type TeachingAttachmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    teaching?: boolean | TeachingDefaultArgs<ExtArgs>
+  }
+  export type TeachingAttachmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    teaching?: boolean | TeachingDefaultArgs<ExtArgs>
+  }
+  export type TeachingAttachmentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    teaching?: boolean | TeachingDefaultArgs<ExtArgs>
+  }
+
+  export type $TeachingAttachmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TeachingAttachment"
+    objects: {
+      teaching: Prisma.$TeachingPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      teachingId: string
+      title: string | null
+      storagePath: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["teachingAttachment"]>
+    composites: {}
+  }
+
+  type TeachingAttachmentGetPayload<S extends boolean | null | undefined | TeachingAttachmentDefaultArgs> = $Result.GetResult<Prisma.$TeachingAttachmentPayload, S>
+
+  type TeachingAttachmentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TeachingAttachmentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TeachingAttachmentCountAggregateInputType | true
+    }
+
+  export interface TeachingAttachmentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TeachingAttachment'], meta: { name: 'TeachingAttachment' } }
+    /**
+     * Find zero or one TeachingAttachment that matches the filter.
+     * @param {TeachingAttachmentFindUniqueArgs} args - Arguments to find a TeachingAttachment
+     * @example
+     * // Get one TeachingAttachment
+     * const teachingAttachment = await prisma.teachingAttachment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TeachingAttachmentFindUniqueArgs>(args: SelectSubset<T, TeachingAttachmentFindUniqueArgs<ExtArgs>>): Prisma__TeachingAttachmentClient<$Result.GetResult<Prisma.$TeachingAttachmentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TeachingAttachment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TeachingAttachmentFindUniqueOrThrowArgs} args - Arguments to find a TeachingAttachment
+     * @example
+     * // Get one TeachingAttachment
+     * const teachingAttachment = await prisma.teachingAttachment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TeachingAttachmentFindUniqueOrThrowArgs>(args: SelectSubset<T, TeachingAttachmentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TeachingAttachmentClient<$Result.GetResult<Prisma.$TeachingAttachmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TeachingAttachment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TeachingAttachmentFindFirstArgs} args - Arguments to find a TeachingAttachment
+     * @example
+     * // Get one TeachingAttachment
+     * const teachingAttachment = await prisma.teachingAttachment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TeachingAttachmentFindFirstArgs>(args?: SelectSubset<T, TeachingAttachmentFindFirstArgs<ExtArgs>>): Prisma__TeachingAttachmentClient<$Result.GetResult<Prisma.$TeachingAttachmentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TeachingAttachment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TeachingAttachmentFindFirstOrThrowArgs} args - Arguments to find a TeachingAttachment
+     * @example
+     * // Get one TeachingAttachment
+     * const teachingAttachment = await prisma.teachingAttachment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TeachingAttachmentFindFirstOrThrowArgs>(args?: SelectSubset<T, TeachingAttachmentFindFirstOrThrowArgs<ExtArgs>>): Prisma__TeachingAttachmentClient<$Result.GetResult<Prisma.$TeachingAttachmentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TeachingAttachments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TeachingAttachmentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TeachingAttachments
+     * const teachingAttachments = await prisma.teachingAttachment.findMany()
+     * 
+     * // Get first 10 TeachingAttachments
+     * const teachingAttachments = await prisma.teachingAttachment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const teachingAttachmentWithIdOnly = await prisma.teachingAttachment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TeachingAttachmentFindManyArgs>(args?: SelectSubset<T, TeachingAttachmentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeachingAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TeachingAttachment.
+     * @param {TeachingAttachmentCreateArgs} args - Arguments to create a TeachingAttachment.
+     * @example
+     * // Create one TeachingAttachment
+     * const TeachingAttachment = await prisma.teachingAttachment.create({
+     *   data: {
+     *     // ... data to create a TeachingAttachment
+     *   }
+     * })
+     * 
+     */
+    create<T extends TeachingAttachmentCreateArgs>(args: SelectSubset<T, TeachingAttachmentCreateArgs<ExtArgs>>): Prisma__TeachingAttachmentClient<$Result.GetResult<Prisma.$TeachingAttachmentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TeachingAttachments.
+     * @param {TeachingAttachmentCreateManyArgs} args - Arguments to create many TeachingAttachments.
+     * @example
+     * // Create many TeachingAttachments
+     * const teachingAttachment = await prisma.teachingAttachment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TeachingAttachmentCreateManyArgs>(args?: SelectSubset<T, TeachingAttachmentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TeachingAttachments and returns the data saved in the database.
+     * @param {TeachingAttachmentCreateManyAndReturnArgs} args - Arguments to create many TeachingAttachments.
+     * @example
+     * // Create many TeachingAttachments
+     * const teachingAttachment = await prisma.teachingAttachment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TeachingAttachments and only return the `id`
+     * const teachingAttachmentWithIdOnly = await prisma.teachingAttachment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TeachingAttachmentCreateManyAndReturnArgs>(args?: SelectSubset<T, TeachingAttachmentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeachingAttachmentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TeachingAttachment.
+     * @param {TeachingAttachmentDeleteArgs} args - Arguments to delete one TeachingAttachment.
+     * @example
+     * // Delete one TeachingAttachment
+     * const TeachingAttachment = await prisma.teachingAttachment.delete({
+     *   where: {
+     *     // ... filter to delete one TeachingAttachment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TeachingAttachmentDeleteArgs>(args: SelectSubset<T, TeachingAttachmentDeleteArgs<ExtArgs>>): Prisma__TeachingAttachmentClient<$Result.GetResult<Prisma.$TeachingAttachmentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TeachingAttachment.
+     * @param {TeachingAttachmentUpdateArgs} args - Arguments to update one TeachingAttachment.
+     * @example
+     * // Update one TeachingAttachment
+     * const teachingAttachment = await prisma.teachingAttachment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TeachingAttachmentUpdateArgs>(args: SelectSubset<T, TeachingAttachmentUpdateArgs<ExtArgs>>): Prisma__TeachingAttachmentClient<$Result.GetResult<Prisma.$TeachingAttachmentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TeachingAttachments.
+     * @param {TeachingAttachmentDeleteManyArgs} args - Arguments to filter TeachingAttachments to delete.
+     * @example
+     * // Delete a few TeachingAttachments
+     * const { count } = await prisma.teachingAttachment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TeachingAttachmentDeleteManyArgs>(args?: SelectSubset<T, TeachingAttachmentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TeachingAttachments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TeachingAttachmentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TeachingAttachments
+     * const teachingAttachment = await prisma.teachingAttachment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TeachingAttachmentUpdateManyArgs>(args: SelectSubset<T, TeachingAttachmentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TeachingAttachments and returns the data updated in the database.
+     * @param {TeachingAttachmentUpdateManyAndReturnArgs} args - Arguments to update many TeachingAttachments.
+     * @example
+     * // Update many TeachingAttachments
+     * const teachingAttachment = await prisma.teachingAttachment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TeachingAttachments and only return the `id`
+     * const teachingAttachmentWithIdOnly = await prisma.teachingAttachment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TeachingAttachmentUpdateManyAndReturnArgs>(args: SelectSubset<T, TeachingAttachmentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeachingAttachmentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TeachingAttachment.
+     * @param {TeachingAttachmentUpsertArgs} args - Arguments to update or create a TeachingAttachment.
+     * @example
+     * // Update or create a TeachingAttachment
+     * const teachingAttachment = await prisma.teachingAttachment.upsert({
+     *   create: {
+     *     // ... data to create a TeachingAttachment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TeachingAttachment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TeachingAttachmentUpsertArgs>(args: SelectSubset<T, TeachingAttachmentUpsertArgs<ExtArgs>>): Prisma__TeachingAttachmentClient<$Result.GetResult<Prisma.$TeachingAttachmentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TeachingAttachments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TeachingAttachmentCountArgs} args - Arguments to filter TeachingAttachments to count.
+     * @example
+     * // Count the number of TeachingAttachments
+     * const count = await prisma.teachingAttachment.count({
+     *   where: {
+     *     // ... the filter for the TeachingAttachments we want to count
+     *   }
+     * })
+    **/
+    count<T extends TeachingAttachmentCountArgs>(
+      args?: Subset<T, TeachingAttachmentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TeachingAttachmentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TeachingAttachment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TeachingAttachmentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TeachingAttachmentAggregateArgs>(args: Subset<T, TeachingAttachmentAggregateArgs>): Prisma.PrismaPromise<GetTeachingAttachmentAggregateType<T>>
+
+    /**
+     * Group by TeachingAttachment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TeachingAttachmentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TeachingAttachmentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TeachingAttachmentGroupByArgs['orderBy'] }
+        : { orderBy?: TeachingAttachmentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TeachingAttachmentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTeachingAttachmentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TeachingAttachment model
+   */
+  readonly fields: TeachingAttachmentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TeachingAttachment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TeachingAttachmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    teaching<T extends TeachingDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TeachingDefaultArgs<ExtArgs>>): Prisma__TeachingClient<$Result.GetResult<Prisma.$TeachingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TeachingAttachment model
+   */
+  interface TeachingAttachmentFieldRefs {
+    readonly id: FieldRef<"TeachingAttachment", 'String'>
+    readonly teachingId: FieldRef<"TeachingAttachment", 'String'>
+    readonly title: FieldRef<"TeachingAttachment", 'String'>
+    readonly storagePath: FieldRef<"TeachingAttachment", 'String'>
+    readonly createdAt: FieldRef<"TeachingAttachment", 'DateTime'>
+    readonly updatedAt: FieldRef<"TeachingAttachment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TeachingAttachment findUnique
+   */
+  export type TeachingAttachmentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TeachingAttachment
+     */
+    select?: TeachingAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TeachingAttachment
+     */
+    omit?: TeachingAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingAttachmentInclude<ExtArgs> | null
+    /**
+     * Filter, which TeachingAttachment to fetch.
+     */
+    where: TeachingAttachmentWhereUniqueInput
+  }
+
+  /**
+   * TeachingAttachment findUniqueOrThrow
+   */
+  export type TeachingAttachmentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TeachingAttachment
+     */
+    select?: TeachingAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TeachingAttachment
+     */
+    omit?: TeachingAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingAttachmentInclude<ExtArgs> | null
+    /**
+     * Filter, which TeachingAttachment to fetch.
+     */
+    where: TeachingAttachmentWhereUniqueInput
+  }
+
+  /**
+   * TeachingAttachment findFirst
+   */
+  export type TeachingAttachmentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TeachingAttachment
+     */
+    select?: TeachingAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TeachingAttachment
+     */
+    omit?: TeachingAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingAttachmentInclude<ExtArgs> | null
+    /**
+     * Filter, which TeachingAttachment to fetch.
+     */
+    where?: TeachingAttachmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TeachingAttachments to fetch.
+     */
+    orderBy?: TeachingAttachmentOrderByWithRelationInput | TeachingAttachmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TeachingAttachments.
+     */
+    cursor?: TeachingAttachmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TeachingAttachments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TeachingAttachments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TeachingAttachments.
+     */
+    distinct?: TeachingAttachmentScalarFieldEnum | TeachingAttachmentScalarFieldEnum[]
+  }
+
+  /**
+   * TeachingAttachment findFirstOrThrow
+   */
+  export type TeachingAttachmentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TeachingAttachment
+     */
+    select?: TeachingAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TeachingAttachment
+     */
+    omit?: TeachingAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingAttachmentInclude<ExtArgs> | null
+    /**
+     * Filter, which TeachingAttachment to fetch.
+     */
+    where?: TeachingAttachmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TeachingAttachments to fetch.
+     */
+    orderBy?: TeachingAttachmentOrderByWithRelationInput | TeachingAttachmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TeachingAttachments.
+     */
+    cursor?: TeachingAttachmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TeachingAttachments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TeachingAttachments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TeachingAttachments.
+     */
+    distinct?: TeachingAttachmentScalarFieldEnum | TeachingAttachmentScalarFieldEnum[]
+  }
+
+  /**
+   * TeachingAttachment findMany
+   */
+  export type TeachingAttachmentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TeachingAttachment
+     */
+    select?: TeachingAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TeachingAttachment
+     */
+    omit?: TeachingAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingAttachmentInclude<ExtArgs> | null
+    /**
+     * Filter, which TeachingAttachments to fetch.
+     */
+    where?: TeachingAttachmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TeachingAttachments to fetch.
+     */
+    orderBy?: TeachingAttachmentOrderByWithRelationInput | TeachingAttachmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TeachingAttachments.
+     */
+    cursor?: TeachingAttachmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TeachingAttachments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TeachingAttachments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TeachingAttachments.
+     */
+    distinct?: TeachingAttachmentScalarFieldEnum | TeachingAttachmentScalarFieldEnum[]
+  }
+
+  /**
+   * TeachingAttachment create
+   */
+  export type TeachingAttachmentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TeachingAttachment
+     */
+    select?: TeachingAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TeachingAttachment
+     */
+    omit?: TeachingAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingAttachmentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TeachingAttachment.
+     */
+    data: XOR<TeachingAttachmentCreateInput, TeachingAttachmentUncheckedCreateInput>
+  }
+
+  /**
+   * TeachingAttachment createMany
+   */
+  export type TeachingAttachmentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TeachingAttachments.
+     */
+    data: TeachingAttachmentCreateManyInput | TeachingAttachmentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TeachingAttachment createManyAndReturn
+   */
+  export type TeachingAttachmentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TeachingAttachment
+     */
+    select?: TeachingAttachmentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TeachingAttachment
+     */
+    omit?: TeachingAttachmentOmit<ExtArgs> | null
+    /**
+     * The data used to create many TeachingAttachments.
+     */
+    data: TeachingAttachmentCreateManyInput | TeachingAttachmentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingAttachmentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TeachingAttachment update
+   */
+  export type TeachingAttachmentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TeachingAttachment
+     */
+    select?: TeachingAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TeachingAttachment
+     */
+    omit?: TeachingAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingAttachmentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TeachingAttachment.
+     */
+    data: XOR<TeachingAttachmentUpdateInput, TeachingAttachmentUncheckedUpdateInput>
+    /**
+     * Choose, which TeachingAttachment to update.
+     */
+    where: TeachingAttachmentWhereUniqueInput
+  }
+
+  /**
+   * TeachingAttachment updateMany
+   */
+  export type TeachingAttachmentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TeachingAttachments.
+     */
+    data: XOR<TeachingAttachmentUpdateManyMutationInput, TeachingAttachmentUncheckedUpdateManyInput>
+    /**
+     * Filter which TeachingAttachments to update
+     */
+    where?: TeachingAttachmentWhereInput
+    /**
+     * Limit how many TeachingAttachments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TeachingAttachment updateManyAndReturn
+   */
+  export type TeachingAttachmentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TeachingAttachment
+     */
+    select?: TeachingAttachmentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TeachingAttachment
+     */
+    omit?: TeachingAttachmentOmit<ExtArgs> | null
+    /**
+     * The data used to update TeachingAttachments.
+     */
+    data: XOR<TeachingAttachmentUpdateManyMutationInput, TeachingAttachmentUncheckedUpdateManyInput>
+    /**
+     * Filter which TeachingAttachments to update
+     */
+    where?: TeachingAttachmentWhereInput
+    /**
+     * Limit how many TeachingAttachments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingAttachmentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TeachingAttachment upsert
+   */
+  export type TeachingAttachmentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TeachingAttachment
+     */
+    select?: TeachingAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TeachingAttachment
+     */
+    omit?: TeachingAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingAttachmentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TeachingAttachment to update in case it exists.
+     */
+    where: TeachingAttachmentWhereUniqueInput
+    /**
+     * In case the TeachingAttachment found by the `where` argument doesn't exist, create a new TeachingAttachment with this data.
+     */
+    create: XOR<TeachingAttachmentCreateInput, TeachingAttachmentUncheckedCreateInput>
+    /**
+     * In case the TeachingAttachment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TeachingAttachmentUpdateInput, TeachingAttachmentUncheckedUpdateInput>
+  }
+
+  /**
+   * TeachingAttachment delete
+   */
+  export type TeachingAttachmentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TeachingAttachment
+     */
+    select?: TeachingAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TeachingAttachment
+     */
+    omit?: TeachingAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingAttachmentInclude<ExtArgs> | null
+    /**
+     * Filter which TeachingAttachment to delete.
+     */
+    where: TeachingAttachmentWhereUniqueInput
+  }
+
+  /**
+   * TeachingAttachment deleteMany
+   */
+  export type TeachingAttachmentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TeachingAttachments to delete
+     */
+    where?: TeachingAttachmentWhereInput
+    /**
+     * Limit how many TeachingAttachments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TeachingAttachment without action
+   */
+  export type TeachingAttachmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TeachingAttachment
+     */
+    select?: TeachingAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TeachingAttachment
+     */
+    omit?: TeachingAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeachingAttachmentInclude<ExtArgs> | null
   }
 
 
@@ -2855,11 +4425,16 @@ export namespace Prisma {
     id: string | null
     slug: string | null
     title: string | null
+    titleAm: string | null
+    titleOm: string | null
     excerpt: string | null
+    excerptAm: string | null
+    excerptOm: string | null
     coverImage: string | null
     status: $Enums.BlogStatus | null
     publishedAt: Date | null
     viewCount: number | null
+    membersOnly: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2868,11 +4443,16 @@ export namespace Prisma {
     id: string | null
     slug: string | null
     title: string | null
+    titleAm: string | null
+    titleOm: string | null
     excerpt: string | null
+    excerptAm: string | null
+    excerptOm: string | null
     coverImage: string | null
     status: $Enums.BlogStatus | null
     publishedAt: Date | null
     viewCount: number | null
+    membersOnly: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2881,12 +4461,19 @@ export namespace Prisma {
     id: number
     slug: number
     title: number
+    titleAm: number
+    titleOm: number
     excerpt: number
+    excerptAm: number
+    excerptOm: number
     content: number
+    contentAm: number
+    contentOm: number
     coverImage: number
     status: number
     publishedAt: number
     viewCount: number
+    membersOnly: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2905,11 +4492,16 @@ export namespace Prisma {
     id?: true
     slug?: true
     title?: true
+    titleAm?: true
+    titleOm?: true
     excerpt?: true
+    excerptAm?: true
+    excerptOm?: true
     coverImage?: true
     status?: true
     publishedAt?: true
     viewCount?: true
+    membersOnly?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2918,11 +4510,16 @@ export namespace Prisma {
     id?: true
     slug?: true
     title?: true
+    titleAm?: true
+    titleOm?: true
     excerpt?: true
+    excerptAm?: true
+    excerptOm?: true
     coverImage?: true
     status?: true
     publishedAt?: true
     viewCount?: true
+    membersOnly?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2931,12 +4528,19 @@ export namespace Prisma {
     id?: true
     slug?: true
     title?: true
+    titleAm?: true
+    titleOm?: true
     excerpt?: true
+    excerptAm?: true
+    excerptOm?: true
     content?: true
+    contentAm?: true
+    contentOm?: true
     coverImage?: true
     status?: true
     publishedAt?: true
     viewCount?: true
+    membersOnly?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -3032,12 +4636,19 @@ export namespace Prisma {
     id: string
     slug: string
     title: string
+    titleAm: string | null
+    titleOm: string | null
     excerpt: string | null
+    excerptAm: string | null
+    excerptOm: string | null
     content: JsonValue
+    contentAm: JsonValue | null
+    contentOm: JsonValue | null
     coverImage: string | null
     status: $Enums.BlogStatus
     publishedAt: Date | null
     viewCount: number
+    membersOnly: boolean
     createdAt: Date
     updatedAt: Date
     _count: BlogCountAggregateOutputType | null
@@ -3065,26 +4676,42 @@ export namespace Prisma {
     id?: boolean
     slug?: boolean
     title?: boolean
+    titleAm?: boolean
+    titleOm?: boolean
     excerpt?: boolean
+    excerptAm?: boolean
+    excerptOm?: boolean
     content?: boolean
+    contentAm?: boolean
+    contentOm?: boolean
     coverImage?: boolean
     status?: boolean
     publishedAt?: boolean
     viewCount?: boolean
+    membersOnly?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    attachments?: boolean | Blog$attachmentsArgs<ExtArgs>
+    _count?: boolean | BlogCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["blog"]>
 
   export type BlogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     slug?: boolean
     title?: boolean
+    titleAm?: boolean
+    titleOm?: boolean
     excerpt?: boolean
+    excerptAm?: boolean
+    excerptOm?: boolean
     content?: boolean
+    contentAm?: boolean
+    contentOm?: boolean
     coverImage?: boolean
     status?: boolean
     publishedAt?: boolean
     viewCount?: boolean
+    membersOnly?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["blog"]>
@@ -3093,12 +4720,19 @@ export namespace Prisma {
     id?: boolean
     slug?: boolean
     title?: boolean
+    titleAm?: boolean
+    titleOm?: boolean
     excerpt?: boolean
+    excerptAm?: boolean
+    excerptOm?: boolean
     content?: boolean
+    contentAm?: boolean
+    contentOm?: boolean
     coverImage?: boolean
     status?: boolean
     publishedAt?: boolean
     viewCount?: boolean
+    membersOnly?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["blog"]>
@@ -3107,31 +4741,53 @@ export namespace Prisma {
     id?: boolean
     slug?: boolean
     title?: boolean
+    titleAm?: boolean
+    titleOm?: boolean
     excerpt?: boolean
+    excerptAm?: boolean
+    excerptOm?: boolean
     content?: boolean
+    contentAm?: boolean
+    contentOm?: boolean
     coverImage?: boolean
     status?: boolean
     publishedAt?: boolean
     viewCount?: boolean
+    membersOnly?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type BlogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "slug" | "title" | "excerpt" | "content" | "coverImage" | "status" | "publishedAt" | "viewCount" | "createdAt" | "updatedAt", ExtArgs["result"]["blog"]>
+  export type BlogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "slug" | "title" | "titleAm" | "titleOm" | "excerpt" | "excerptAm" | "excerptOm" | "content" | "contentAm" | "contentOm" | "coverImage" | "status" | "publishedAt" | "viewCount" | "membersOnly" | "createdAt" | "updatedAt", ExtArgs["result"]["blog"]>
+  export type BlogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    attachments?: boolean | Blog$attachmentsArgs<ExtArgs>
+    _count?: boolean | BlogCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type BlogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type BlogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $BlogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Blog"
-    objects: {}
+    objects: {
+      attachments: Prisma.$BlogAttachmentPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       slug: string
       title: string
+      titleAm: string | null
+      titleOm: string | null
       excerpt: string | null
+      excerptAm: string | null
+      excerptOm: string | null
       content: Prisma.JsonValue
+      contentAm: Prisma.JsonValue | null
+      contentOm: Prisma.JsonValue | null
       coverImage: string | null
       status: $Enums.BlogStatus
       publishedAt: Date | null
       viewCount: number
+      membersOnly: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["blog"]>
@@ -3528,6 +5184,7 @@ export namespace Prisma {
    */
   export interface Prisma__BlogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    attachments<T extends Blog$attachmentsArgs<ExtArgs> = {}>(args?: Subset<T, Blog$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlogAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3560,12 +5217,19 @@ export namespace Prisma {
     readonly id: FieldRef<"Blog", 'String'>
     readonly slug: FieldRef<"Blog", 'String'>
     readonly title: FieldRef<"Blog", 'String'>
+    readonly titleAm: FieldRef<"Blog", 'String'>
+    readonly titleOm: FieldRef<"Blog", 'String'>
     readonly excerpt: FieldRef<"Blog", 'String'>
+    readonly excerptAm: FieldRef<"Blog", 'String'>
+    readonly excerptOm: FieldRef<"Blog", 'String'>
     readonly content: FieldRef<"Blog", 'Json'>
+    readonly contentAm: FieldRef<"Blog", 'Json'>
+    readonly contentOm: FieldRef<"Blog", 'Json'>
     readonly coverImage: FieldRef<"Blog", 'String'>
     readonly status: FieldRef<"Blog", 'BlogStatus'>
     readonly publishedAt: FieldRef<"Blog", 'DateTime'>
     readonly viewCount: FieldRef<"Blog", 'Int'>
+    readonly membersOnly: FieldRef<"Blog", 'Boolean'>
     readonly createdAt: FieldRef<"Blog", 'DateTime'>
     readonly updatedAt: FieldRef<"Blog", 'DateTime'>
   }
@@ -3585,6 +5249,10 @@ export namespace Prisma {
      */
     omit?: BlogOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogInclude<ExtArgs> | null
+    /**
      * Filter, which Blog to fetch.
      */
     where: BlogWhereUniqueInput
@@ -3603,6 +5271,10 @@ export namespace Prisma {
      */
     omit?: BlogOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogInclude<ExtArgs> | null
+    /**
      * Filter, which Blog to fetch.
      */
     where: BlogWhereUniqueInput
@@ -3620,6 +5292,10 @@ export namespace Prisma {
      * Omit specific fields from the Blog
      */
     omit?: BlogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogInclude<ExtArgs> | null
     /**
      * Filter, which Blog to fetch.
      */
@@ -3669,6 +5345,10 @@ export namespace Prisma {
      */
     omit?: BlogOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogInclude<ExtArgs> | null
+    /**
      * Filter, which Blog to fetch.
      */
     where?: BlogWhereInput
@@ -3716,6 +5396,10 @@ export namespace Prisma {
      * Omit specific fields from the Blog
      */
     omit?: BlogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogInclude<ExtArgs> | null
     /**
      * Filter, which Blogs to fetch.
      */
@@ -3765,6 +5449,10 @@ export namespace Prisma {
      */
     omit?: BlogOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogInclude<ExtArgs> | null
+    /**
      * The data needed to create a Blog.
      */
     data: XOR<BlogCreateInput, BlogUncheckedCreateInput>
@@ -3812,6 +5500,10 @@ export namespace Prisma {
      * Omit specific fields from the Blog
      */
     omit?: BlogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogInclude<ExtArgs> | null
     /**
      * The data needed to update a Blog.
      */
@@ -3879,6 +5571,10 @@ export namespace Prisma {
      */
     omit?: BlogOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogInclude<ExtArgs> | null
+    /**
      * The filter to search for the Blog to update in case it exists.
      */
     where: BlogWhereUniqueInput
@@ -3905,6 +5601,10 @@ export namespace Prisma {
      */
     omit?: BlogOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogInclude<ExtArgs> | null
+    /**
      * Filter which Blog to delete.
      */
     where: BlogWhereUniqueInput
@@ -3925,6 +5625,30 @@ export namespace Prisma {
   }
 
   /**
+   * Blog.attachments
+   */
+  export type Blog$attachmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlogAttachment
+     */
+    select?: BlogAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlogAttachment
+     */
+    omit?: BlogAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogAttachmentInclude<ExtArgs> | null
+    where?: BlogAttachmentWhereInput
+    orderBy?: BlogAttachmentOrderByWithRelationInput | BlogAttachmentOrderByWithRelationInput[]
+    cursor?: BlogAttachmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BlogAttachmentScalarFieldEnum | BlogAttachmentScalarFieldEnum[]
+  }
+
+  /**
    * Blog without action
    */
   export type BlogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3936,6 +5660,1086 @@ export namespace Prisma {
      * Omit specific fields from the Blog
      */
     omit?: BlogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model BlogAttachment
+   */
+
+  export type AggregateBlogAttachment = {
+    _count: BlogAttachmentCountAggregateOutputType | null
+    _min: BlogAttachmentMinAggregateOutputType | null
+    _max: BlogAttachmentMaxAggregateOutputType | null
+  }
+
+  export type BlogAttachmentMinAggregateOutputType = {
+    id: string | null
+    blogId: string | null
+    title: string | null
+    storagePath: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BlogAttachmentMaxAggregateOutputType = {
+    id: string | null
+    blogId: string | null
+    title: string | null
+    storagePath: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BlogAttachmentCountAggregateOutputType = {
+    id: number
+    blogId: number
+    title: number
+    storagePath: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type BlogAttachmentMinAggregateInputType = {
+    id?: true
+    blogId?: true
+    title?: true
+    storagePath?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BlogAttachmentMaxAggregateInputType = {
+    id?: true
+    blogId?: true
+    title?: true
+    storagePath?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BlogAttachmentCountAggregateInputType = {
+    id?: true
+    blogId?: true
+    title?: true
+    storagePath?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type BlogAttachmentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BlogAttachment to aggregate.
+     */
+    where?: BlogAttachmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BlogAttachments to fetch.
+     */
+    orderBy?: BlogAttachmentOrderByWithRelationInput | BlogAttachmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BlogAttachmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BlogAttachments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BlogAttachments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BlogAttachments
+    **/
+    _count?: true | BlogAttachmentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BlogAttachmentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BlogAttachmentMaxAggregateInputType
+  }
+
+  export type GetBlogAttachmentAggregateType<T extends BlogAttachmentAggregateArgs> = {
+        [P in keyof T & keyof AggregateBlogAttachment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBlogAttachment[P]>
+      : GetScalarType<T[P], AggregateBlogAttachment[P]>
+  }
+
+
+
+
+  export type BlogAttachmentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BlogAttachmentWhereInput
+    orderBy?: BlogAttachmentOrderByWithAggregationInput | BlogAttachmentOrderByWithAggregationInput[]
+    by: BlogAttachmentScalarFieldEnum[] | BlogAttachmentScalarFieldEnum
+    having?: BlogAttachmentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BlogAttachmentCountAggregateInputType | true
+    _min?: BlogAttachmentMinAggregateInputType
+    _max?: BlogAttachmentMaxAggregateInputType
+  }
+
+  export type BlogAttachmentGroupByOutputType = {
+    id: string
+    blogId: string
+    title: string | null
+    storagePath: string
+    createdAt: Date
+    updatedAt: Date
+    _count: BlogAttachmentCountAggregateOutputType | null
+    _min: BlogAttachmentMinAggregateOutputType | null
+    _max: BlogAttachmentMaxAggregateOutputType | null
+  }
+
+  type GetBlogAttachmentGroupByPayload<T extends BlogAttachmentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BlogAttachmentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BlogAttachmentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BlogAttachmentGroupByOutputType[P]>
+            : GetScalarType<T[P], BlogAttachmentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BlogAttachmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    blogId?: boolean
+    title?: boolean
+    storagePath?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    blog?: boolean | BlogDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["blogAttachment"]>
+
+  export type BlogAttachmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    blogId?: boolean
+    title?: boolean
+    storagePath?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    blog?: boolean | BlogDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["blogAttachment"]>
+
+  export type BlogAttachmentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    blogId?: boolean
+    title?: boolean
+    storagePath?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    blog?: boolean | BlogDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["blogAttachment"]>
+
+  export type BlogAttachmentSelectScalar = {
+    id?: boolean
+    blogId?: boolean
+    title?: boolean
+    storagePath?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type BlogAttachmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "blogId" | "title" | "storagePath" | "createdAt" | "updatedAt", ExtArgs["result"]["blogAttachment"]>
+  export type BlogAttachmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    blog?: boolean | BlogDefaultArgs<ExtArgs>
+  }
+  export type BlogAttachmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    blog?: boolean | BlogDefaultArgs<ExtArgs>
+  }
+  export type BlogAttachmentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    blog?: boolean | BlogDefaultArgs<ExtArgs>
+  }
+
+  export type $BlogAttachmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BlogAttachment"
+    objects: {
+      blog: Prisma.$BlogPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      blogId: string
+      title: string | null
+      storagePath: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["blogAttachment"]>
+    composites: {}
+  }
+
+  type BlogAttachmentGetPayload<S extends boolean | null | undefined | BlogAttachmentDefaultArgs> = $Result.GetResult<Prisma.$BlogAttachmentPayload, S>
+
+  type BlogAttachmentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BlogAttachmentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BlogAttachmentCountAggregateInputType | true
+    }
+
+  export interface BlogAttachmentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BlogAttachment'], meta: { name: 'BlogAttachment' } }
+    /**
+     * Find zero or one BlogAttachment that matches the filter.
+     * @param {BlogAttachmentFindUniqueArgs} args - Arguments to find a BlogAttachment
+     * @example
+     * // Get one BlogAttachment
+     * const blogAttachment = await prisma.blogAttachment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BlogAttachmentFindUniqueArgs>(args: SelectSubset<T, BlogAttachmentFindUniqueArgs<ExtArgs>>): Prisma__BlogAttachmentClient<$Result.GetResult<Prisma.$BlogAttachmentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BlogAttachment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BlogAttachmentFindUniqueOrThrowArgs} args - Arguments to find a BlogAttachment
+     * @example
+     * // Get one BlogAttachment
+     * const blogAttachment = await prisma.blogAttachment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BlogAttachmentFindUniqueOrThrowArgs>(args: SelectSubset<T, BlogAttachmentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BlogAttachmentClient<$Result.GetResult<Prisma.$BlogAttachmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BlogAttachment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlogAttachmentFindFirstArgs} args - Arguments to find a BlogAttachment
+     * @example
+     * // Get one BlogAttachment
+     * const blogAttachment = await prisma.blogAttachment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BlogAttachmentFindFirstArgs>(args?: SelectSubset<T, BlogAttachmentFindFirstArgs<ExtArgs>>): Prisma__BlogAttachmentClient<$Result.GetResult<Prisma.$BlogAttachmentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BlogAttachment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlogAttachmentFindFirstOrThrowArgs} args - Arguments to find a BlogAttachment
+     * @example
+     * // Get one BlogAttachment
+     * const blogAttachment = await prisma.blogAttachment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BlogAttachmentFindFirstOrThrowArgs>(args?: SelectSubset<T, BlogAttachmentFindFirstOrThrowArgs<ExtArgs>>): Prisma__BlogAttachmentClient<$Result.GetResult<Prisma.$BlogAttachmentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BlogAttachments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlogAttachmentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BlogAttachments
+     * const blogAttachments = await prisma.blogAttachment.findMany()
+     * 
+     * // Get first 10 BlogAttachments
+     * const blogAttachments = await prisma.blogAttachment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const blogAttachmentWithIdOnly = await prisma.blogAttachment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BlogAttachmentFindManyArgs>(args?: SelectSubset<T, BlogAttachmentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlogAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BlogAttachment.
+     * @param {BlogAttachmentCreateArgs} args - Arguments to create a BlogAttachment.
+     * @example
+     * // Create one BlogAttachment
+     * const BlogAttachment = await prisma.blogAttachment.create({
+     *   data: {
+     *     // ... data to create a BlogAttachment
+     *   }
+     * })
+     * 
+     */
+    create<T extends BlogAttachmentCreateArgs>(args: SelectSubset<T, BlogAttachmentCreateArgs<ExtArgs>>): Prisma__BlogAttachmentClient<$Result.GetResult<Prisma.$BlogAttachmentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BlogAttachments.
+     * @param {BlogAttachmentCreateManyArgs} args - Arguments to create many BlogAttachments.
+     * @example
+     * // Create many BlogAttachments
+     * const blogAttachment = await prisma.blogAttachment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BlogAttachmentCreateManyArgs>(args?: SelectSubset<T, BlogAttachmentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BlogAttachments and returns the data saved in the database.
+     * @param {BlogAttachmentCreateManyAndReturnArgs} args - Arguments to create many BlogAttachments.
+     * @example
+     * // Create many BlogAttachments
+     * const blogAttachment = await prisma.blogAttachment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BlogAttachments and only return the `id`
+     * const blogAttachmentWithIdOnly = await prisma.blogAttachment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BlogAttachmentCreateManyAndReturnArgs>(args?: SelectSubset<T, BlogAttachmentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlogAttachmentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BlogAttachment.
+     * @param {BlogAttachmentDeleteArgs} args - Arguments to delete one BlogAttachment.
+     * @example
+     * // Delete one BlogAttachment
+     * const BlogAttachment = await prisma.blogAttachment.delete({
+     *   where: {
+     *     // ... filter to delete one BlogAttachment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BlogAttachmentDeleteArgs>(args: SelectSubset<T, BlogAttachmentDeleteArgs<ExtArgs>>): Prisma__BlogAttachmentClient<$Result.GetResult<Prisma.$BlogAttachmentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BlogAttachment.
+     * @param {BlogAttachmentUpdateArgs} args - Arguments to update one BlogAttachment.
+     * @example
+     * // Update one BlogAttachment
+     * const blogAttachment = await prisma.blogAttachment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BlogAttachmentUpdateArgs>(args: SelectSubset<T, BlogAttachmentUpdateArgs<ExtArgs>>): Prisma__BlogAttachmentClient<$Result.GetResult<Prisma.$BlogAttachmentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BlogAttachments.
+     * @param {BlogAttachmentDeleteManyArgs} args - Arguments to filter BlogAttachments to delete.
+     * @example
+     * // Delete a few BlogAttachments
+     * const { count } = await prisma.blogAttachment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BlogAttachmentDeleteManyArgs>(args?: SelectSubset<T, BlogAttachmentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BlogAttachments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlogAttachmentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BlogAttachments
+     * const blogAttachment = await prisma.blogAttachment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BlogAttachmentUpdateManyArgs>(args: SelectSubset<T, BlogAttachmentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BlogAttachments and returns the data updated in the database.
+     * @param {BlogAttachmentUpdateManyAndReturnArgs} args - Arguments to update many BlogAttachments.
+     * @example
+     * // Update many BlogAttachments
+     * const blogAttachment = await prisma.blogAttachment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BlogAttachments and only return the `id`
+     * const blogAttachmentWithIdOnly = await prisma.blogAttachment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BlogAttachmentUpdateManyAndReturnArgs>(args: SelectSubset<T, BlogAttachmentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlogAttachmentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BlogAttachment.
+     * @param {BlogAttachmentUpsertArgs} args - Arguments to update or create a BlogAttachment.
+     * @example
+     * // Update or create a BlogAttachment
+     * const blogAttachment = await prisma.blogAttachment.upsert({
+     *   create: {
+     *     // ... data to create a BlogAttachment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BlogAttachment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BlogAttachmentUpsertArgs>(args: SelectSubset<T, BlogAttachmentUpsertArgs<ExtArgs>>): Prisma__BlogAttachmentClient<$Result.GetResult<Prisma.$BlogAttachmentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BlogAttachments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlogAttachmentCountArgs} args - Arguments to filter BlogAttachments to count.
+     * @example
+     * // Count the number of BlogAttachments
+     * const count = await prisma.blogAttachment.count({
+     *   where: {
+     *     // ... the filter for the BlogAttachments we want to count
+     *   }
+     * })
+    **/
+    count<T extends BlogAttachmentCountArgs>(
+      args?: Subset<T, BlogAttachmentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BlogAttachmentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BlogAttachment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlogAttachmentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BlogAttachmentAggregateArgs>(args: Subset<T, BlogAttachmentAggregateArgs>): Prisma.PrismaPromise<GetBlogAttachmentAggregateType<T>>
+
+    /**
+     * Group by BlogAttachment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlogAttachmentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BlogAttachmentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BlogAttachmentGroupByArgs['orderBy'] }
+        : { orderBy?: BlogAttachmentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BlogAttachmentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBlogAttachmentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BlogAttachment model
+   */
+  readonly fields: BlogAttachmentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BlogAttachment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BlogAttachmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    blog<T extends BlogDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BlogDefaultArgs<ExtArgs>>): Prisma__BlogClient<$Result.GetResult<Prisma.$BlogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BlogAttachment model
+   */
+  interface BlogAttachmentFieldRefs {
+    readonly id: FieldRef<"BlogAttachment", 'String'>
+    readonly blogId: FieldRef<"BlogAttachment", 'String'>
+    readonly title: FieldRef<"BlogAttachment", 'String'>
+    readonly storagePath: FieldRef<"BlogAttachment", 'String'>
+    readonly createdAt: FieldRef<"BlogAttachment", 'DateTime'>
+    readonly updatedAt: FieldRef<"BlogAttachment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BlogAttachment findUnique
+   */
+  export type BlogAttachmentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlogAttachment
+     */
+    select?: BlogAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlogAttachment
+     */
+    omit?: BlogAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogAttachmentInclude<ExtArgs> | null
+    /**
+     * Filter, which BlogAttachment to fetch.
+     */
+    where: BlogAttachmentWhereUniqueInput
+  }
+
+  /**
+   * BlogAttachment findUniqueOrThrow
+   */
+  export type BlogAttachmentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlogAttachment
+     */
+    select?: BlogAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlogAttachment
+     */
+    omit?: BlogAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogAttachmentInclude<ExtArgs> | null
+    /**
+     * Filter, which BlogAttachment to fetch.
+     */
+    where: BlogAttachmentWhereUniqueInput
+  }
+
+  /**
+   * BlogAttachment findFirst
+   */
+  export type BlogAttachmentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlogAttachment
+     */
+    select?: BlogAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlogAttachment
+     */
+    omit?: BlogAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogAttachmentInclude<ExtArgs> | null
+    /**
+     * Filter, which BlogAttachment to fetch.
+     */
+    where?: BlogAttachmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BlogAttachments to fetch.
+     */
+    orderBy?: BlogAttachmentOrderByWithRelationInput | BlogAttachmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BlogAttachments.
+     */
+    cursor?: BlogAttachmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BlogAttachments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BlogAttachments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BlogAttachments.
+     */
+    distinct?: BlogAttachmentScalarFieldEnum | BlogAttachmentScalarFieldEnum[]
+  }
+
+  /**
+   * BlogAttachment findFirstOrThrow
+   */
+  export type BlogAttachmentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlogAttachment
+     */
+    select?: BlogAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlogAttachment
+     */
+    omit?: BlogAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogAttachmentInclude<ExtArgs> | null
+    /**
+     * Filter, which BlogAttachment to fetch.
+     */
+    where?: BlogAttachmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BlogAttachments to fetch.
+     */
+    orderBy?: BlogAttachmentOrderByWithRelationInput | BlogAttachmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BlogAttachments.
+     */
+    cursor?: BlogAttachmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BlogAttachments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BlogAttachments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BlogAttachments.
+     */
+    distinct?: BlogAttachmentScalarFieldEnum | BlogAttachmentScalarFieldEnum[]
+  }
+
+  /**
+   * BlogAttachment findMany
+   */
+  export type BlogAttachmentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlogAttachment
+     */
+    select?: BlogAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlogAttachment
+     */
+    omit?: BlogAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogAttachmentInclude<ExtArgs> | null
+    /**
+     * Filter, which BlogAttachments to fetch.
+     */
+    where?: BlogAttachmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BlogAttachments to fetch.
+     */
+    orderBy?: BlogAttachmentOrderByWithRelationInput | BlogAttachmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BlogAttachments.
+     */
+    cursor?: BlogAttachmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BlogAttachments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BlogAttachments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BlogAttachments.
+     */
+    distinct?: BlogAttachmentScalarFieldEnum | BlogAttachmentScalarFieldEnum[]
+  }
+
+  /**
+   * BlogAttachment create
+   */
+  export type BlogAttachmentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlogAttachment
+     */
+    select?: BlogAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlogAttachment
+     */
+    omit?: BlogAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogAttachmentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BlogAttachment.
+     */
+    data: XOR<BlogAttachmentCreateInput, BlogAttachmentUncheckedCreateInput>
+  }
+
+  /**
+   * BlogAttachment createMany
+   */
+  export type BlogAttachmentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BlogAttachments.
+     */
+    data: BlogAttachmentCreateManyInput | BlogAttachmentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BlogAttachment createManyAndReturn
+   */
+  export type BlogAttachmentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlogAttachment
+     */
+    select?: BlogAttachmentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlogAttachment
+     */
+    omit?: BlogAttachmentOmit<ExtArgs> | null
+    /**
+     * The data used to create many BlogAttachments.
+     */
+    data: BlogAttachmentCreateManyInput | BlogAttachmentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogAttachmentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BlogAttachment update
+   */
+  export type BlogAttachmentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlogAttachment
+     */
+    select?: BlogAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlogAttachment
+     */
+    omit?: BlogAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogAttachmentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BlogAttachment.
+     */
+    data: XOR<BlogAttachmentUpdateInput, BlogAttachmentUncheckedUpdateInput>
+    /**
+     * Choose, which BlogAttachment to update.
+     */
+    where: BlogAttachmentWhereUniqueInput
+  }
+
+  /**
+   * BlogAttachment updateMany
+   */
+  export type BlogAttachmentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BlogAttachments.
+     */
+    data: XOR<BlogAttachmentUpdateManyMutationInput, BlogAttachmentUncheckedUpdateManyInput>
+    /**
+     * Filter which BlogAttachments to update
+     */
+    where?: BlogAttachmentWhereInput
+    /**
+     * Limit how many BlogAttachments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BlogAttachment updateManyAndReturn
+   */
+  export type BlogAttachmentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlogAttachment
+     */
+    select?: BlogAttachmentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlogAttachment
+     */
+    omit?: BlogAttachmentOmit<ExtArgs> | null
+    /**
+     * The data used to update BlogAttachments.
+     */
+    data: XOR<BlogAttachmentUpdateManyMutationInput, BlogAttachmentUncheckedUpdateManyInput>
+    /**
+     * Filter which BlogAttachments to update
+     */
+    where?: BlogAttachmentWhereInput
+    /**
+     * Limit how many BlogAttachments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogAttachmentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BlogAttachment upsert
+   */
+  export type BlogAttachmentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlogAttachment
+     */
+    select?: BlogAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlogAttachment
+     */
+    omit?: BlogAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogAttachmentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BlogAttachment to update in case it exists.
+     */
+    where: BlogAttachmentWhereUniqueInput
+    /**
+     * In case the BlogAttachment found by the `where` argument doesn't exist, create a new BlogAttachment with this data.
+     */
+    create: XOR<BlogAttachmentCreateInput, BlogAttachmentUncheckedCreateInput>
+    /**
+     * In case the BlogAttachment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BlogAttachmentUpdateInput, BlogAttachmentUncheckedUpdateInput>
+  }
+
+  /**
+   * BlogAttachment delete
+   */
+  export type BlogAttachmentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlogAttachment
+     */
+    select?: BlogAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlogAttachment
+     */
+    omit?: BlogAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogAttachmentInclude<ExtArgs> | null
+    /**
+     * Filter which BlogAttachment to delete.
+     */
+    where: BlogAttachmentWhereUniqueInput
+  }
+
+  /**
+   * BlogAttachment deleteMany
+   */
+  export type BlogAttachmentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BlogAttachments to delete
+     */
+    where?: BlogAttachmentWhereInput
+    /**
+     * Limit how many BlogAttachments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BlogAttachment without action
+   */
+  export type BlogAttachmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlogAttachment
+     */
+    select?: BlogAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlogAttachment
+     */
+    omit?: BlogAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlogAttachmentInclude<ExtArgs> | null
   }
 
 
@@ -3967,6 +6771,7 @@ export namespace Prisma {
     storagePath: string | null
     active: boolean | null
     position: number | null
+    membersOnly: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3979,6 +6784,7 @@ export namespace Prisma {
     storagePath: string | null
     active: boolean | null
     position: number | null
+    membersOnly: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3991,6 +6797,7 @@ export namespace Prisma {
     storagePath: number
     active: number
     position: number
+    membersOnly: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -4013,6 +6820,7 @@ export namespace Prisma {
     storagePath?: true
     active?: true
     position?: true
+    membersOnly?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4025,6 +6833,7 @@ export namespace Prisma {
     storagePath?: true
     active?: true
     position?: true
+    membersOnly?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4037,6 +6846,7 @@ export namespace Prisma {
     storagePath?: true
     active?: true
     position?: true
+    membersOnly?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -4136,6 +6946,7 @@ export namespace Prisma {
     storagePath: string | null
     active: boolean
     position: number
+    membersOnly: boolean
     createdAt: Date
     updatedAt: Date
     _count: EventCountAggregateOutputType | null
@@ -4167,6 +6978,7 @@ export namespace Prisma {
     storagePath?: boolean
     active?: boolean
     position?: boolean
+    membersOnly?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["event"]>
@@ -4179,6 +6991,7 @@ export namespace Prisma {
     storagePath?: boolean
     active?: boolean
     position?: boolean
+    membersOnly?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["event"]>
@@ -4191,6 +7004,7 @@ export namespace Prisma {
     storagePath?: boolean
     active?: boolean
     position?: boolean
+    membersOnly?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["event"]>
@@ -4203,11 +7017,12 @@ export namespace Prisma {
     storagePath?: boolean
     active?: boolean
     position?: boolean
+    membersOnly?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "date" | "imageUrl" | "storagePath" | "active" | "position" | "createdAt" | "updatedAt", ExtArgs["result"]["event"]>
+  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "date" | "imageUrl" | "storagePath" | "active" | "position" | "membersOnly" | "createdAt" | "updatedAt", ExtArgs["result"]["event"]>
 
   export type $EventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Event"
@@ -4223,6 +7038,7 @@ export namespace Prisma {
       storagePath: string | null
       active: boolean
       position: number
+      membersOnly: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["event"]>
@@ -4655,6 +7471,7 @@ export namespace Prisma {
     readonly storagePath: FieldRef<"Event", 'String'>
     readonly active: FieldRef<"Event", 'Boolean'>
     readonly position: FieldRef<"Event", 'Int'>
+    readonly membersOnly: FieldRef<"Event", 'Boolean'>
     readonly createdAt: FieldRef<"Event", 'DateTime'>
     readonly updatedAt: FieldRef<"Event", 'DateTime'>
   }
@@ -6010,42 +8827,66 @@ export namespace Prisma {
 
   export type MembershipRequestMinAggregateOutputType = {
     id: string | null
+    userId: string | null
     fullName: string | null
     email: string | null
     phone: string | null
     telegram: string | null
     message: string | null
     status: $Enums.MembershipStatus | null
+    paymentMethod: string | null
+    paymentProofStoragePath: string | null
+    paymentSubmittedAt: Date | null
     approvedAt: Date | null
     approvedBy: string | null
+    rejectionReason: string | null
+    membershipStartsAt: Date | null
+    membershipExpiresAt: Date | null
+    renewedFromId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type MembershipRequestMaxAggregateOutputType = {
     id: string | null
+    userId: string | null
     fullName: string | null
     email: string | null
     phone: string | null
     telegram: string | null
     message: string | null
     status: $Enums.MembershipStatus | null
+    paymentMethod: string | null
+    paymentProofStoragePath: string | null
+    paymentSubmittedAt: Date | null
     approvedAt: Date | null
     approvedBy: string | null
+    rejectionReason: string | null
+    membershipStartsAt: Date | null
+    membershipExpiresAt: Date | null
+    renewedFromId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type MembershipRequestCountAggregateOutputType = {
     id: number
+    userId: number
     fullName: number
     email: number
     phone: number
     telegram: number
     message: number
     status: number
+    paymentMethod: number
+    paymentProofStoragePath: number
+    paymentSubmittedAt: number
     approvedAt: number
     approvedBy: number
+    rejectionReason: number
+    membershipStartsAt: number
+    membershipExpiresAt: number
+    renewedFromId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -6054,42 +8895,66 @@ export namespace Prisma {
 
   export type MembershipRequestMinAggregateInputType = {
     id?: true
+    userId?: true
     fullName?: true
     email?: true
     phone?: true
     telegram?: true
     message?: true
     status?: true
+    paymentMethod?: true
+    paymentProofStoragePath?: true
+    paymentSubmittedAt?: true
     approvedAt?: true
     approvedBy?: true
+    rejectionReason?: true
+    membershipStartsAt?: true
+    membershipExpiresAt?: true
+    renewedFromId?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type MembershipRequestMaxAggregateInputType = {
     id?: true
+    userId?: true
     fullName?: true
     email?: true
     phone?: true
     telegram?: true
     message?: true
     status?: true
+    paymentMethod?: true
+    paymentProofStoragePath?: true
+    paymentSubmittedAt?: true
     approvedAt?: true
     approvedBy?: true
+    rejectionReason?: true
+    membershipStartsAt?: true
+    membershipExpiresAt?: true
+    renewedFromId?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type MembershipRequestCountAggregateInputType = {
     id?: true
+    userId?: true
     fullName?: true
     email?: true
     phone?: true
     telegram?: true
     message?: true
     status?: true
+    paymentMethod?: true
+    paymentProofStoragePath?: true
+    paymentSubmittedAt?: true
     approvedAt?: true
     approvedBy?: true
+    rejectionReason?: true
+    membershipStartsAt?: true
+    membershipExpiresAt?: true
+    renewedFromId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -6169,14 +9034,22 @@ export namespace Prisma {
 
   export type MembershipRequestGroupByOutputType = {
     id: string
+    userId: string | null
     fullName: string
     email: string
     phone: string
     telegram: string | null
     message: string | null
     status: $Enums.MembershipStatus
+    paymentMethod: string | null
+    paymentProofStoragePath: string | null
+    paymentSubmittedAt: Date | null
     approvedAt: Date | null
     approvedBy: string | null
+    rejectionReason: string | null
+    membershipStartsAt: Date | null
+    membershipExpiresAt: Date | null
+    renewedFromId: string | null
     createdAt: Date
     updatedAt: Date
     _count: MembershipRequestCountAggregateOutputType | null
@@ -6200,67 +9073,114 @@ export namespace Prisma {
 
   export type MembershipRequestSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    userId?: boolean
     fullName?: boolean
     email?: boolean
     phone?: boolean
     telegram?: boolean
     message?: boolean
     status?: boolean
+    paymentMethod?: boolean
+    paymentProofStoragePath?: boolean
+    paymentSubmittedAt?: boolean
     approvedAt?: boolean
     approvedBy?: boolean
+    rejectionReason?: boolean
+    membershipStartsAt?: boolean
+    membershipExpiresAt?: boolean
+    renewedFromId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    user?: boolean | MembershipRequest$userArgs<ExtArgs>
   }, ExtArgs["result"]["membershipRequest"]>
 
   export type MembershipRequestSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    userId?: boolean
     fullName?: boolean
     email?: boolean
     phone?: boolean
     telegram?: boolean
     message?: boolean
     status?: boolean
+    paymentMethod?: boolean
+    paymentProofStoragePath?: boolean
+    paymentSubmittedAt?: boolean
     approvedAt?: boolean
     approvedBy?: boolean
+    rejectionReason?: boolean
+    membershipStartsAt?: boolean
+    membershipExpiresAt?: boolean
+    renewedFromId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    user?: boolean | MembershipRequest$userArgs<ExtArgs>
   }, ExtArgs["result"]["membershipRequest"]>
 
   export type MembershipRequestSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    userId?: boolean
     fullName?: boolean
     email?: boolean
     phone?: boolean
     telegram?: boolean
     message?: boolean
     status?: boolean
+    paymentMethod?: boolean
+    paymentProofStoragePath?: boolean
+    paymentSubmittedAt?: boolean
     approvedAt?: boolean
     approvedBy?: boolean
+    rejectionReason?: boolean
+    membershipStartsAt?: boolean
+    membershipExpiresAt?: boolean
+    renewedFromId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    user?: boolean | MembershipRequest$userArgs<ExtArgs>
   }, ExtArgs["result"]["membershipRequest"]>
 
   export type MembershipRequestSelectScalar = {
     id?: boolean
+    userId?: boolean
     fullName?: boolean
     email?: boolean
     phone?: boolean
     telegram?: boolean
     message?: boolean
     status?: boolean
+    paymentMethod?: boolean
+    paymentProofStoragePath?: boolean
+    paymentSubmittedAt?: boolean
     approvedAt?: boolean
     approvedBy?: boolean
+    rejectionReason?: boolean
+    membershipStartsAt?: boolean
+    membershipExpiresAt?: boolean
+    renewedFromId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type MembershipRequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "email" | "phone" | "telegram" | "message" | "status" | "approvedAt" | "approvedBy" | "createdAt" | "updatedAt", ExtArgs["result"]["membershipRequest"]>
+  export type MembershipRequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "fullName" | "email" | "phone" | "telegram" | "message" | "status" | "paymentMethod" | "paymentProofStoragePath" | "paymentSubmittedAt" | "approvedAt" | "approvedBy" | "rejectionReason" | "membershipStartsAt" | "membershipExpiresAt" | "renewedFromId" | "createdAt" | "updatedAt", ExtArgs["result"]["membershipRequest"]>
+  export type MembershipRequestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | MembershipRequest$userArgs<ExtArgs>
+  }
+  export type MembershipRequestIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | MembershipRequest$userArgs<ExtArgs>
+  }
+  export type MembershipRequestIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | MembershipRequest$userArgs<ExtArgs>
+  }
 
   export type $MembershipRequestPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "MembershipRequest"
-    objects: {}
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs> | null
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      userId: string | null
       fullName: string
       email: string
       phone: string
@@ -6270,8 +9190,15 @@ export namespace Prisma {
       telegram: string | null
       message: string | null
       status: $Enums.MembershipStatus
+      paymentMethod: string | null
+      paymentProofStoragePath: string | null
+      paymentSubmittedAt: Date | null
       approvedAt: Date | null
       approvedBy: string | null
+      rejectionReason: string | null
+      membershipStartsAt: Date | null
+      membershipExpiresAt: Date | null
+      renewedFromId: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["membershipRequest"]>
@@ -6668,6 +9595,7 @@ export namespace Prisma {
    */
   export interface Prisma__MembershipRequestClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends MembershipRequest$userArgs<ExtArgs> = {}>(args?: Subset<T, MembershipRequest$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6698,14 +9626,22 @@ export namespace Prisma {
    */
   interface MembershipRequestFieldRefs {
     readonly id: FieldRef<"MembershipRequest", 'String'>
+    readonly userId: FieldRef<"MembershipRequest", 'String'>
     readonly fullName: FieldRef<"MembershipRequest", 'String'>
     readonly email: FieldRef<"MembershipRequest", 'String'>
     readonly phone: FieldRef<"MembershipRequest", 'String'>
     readonly telegram: FieldRef<"MembershipRequest", 'String'>
     readonly message: FieldRef<"MembershipRequest", 'String'>
     readonly status: FieldRef<"MembershipRequest", 'MembershipStatus'>
+    readonly paymentMethod: FieldRef<"MembershipRequest", 'String'>
+    readonly paymentProofStoragePath: FieldRef<"MembershipRequest", 'String'>
+    readonly paymentSubmittedAt: FieldRef<"MembershipRequest", 'DateTime'>
     readonly approvedAt: FieldRef<"MembershipRequest", 'DateTime'>
     readonly approvedBy: FieldRef<"MembershipRequest", 'String'>
+    readonly rejectionReason: FieldRef<"MembershipRequest", 'String'>
+    readonly membershipStartsAt: FieldRef<"MembershipRequest", 'DateTime'>
+    readonly membershipExpiresAt: FieldRef<"MembershipRequest", 'DateTime'>
+    readonly renewedFromId: FieldRef<"MembershipRequest", 'String'>
     readonly createdAt: FieldRef<"MembershipRequest", 'DateTime'>
     readonly updatedAt: FieldRef<"MembershipRequest", 'DateTime'>
   }
@@ -6725,6 +9661,10 @@ export namespace Prisma {
      */
     omit?: MembershipRequestOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipRequestInclude<ExtArgs> | null
+    /**
      * Filter, which MembershipRequest to fetch.
      */
     where: MembershipRequestWhereUniqueInput
@@ -6743,6 +9683,10 @@ export namespace Prisma {
      */
     omit?: MembershipRequestOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipRequestInclude<ExtArgs> | null
+    /**
      * Filter, which MembershipRequest to fetch.
      */
     where: MembershipRequestWhereUniqueInput
@@ -6760,6 +9704,10 @@ export namespace Prisma {
      * Omit specific fields from the MembershipRequest
      */
     omit?: MembershipRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipRequestInclude<ExtArgs> | null
     /**
      * Filter, which MembershipRequest to fetch.
      */
@@ -6809,6 +9757,10 @@ export namespace Prisma {
      */
     omit?: MembershipRequestOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipRequestInclude<ExtArgs> | null
+    /**
      * Filter, which MembershipRequest to fetch.
      */
     where?: MembershipRequestWhereInput
@@ -6856,6 +9808,10 @@ export namespace Prisma {
      * Omit specific fields from the MembershipRequest
      */
     omit?: MembershipRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipRequestInclude<ExtArgs> | null
     /**
      * Filter, which MembershipRequests to fetch.
      */
@@ -6905,6 +9861,10 @@ export namespace Prisma {
      */
     omit?: MembershipRequestOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipRequestInclude<ExtArgs> | null
+    /**
      * The data needed to create a MembershipRequest.
      */
     data: XOR<MembershipRequestCreateInput, MembershipRequestUncheckedCreateInput>
@@ -6938,6 +9898,10 @@ export namespace Prisma {
      */
     data: MembershipRequestCreateManyInput | MembershipRequestCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipRequestIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -6952,6 +9916,10 @@ export namespace Prisma {
      * Omit specific fields from the MembershipRequest
      */
     omit?: MembershipRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipRequestInclude<ExtArgs> | null
     /**
      * The data needed to update a MembershipRequest.
      */
@@ -7004,6 +9972,10 @@ export namespace Prisma {
      * Limit how many MembershipRequests to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipRequestIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7018,6 +9990,10 @@ export namespace Prisma {
      * Omit specific fields from the MembershipRequest
      */
     omit?: MembershipRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipRequestInclude<ExtArgs> | null
     /**
      * The filter to search for the MembershipRequest to update in case it exists.
      */
@@ -7045,6 +10021,10 @@ export namespace Prisma {
      */
     omit?: MembershipRequestOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipRequestInclude<ExtArgs> | null
+    /**
      * Filter which MembershipRequest to delete.
      */
     where: MembershipRequestWhereUniqueInput
@@ -7065,6 +10045,25 @@ export namespace Prisma {
   }
 
   /**
+   * MembershipRequest.user
+   */
+  export type MembershipRequest$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
    * MembershipRequest without action
    */
   export type MembershipRequestDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7076,6 +10075,1112 @@ export namespace Prisma {
      * Omit specific fields from the MembershipRequest
      */
     omit?: MembershipRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipRequestInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MembershipNotification
+   */
+
+  export type AggregateMembershipNotification = {
+    _count: MembershipNotificationCountAggregateOutputType | null
+    _min: MembershipNotificationMinAggregateOutputType | null
+    _max: MembershipNotificationMaxAggregateOutputType | null
+  }
+
+  export type MembershipNotificationMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    title: string | null
+    body: string | null
+    type: string | null
+    readAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MembershipNotificationMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    title: string | null
+    body: string | null
+    type: string | null
+    readAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MembershipNotificationCountAggregateOutputType = {
+    id: number
+    userId: number
+    title: number
+    body: number
+    type: number
+    readAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MembershipNotificationMinAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    body?: true
+    type?: true
+    readAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MembershipNotificationMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    body?: true
+    type?: true
+    readAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MembershipNotificationCountAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    body?: true
+    type?: true
+    readAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MembershipNotificationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MembershipNotification to aggregate.
+     */
+    where?: MembershipNotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MembershipNotifications to fetch.
+     */
+    orderBy?: MembershipNotificationOrderByWithRelationInput | MembershipNotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MembershipNotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MembershipNotifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MembershipNotifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MembershipNotifications
+    **/
+    _count?: true | MembershipNotificationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MembershipNotificationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MembershipNotificationMaxAggregateInputType
+  }
+
+  export type GetMembershipNotificationAggregateType<T extends MembershipNotificationAggregateArgs> = {
+        [P in keyof T & keyof AggregateMembershipNotification]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMembershipNotification[P]>
+      : GetScalarType<T[P], AggregateMembershipNotification[P]>
+  }
+
+
+
+
+  export type MembershipNotificationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MembershipNotificationWhereInput
+    orderBy?: MembershipNotificationOrderByWithAggregationInput | MembershipNotificationOrderByWithAggregationInput[]
+    by: MembershipNotificationScalarFieldEnum[] | MembershipNotificationScalarFieldEnum
+    having?: MembershipNotificationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MembershipNotificationCountAggregateInputType | true
+    _min?: MembershipNotificationMinAggregateInputType
+    _max?: MembershipNotificationMaxAggregateInputType
+  }
+
+  export type MembershipNotificationGroupByOutputType = {
+    id: string
+    userId: string
+    title: string
+    body: string | null
+    type: string | null
+    readAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: MembershipNotificationCountAggregateOutputType | null
+    _min: MembershipNotificationMinAggregateOutputType | null
+    _max: MembershipNotificationMaxAggregateOutputType | null
+  }
+
+  type GetMembershipNotificationGroupByPayload<T extends MembershipNotificationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MembershipNotificationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MembershipNotificationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MembershipNotificationGroupByOutputType[P]>
+            : GetScalarType<T[P], MembershipNotificationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MembershipNotificationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    body?: boolean
+    type?: boolean
+    readAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["membershipNotification"]>
+
+  export type MembershipNotificationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    body?: boolean
+    type?: boolean
+    readAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["membershipNotification"]>
+
+  export type MembershipNotificationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    body?: boolean
+    type?: boolean
+    readAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["membershipNotification"]>
+
+  export type MembershipNotificationSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    body?: boolean
+    type?: boolean
+    readAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type MembershipNotificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "body" | "type" | "readAt" | "createdAt" | "updatedAt", ExtArgs["result"]["membershipNotification"]>
+  export type MembershipNotificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MembershipNotificationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MembershipNotificationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $MembershipNotificationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MembershipNotification"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      title: string
+      body: string | null
+      type: string | null
+      readAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["membershipNotification"]>
+    composites: {}
+  }
+
+  type MembershipNotificationGetPayload<S extends boolean | null | undefined | MembershipNotificationDefaultArgs> = $Result.GetResult<Prisma.$MembershipNotificationPayload, S>
+
+  type MembershipNotificationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MembershipNotificationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MembershipNotificationCountAggregateInputType | true
+    }
+
+  export interface MembershipNotificationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MembershipNotification'], meta: { name: 'MembershipNotification' } }
+    /**
+     * Find zero or one MembershipNotification that matches the filter.
+     * @param {MembershipNotificationFindUniqueArgs} args - Arguments to find a MembershipNotification
+     * @example
+     * // Get one MembershipNotification
+     * const membershipNotification = await prisma.membershipNotification.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MembershipNotificationFindUniqueArgs>(args: SelectSubset<T, MembershipNotificationFindUniqueArgs<ExtArgs>>): Prisma__MembershipNotificationClient<$Result.GetResult<Prisma.$MembershipNotificationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MembershipNotification that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MembershipNotificationFindUniqueOrThrowArgs} args - Arguments to find a MembershipNotification
+     * @example
+     * // Get one MembershipNotification
+     * const membershipNotification = await prisma.membershipNotification.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MembershipNotificationFindUniqueOrThrowArgs>(args: SelectSubset<T, MembershipNotificationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MembershipNotificationClient<$Result.GetResult<Prisma.$MembershipNotificationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MembershipNotification that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MembershipNotificationFindFirstArgs} args - Arguments to find a MembershipNotification
+     * @example
+     * // Get one MembershipNotification
+     * const membershipNotification = await prisma.membershipNotification.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MembershipNotificationFindFirstArgs>(args?: SelectSubset<T, MembershipNotificationFindFirstArgs<ExtArgs>>): Prisma__MembershipNotificationClient<$Result.GetResult<Prisma.$MembershipNotificationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MembershipNotification that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MembershipNotificationFindFirstOrThrowArgs} args - Arguments to find a MembershipNotification
+     * @example
+     * // Get one MembershipNotification
+     * const membershipNotification = await prisma.membershipNotification.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MembershipNotificationFindFirstOrThrowArgs>(args?: SelectSubset<T, MembershipNotificationFindFirstOrThrowArgs<ExtArgs>>): Prisma__MembershipNotificationClient<$Result.GetResult<Prisma.$MembershipNotificationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MembershipNotifications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MembershipNotificationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MembershipNotifications
+     * const membershipNotifications = await prisma.membershipNotification.findMany()
+     * 
+     * // Get first 10 MembershipNotifications
+     * const membershipNotifications = await prisma.membershipNotification.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const membershipNotificationWithIdOnly = await prisma.membershipNotification.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MembershipNotificationFindManyArgs>(args?: SelectSubset<T, MembershipNotificationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipNotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MembershipNotification.
+     * @param {MembershipNotificationCreateArgs} args - Arguments to create a MembershipNotification.
+     * @example
+     * // Create one MembershipNotification
+     * const MembershipNotification = await prisma.membershipNotification.create({
+     *   data: {
+     *     // ... data to create a MembershipNotification
+     *   }
+     * })
+     * 
+     */
+    create<T extends MembershipNotificationCreateArgs>(args: SelectSubset<T, MembershipNotificationCreateArgs<ExtArgs>>): Prisma__MembershipNotificationClient<$Result.GetResult<Prisma.$MembershipNotificationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MembershipNotifications.
+     * @param {MembershipNotificationCreateManyArgs} args - Arguments to create many MembershipNotifications.
+     * @example
+     * // Create many MembershipNotifications
+     * const membershipNotification = await prisma.membershipNotification.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MembershipNotificationCreateManyArgs>(args?: SelectSubset<T, MembershipNotificationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MembershipNotifications and returns the data saved in the database.
+     * @param {MembershipNotificationCreateManyAndReturnArgs} args - Arguments to create many MembershipNotifications.
+     * @example
+     * // Create many MembershipNotifications
+     * const membershipNotification = await prisma.membershipNotification.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MembershipNotifications and only return the `id`
+     * const membershipNotificationWithIdOnly = await prisma.membershipNotification.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MembershipNotificationCreateManyAndReturnArgs>(args?: SelectSubset<T, MembershipNotificationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipNotificationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MembershipNotification.
+     * @param {MembershipNotificationDeleteArgs} args - Arguments to delete one MembershipNotification.
+     * @example
+     * // Delete one MembershipNotification
+     * const MembershipNotification = await prisma.membershipNotification.delete({
+     *   where: {
+     *     // ... filter to delete one MembershipNotification
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MembershipNotificationDeleteArgs>(args: SelectSubset<T, MembershipNotificationDeleteArgs<ExtArgs>>): Prisma__MembershipNotificationClient<$Result.GetResult<Prisma.$MembershipNotificationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MembershipNotification.
+     * @param {MembershipNotificationUpdateArgs} args - Arguments to update one MembershipNotification.
+     * @example
+     * // Update one MembershipNotification
+     * const membershipNotification = await prisma.membershipNotification.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MembershipNotificationUpdateArgs>(args: SelectSubset<T, MembershipNotificationUpdateArgs<ExtArgs>>): Prisma__MembershipNotificationClient<$Result.GetResult<Prisma.$MembershipNotificationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MembershipNotifications.
+     * @param {MembershipNotificationDeleteManyArgs} args - Arguments to filter MembershipNotifications to delete.
+     * @example
+     * // Delete a few MembershipNotifications
+     * const { count } = await prisma.membershipNotification.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MembershipNotificationDeleteManyArgs>(args?: SelectSubset<T, MembershipNotificationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MembershipNotifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MembershipNotificationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MembershipNotifications
+     * const membershipNotification = await prisma.membershipNotification.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MembershipNotificationUpdateManyArgs>(args: SelectSubset<T, MembershipNotificationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MembershipNotifications and returns the data updated in the database.
+     * @param {MembershipNotificationUpdateManyAndReturnArgs} args - Arguments to update many MembershipNotifications.
+     * @example
+     * // Update many MembershipNotifications
+     * const membershipNotification = await prisma.membershipNotification.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MembershipNotifications and only return the `id`
+     * const membershipNotificationWithIdOnly = await prisma.membershipNotification.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MembershipNotificationUpdateManyAndReturnArgs>(args: SelectSubset<T, MembershipNotificationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipNotificationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MembershipNotification.
+     * @param {MembershipNotificationUpsertArgs} args - Arguments to update or create a MembershipNotification.
+     * @example
+     * // Update or create a MembershipNotification
+     * const membershipNotification = await prisma.membershipNotification.upsert({
+     *   create: {
+     *     // ... data to create a MembershipNotification
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MembershipNotification we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MembershipNotificationUpsertArgs>(args: SelectSubset<T, MembershipNotificationUpsertArgs<ExtArgs>>): Prisma__MembershipNotificationClient<$Result.GetResult<Prisma.$MembershipNotificationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MembershipNotifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MembershipNotificationCountArgs} args - Arguments to filter MembershipNotifications to count.
+     * @example
+     * // Count the number of MembershipNotifications
+     * const count = await prisma.membershipNotification.count({
+     *   where: {
+     *     // ... the filter for the MembershipNotifications we want to count
+     *   }
+     * })
+    **/
+    count<T extends MembershipNotificationCountArgs>(
+      args?: Subset<T, MembershipNotificationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MembershipNotificationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MembershipNotification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MembershipNotificationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MembershipNotificationAggregateArgs>(args: Subset<T, MembershipNotificationAggregateArgs>): Prisma.PrismaPromise<GetMembershipNotificationAggregateType<T>>
+
+    /**
+     * Group by MembershipNotification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MembershipNotificationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MembershipNotificationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MembershipNotificationGroupByArgs['orderBy'] }
+        : { orderBy?: MembershipNotificationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MembershipNotificationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMembershipNotificationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MembershipNotification model
+   */
+  readonly fields: MembershipNotificationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MembershipNotification.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MembershipNotificationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MembershipNotification model
+   */
+  interface MembershipNotificationFieldRefs {
+    readonly id: FieldRef<"MembershipNotification", 'String'>
+    readonly userId: FieldRef<"MembershipNotification", 'String'>
+    readonly title: FieldRef<"MembershipNotification", 'String'>
+    readonly body: FieldRef<"MembershipNotification", 'String'>
+    readonly type: FieldRef<"MembershipNotification", 'String'>
+    readonly readAt: FieldRef<"MembershipNotification", 'DateTime'>
+    readonly createdAt: FieldRef<"MembershipNotification", 'DateTime'>
+    readonly updatedAt: FieldRef<"MembershipNotification", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MembershipNotification findUnique
+   */
+  export type MembershipNotificationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipNotification
+     */
+    select?: MembershipNotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipNotification
+     */
+    omit?: MembershipNotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipNotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which MembershipNotification to fetch.
+     */
+    where: MembershipNotificationWhereUniqueInput
+  }
+
+  /**
+   * MembershipNotification findUniqueOrThrow
+   */
+  export type MembershipNotificationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipNotification
+     */
+    select?: MembershipNotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipNotification
+     */
+    omit?: MembershipNotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipNotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which MembershipNotification to fetch.
+     */
+    where: MembershipNotificationWhereUniqueInput
+  }
+
+  /**
+   * MembershipNotification findFirst
+   */
+  export type MembershipNotificationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipNotification
+     */
+    select?: MembershipNotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipNotification
+     */
+    omit?: MembershipNotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipNotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which MembershipNotification to fetch.
+     */
+    where?: MembershipNotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MembershipNotifications to fetch.
+     */
+    orderBy?: MembershipNotificationOrderByWithRelationInput | MembershipNotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MembershipNotifications.
+     */
+    cursor?: MembershipNotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MembershipNotifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MembershipNotifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MembershipNotifications.
+     */
+    distinct?: MembershipNotificationScalarFieldEnum | MembershipNotificationScalarFieldEnum[]
+  }
+
+  /**
+   * MembershipNotification findFirstOrThrow
+   */
+  export type MembershipNotificationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipNotification
+     */
+    select?: MembershipNotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipNotification
+     */
+    omit?: MembershipNotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipNotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which MembershipNotification to fetch.
+     */
+    where?: MembershipNotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MembershipNotifications to fetch.
+     */
+    orderBy?: MembershipNotificationOrderByWithRelationInput | MembershipNotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MembershipNotifications.
+     */
+    cursor?: MembershipNotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MembershipNotifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MembershipNotifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MembershipNotifications.
+     */
+    distinct?: MembershipNotificationScalarFieldEnum | MembershipNotificationScalarFieldEnum[]
+  }
+
+  /**
+   * MembershipNotification findMany
+   */
+  export type MembershipNotificationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipNotification
+     */
+    select?: MembershipNotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipNotification
+     */
+    omit?: MembershipNotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipNotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which MembershipNotifications to fetch.
+     */
+    where?: MembershipNotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MembershipNotifications to fetch.
+     */
+    orderBy?: MembershipNotificationOrderByWithRelationInput | MembershipNotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MembershipNotifications.
+     */
+    cursor?: MembershipNotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MembershipNotifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MembershipNotifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MembershipNotifications.
+     */
+    distinct?: MembershipNotificationScalarFieldEnum | MembershipNotificationScalarFieldEnum[]
+  }
+
+  /**
+   * MembershipNotification create
+   */
+  export type MembershipNotificationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipNotification
+     */
+    select?: MembershipNotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipNotification
+     */
+    omit?: MembershipNotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipNotificationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MembershipNotification.
+     */
+    data: XOR<MembershipNotificationCreateInput, MembershipNotificationUncheckedCreateInput>
+  }
+
+  /**
+   * MembershipNotification createMany
+   */
+  export type MembershipNotificationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MembershipNotifications.
+     */
+    data: MembershipNotificationCreateManyInput | MembershipNotificationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MembershipNotification createManyAndReturn
+   */
+  export type MembershipNotificationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipNotification
+     */
+    select?: MembershipNotificationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipNotification
+     */
+    omit?: MembershipNotificationOmit<ExtArgs> | null
+    /**
+     * The data used to create many MembershipNotifications.
+     */
+    data: MembershipNotificationCreateManyInput | MembershipNotificationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipNotificationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MembershipNotification update
+   */
+  export type MembershipNotificationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipNotification
+     */
+    select?: MembershipNotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipNotification
+     */
+    omit?: MembershipNotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipNotificationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MembershipNotification.
+     */
+    data: XOR<MembershipNotificationUpdateInput, MembershipNotificationUncheckedUpdateInput>
+    /**
+     * Choose, which MembershipNotification to update.
+     */
+    where: MembershipNotificationWhereUniqueInput
+  }
+
+  /**
+   * MembershipNotification updateMany
+   */
+  export type MembershipNotificationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MembershipNotifications.
+     */
+    data: XOR<MembershipNotificationUpdateManyMutationInput, MembershipNotificationUncheckedUpdateManyInput>
+    /**
+     * Filter which MembershipNotifications to update
+     */
+    where?: MembershipNotificationWhereInput
+    /**
+     * Limit how many MembershipNotifications to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MembershipNotification updateManyAndReturn
+   */
+  export type MembershipNotificationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipNotification
+     */
+    select?: MembershipNotificationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipNotification
+     */
+    omit?: MembershipNotificationOmit<ExtArgs> | null
+    /**
+     * The data used to update MembershipNotifications.
+     */
+    data: XOR<MembershipNotificationUpdateManyMutationInput, MembershipNotificationUncheckedUpdateManyInput>
+    /**
+     * Filter which MembershipNotifications to update
+     */
+    where?: MembershipNotificationWhereInput
+    /**
+     * Limit how many MembershipNotifications to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipNotificationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MembershipNotification upsert
+   */
+  export type MembershipNotificationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipNotification
+     */
+    select?: MembershipNotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipNotification
+     */
+    omit?: MembershipNotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipNotificationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MembershipNotification to update in case it exists.
+     */
+    where: MembershipNotificationWhereUniqueInput
+    /**
+     * In case the MembershipNotification found by the `where` argument doesn't exist, create a new MembershipNotification with this data.
+     */
+    create: XOR<MembershipNotificationCreateInput, MembershipNotificationUncheckedCreateInput>
+    /**
+     * In case the MembershipNotification was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MembershipNotificationUpdateInput, MembershipNotificationUncheckedUpdateInput>
+  }
+
+  /**
+   * MembershipNotification delete
+   */
+  export type MembershipNotificationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipNotification
+     */
+    select?: MembershipNotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipNotification
+     */
+    omit?: MembershipNotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipNotificationInclude<ExtArgs> | null
+    /**
+     * Filter which MembershipNotification to delete.
+     */
+    where: MembershipNotificationWhereUniqueInput
+  }
+
+  /**
+   * MembershipNotification deleteMany
+   */
+  export type MembershipNotificationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MembershipNotifications to delete
+     */
+    where?: MembershipNotificationWhereInput
+    /**
+     * Limit how many MembershipNotifications to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MembershipNotification without action
+   */
+  export type MembershipNotificationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipNotification
+     */
+    select?: MembershipNotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipNotification
+     */
+    omit?: MembershipNotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipNotificationInclude<ExtArgs> | null
   }
 
 
@@ -7291,6 +11396,8 @@ export namespace Prisma {
     banned?: boolean
     banReason?: boolean
     banExpires?: boolean
+    membershipRequests?: boolean | User$membershipRequestsArgs<ExtArgs>
+    membershipNotifications?: boolean | User$membershipNotificationsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -7340,6 +11447,8 @@ export namespace Prisma {
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "role" | "banned" | "banReason" | "banExpires", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    membershipRequests?: boolean | User$membershipRequestsArgs<ExtArgs>
+    membershipNotifications?: boolean | User$membershipNotificationsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -7350,6 +11459,8 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
+      membershipRequests: Prisma.$MembershipRequestPayload<ExtArgs>[]
+      membershipNotifications: Prisma.$MembershipNotificationPayload<ExtArgs>[]
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       accounts: Prisma.$AccountPayload<ExtArgs>[]
     }
@@ -7759,6 +11870,8 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    membershipRequests<T extends User$membershipRequestsArgs<ExtArgs> = {}>(args?: Subset<T, User$membershipRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    membershipNotifications<T extends User$membershipNotificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$membershipNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipNotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -8191,6 +12304,54 @@ export namespace Prisma {
      * Limit how many Users to delete.
      */
     limit?: number
+  }
+
+  /**
+   * User.membershipRequests
+   */
+  export type User$membershipRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipRequest
+     */
+    select?: MembershipRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipRequest
+     */
+    omit?: MembershipRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipRequestInclude<ExtArgs> | null
+    where?: MembershipRequestWhereInput
+    orderBy?: MembershipRequestOrderByWithRelationInput | MembershipRequestOrderByWithRelationInput[]
+    cursor?: MembershipRequestWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MembershipRequestScalarFieldEnum | MembershipRequestScalarFieldEnum[]
+  }
+
+  /**
+   * User.membershipNotifications
+   */
+  export type User$membershipNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipNotification
+     */
+    select?: MembershipNotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipNotification
+     */
+    omit?: MembershipNotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipNotificationInclude<ExtArgs> | null
+    where?: MembershipNotificationWhereInput
+    orderBy?: MembershipNotificationOrderByWithRelationInput | MembershipNotificationOrderByWithRelationInput[]
+    cursor?: MembershipNotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MembershipNotificationScalarFieldEnum | MembershipNotificationScalarFieldEnum[]
   }
 
   /**
@@ -11576,13 +15737,18 @@ export namespace Prisma {
     youtubeId: 'youtubeId',
     thumbnailUrl: 'thumbnailUrl',
     title: 'title',
+    titleAm: 'titleAm',
+    titleOm: 'titleOm',
     description: 'description',
+    descriptionAm: 'descriptionAm',
+    descriptionOm: 'descriptionOm',
     durationSeconds: 'durationSeconds',
     semesterLabel: 'semesterLabel',
     scheduleLine: 'scheduleLine',
     venueLine: 'venueLine',
     position: 'position',
     published: 'published',
+    membersOnly: 'membersOnly',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -11590,21 +15756,52 @@ export namespace Prisma {
   export type TeachingScalarFieldEnum = (typeof TeachingScalarFieldEnum)[keyof typeof TeachingScalarFieldEnum]
 
 
+  export const TeachingAttachmentScalarFieldEnum: {
+    id: 'id',
+    teachingId: 'teachingId',
+    title: 'title',
+    storagePath: 'storagePath',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TeachingAttachmentScalarFieldEnum = (typeof TeachingAttachmentScalarFieldEnum)[keyof typeof TeachingAttachmentScalarFieldEnum]
+
+
   export const BlogScalarFieldEnum: {
     id: 'id',
     slug: 'slug',
     title: 'title',
+    titleAm: 'titleAm',
+    titleOm: 'titleOm',
     excerpt: 'excerpt',
+    excerptAm: 'excerptAm',
+    excerptOm: 'excerptOm',
     content: 'content',
+    contentAm: 'contentAm',
+    contentOm: 'contentOm',
     coverImage: 'coverImage',
     status: 'status',
     publishedAt: 'publishedAt',
     viewCount: 'viewCount',
+    membersOnly: 'membersOnly',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type BlogScalarFieldEnum = (typeof BlogScalarFieldEnum)[keyof typeof BlogScalarFieldEnum]
+
+
+  export const BlogAttachmentScalarFieldEnum: {
+    id: 'id',
+    blogId: 'blogId',
+    title: 'title',
+    storagePath: 'storagePath',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type BlogAttachmentScalarFieldEnum = (typeof BlogAttachmentScalarFieldEnum)[keyof typeof BlogAttachmentScalarFieldEnum]
 
 
   export const EventScalarFieldEnum: {
@@ -11615,6 +15812,7 @@ export namespace Prisma {
     storagePath: 'storagePath',
     active: 'active',
     position: 'position',
+    membersOnly: 'membersOnly',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -11633,19 +15831,41 @@ export namespace Prisma {
 
   export const MembershipRequestScalarFieldEnum: {
     id: 'id',
+    userId: 'userId',
     fullName: 'fullName',
     email: 'email',
     phone: 'phone',
     telegram: 'telegram',
     message: 'message',
     status: 'status',
+    paymentMethod: 'paymentMethod',
+    paymentProofStoragePath: 'paymentProofStoragePath',
+    paymentSubmittedAt: 'paymentSubmittedAt',
     approvedAt: 'approvedAt',
     approvedBy: 'approvedBy',
+    rejectionReason: 'rejectionReason',
+    membershipStartsAt: 'membershipStartsAt',
+    membershipExpiresAt: 'membershipExpiresAt',
+    renewedFromId: 'renewedFromId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type MembershipRequestScalarFieldEnum = (typeof MembershipRequestScalarFieldEnum)[keyof typeof MembershipRequestScalarFieldEnum]
+
+
+  export const MembershipNotificationScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    title: 'title',
+    body: 'body',
+    type: 'type',
+    readAt: 'readAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MembershipNotificationScalarFieldEnum = (typeof MembershipNotificationScalarFieldEnum)[keyof typeof MembershipNotificationScalarFieldEnum]
 
 
   export const UserScalarFieldEnum: {
@@ -11724,6 +15944,14 @@ export namespace Prisma {
   };
 
   export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -11874,15 +16102,21 @@ export namespace Prisma {
     youtubeId?: StringFilter<"Teaching"> | string
     thumbnailUrl?: StringNullableFilter<"Teaching"> | string | null
     title?: StringFilter<"Teaching"> | string
+    titleAm?: StringNullableFilter<"Teaching"> | string | null
+    titleOm?: StringNullableFilter<"Teaching"> | string | null
     description?: StringNullableFilter<"Teaching"> | string | null
+    descriptionAm?: StringNullableFilter<"Teaching"> | string | null
+    descriptionOm?: StringNullableFilter<"Teaching"> | string | null
     durationSeconds?: IntNullableFilter<"Teaching"> | number | null
     semesterLabel?: StringNullableFilter<"Teaching"> | string | null
     scheduleLine?: StringNullableFilter<"Teaching"> | string | null
     venueLine?: StringNullableFilter<"Teaching"> | string | null
     position?: IntFilter<"Teaching"> | number
     published?: BoolFilter<"Teaching"> | boolean
+    membersOnly?: BoolFilter<"Teaching"> | boolean
     createdAt?: DateTimeFilter<"Teaching"> | Date | string
     updatedAt?: DateTimeFilter<"Teaching"> | Date | string
+    attachments?: TeachingAttachmentListRelationFilter
   }
 
   export type TeachingOrderByWithRelationInput = {
@@ -11892,15 +16126,21 @@ export namespace Prisma {
     youtubeId?: SortOrder
     thumbnailUrl?: SortOrderInput | SortOrder
     title?: SortOrder
+    titleAm?: SortOrderInput | SortOrder
+    titleOm?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
+    descriptionAm?: SortOrderInput | SortOrder
+    descriptionOm?: SortOrderInput | SortOrder
     durationSeconds?: SortOrderInput | SortOrder
     semesterLabel?: SortOrderInput | SortOrder
     scheduleLine?: SortOrderInput | SortOrder
     venueLine?: SortOrderInput | SortOrder
     position?: SortOrder
     published?: SortOrder
+    membersOnly?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    attachments?: TeachingAttachmentOrderByRelationAggregateInput
   }
 
   export type TeachingWhereUniqueInput = Prisma.AtLeast<{
@@ -11913,15 +16153,21 @@ export namespace Prisma {
     youtubeUrl?: StringFilter<"Teaching"> | string
     thumbnailUrl?: StringNullableFilter<"Teaching"> | string | null
     title?: StringFilter<"Teaching"> | string
+    titleAm?: StringNullableFilter<"Teaching"> | string | null
+    titleOm?: StringNullableFilter<"Teaching"> | string | null
     description?: StringNullableFilter<"Teaching"> | string | null
+    descriptionAm?: StringNullableFilter<"Teaching"> | string | null
+    descriptionOm?: StringNullableFilter<"Teaching"> | string | null
     durationSeconds?: IntNullableFilter<"Teaching"> | number | null
     semesterLabel?: StringNullableFilter<"Teaching"> | string | null
     scheduleLine?: StringNullableFilter<"Teaching"> | string | null
     venueLine?: StringNullableFilter<"Teaching"> | string | null
     position?: IntFilter<"Teaching"> | number
     published?: BoolFilter<"Teaching"> | boolean
+    membersOnly?: BoolFilter<"Teaching"> | boolean
     createdAt?: DateTimeFilter<"Teaching"> | Date | string
     updatedAt?: DateTimeFilter<"Teaching"> | Date | string
+    attachments?: TeachingAttachmentListRelationFilter
   }, "id" | "slug" | "youtubeId">
 
   export type TeachingOrderByWithAggregationInput = {
@@ -11931,13 +16177,18 @@ export namespace Prisma {
     youtubeId?: SortOrder
     thumbnailUrl?: SortOrderInput | SortOrder
     title?: SortOrder
+    titleAm?: SortOrderInput | SortOrder
+    titleOm?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
+    descriptionAm?: SortOrderInput | SortOrder
+    descriptionOm?: SortOrderInput | SortOrder
     durationSeconds?: SortOrderInput | SortOrder
     semesterLabel?: SortOrderInput | SortOrder
     scheduleLine?: SortOrderInput | SortOrder
     venueLine?: SortOrderInput | SortOrder
     position?: SortOrder
     published?: SortOrder
+    membersOnly?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: TeachingCountOrderByAggregateInput
@@ -11957,15 +16208,80 @@ export namespace Prisma {
     youtubeId?: StringWithAggregatesFilter<"Teaching"> | string
     thumbnailUrl?: StringNullableWithAggregatesFilter<"Teaching"> | string | null
     title?: StringWithAggregatesFilter<"Teaching"> | string
+    titleAm?: StringNullableWithAggregatesFilter<"Teaching"> | string | null
+    titleOm?: StringNullableWithAggregatesFilter<"Teaching"> | string | null
     description?: StringNullableWithAggregatesFilter<"Teaching"> | string | null
+    descriptionAm?: StringNullableWithAggregatesFilter<"Teaching"> | string | null
+    descriptionOm?: StringNullableWithAggregatesFilter<"Teaching"> | string | null
     durationSeconds?: IntNullableWithAggregatesFilter<"Teaching"> | number | null
     semesterLabel?: StringNullableWithAggregatesFilter<"Teaching"> | string | null
     scheduleLine?: StringNullableWithAggregatesFilter<"Teaching"> | string | null
     venueLine?: StringNullableWithAggregatesFilter<"Teaching"> | string | null
     position?: IntWithAggregatesFilter<"Teaching"> | number
     published?: BoolWithAggregatesFilter<"Teaching"> | boolean
+    membersOnly?: BoolWithAggregatesFilter<"Teaching"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Teaching"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Teaching"> | Date | string
+  }
+
+  export type TeachingAttachmentWhereInput = {
+    AND?: TeachingAttachmentWhereInput | TeachingAttachmentWhereInput[]
+    OR?: TeachingAttachmentWhereInput[]
+    NOT?: TeachingAttachmentWhereInput | TeachingAttachmentWhereInput[]
+    id?: StringFilter<"TeachingAttachment"> | string
+    teachingId?: StringFilter<"TeachingAttachment"> | string
+    title?: StringNullableFilter<"TeachingAttachment"> | string | null
+    storagePath?: StringFilter<"TeachingAttachment"> | string
+    createdAt?: DateTimeFilter<"TeachingAttachment"> | Date | string
+    updatedAt?: DateTimeFilter<"TeachingAttachment"> | Date | string
+    teaching?: XOR<TeachingScalarRelationFilter, TeachingWhereInput>
+  }
+
+  export type TeachingAttachmentOrderByWithRelationInput = {
+    id?: SortOrder
+    teachingId?: SortOrder
+    title?: SortOrderInput | SortOrder
+    storagePath?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    teaching?: TeachingOrderByWithRelationInput
+  }
+
+  export type TeachingAttachmentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TeachingAttachmentWhereInput | TeachingAttachmentWhereInput[]
+    OR?: TeachingAttachmentWhereInput[]
+    NOT?: TeachingAttachmentWhereInput | TeachingAttachmentWhereInput[]
+    teachingId?: StringFilter<"TeachingAttachment"> | string
+    title?: StringNullableFilter<"TeachingAttachment"> | string | null
+    storagePath?: StringFilter<"TeachingAttachment"> | string
+    createdAt?: DateTimeFilter<"TeachingAttachment"> | Date | string
+    updatedAt?: DateTimeFilter<"TeachingAttachment"> | Date | string
+    teaching?: XOR<TeachingScalarRelationFilter, TeachingWhereInput>
+  }, "id">
+
+  export type TeachingAttachmentOrderByWithAggregationInput = {
+    id?: SortOrder
+    teachingId?: SortOrder
+    title?: SortOrderInput | SortOrder
+    storagePath?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TeachingAttachmentCountOrderByAggregateInput
+    _max?: TeachingAttachmentMaxOrderByAggregateInput
+    _min?: TeachingAttachmentMinOrderByAggregateInput
+  }
+
+  export type TeachingAttachmentScalarWhereWithAggregatesInput = {
+    AND?: TeachingAttachmentScalarWhereWithAggregatesInput | TeachingAttachmentScalarWhereWithAggregatesInput[]
+    OR?: TeachingAttachmentScalarWhereWithAggregatesInput[]
+    NOT?: TeachingAttachmentScalarWhereWithAggregatesInput | TeachingAttachmentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TeachingAttachment"> | string
+    teachingId?: StringWithAggregatesFilter<"TeachingAttachment"> | string
+    title?: StringNullableWithAggregatesFilter<"TeachingAttachment"> | string | null
+    storagePath?: StringWithAggregatesFilter<"TeachingAttachment"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"TeachingAttachment"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"TeachingAttachment"> | Date | string
   }
 
   export type BlogWhereInput = {
@@ -11975,28 +16291,44 @@ export namespace Prisma {
     id?: StringFilter<"Blog"> | string
     slug?: StringFilter<"Blog"> | string
     title?: StringFilter<"Blog"> | string
+    titleAm?: StringNullableFilter<"Blog"> | string | null
+    titleOm?: StringNullableFilter<"Blog"> | string | null
     excerpt?: StringNullableFilter<"Blog"> | string | null
+    excerptAm?: StringNullableFilter<"Blog"> | string | null
+    excerptOm?: StringNullableFilter<"Blog"> | string | null
     content?: JsonFilter<"Blog">
+    contentAm?: JsonNullableFilter<"Blog">
+    contentOm?: JsonNullableFilter<"Blog">
     coverImage?: StringNullableFilter<"Blog"> | string | null
     status?: EnumBlogStatusFilter<"Blog"> | $Enums.BlogStatus
     publishedAt?: DateTimeNullableFilter<"Blog"> | Date | string | null
     viewCount?: IntFilter<"Blog"> | number
+    membersOnly?: BoolFilter<"Blog"> | boolean
     createdAt?: DateTimeFilter<"Blog"> | Date | string
     updatedAt?: DateTimeFilter<"Blog"> | Date | string
+    attachments?: BlogAttachmentListRelationFilter
   }
 
   export type BlogOrderByWithRelationInput = {
     id?: SortOrder
     slug?: SortOrder
     title?: SortOrder
+    titleAm?: SortOrderInput | SortOrder
+    titleOm?: SortOrderInput | SortOrder
     excerpt?: SortOrderInput | SortOrder
+    excerptAm?: SortOrderInput | SortOrder
+    excerptOm?: SortOrderInput | SortOrder
     content?: SortOrder
+    contentAm?: SortOrderInput | SortOrder
+    contentOm?: SortOrderInput | SortOrder
     coverImage?: SortOrderInput | SortOrder
     status?: SortOrder
     publishedAt?: SortOrderInput | SortOrder
     viewCount?: SortOrder
+    membersOnly?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    attachments?: BlogAttachmentOrderByRelationAggregateInput
   }
 
   export type BlogWhereUniqueInput = Prisma.AtLeast<{
@@ -12006,26 +16338,41 @@ export namespace Prisma {
     OR?: BlogWhereInput[]
     NOT?: BlogWhereInput | BlogWhereInput[]
     title?: StringFilter<"Blog"> | string
+    titleAm?: StringNullableFilter<"Blog"> | string | null
+    titleOm?: StringNullableFilter<"Blog"> | string | null
     excerpt?: StringNullableFilter<"Blog"> | string | null
+    excerptAm?: StringNullableFilter<"Blog"> | string | null
+    excerptOm?: StringNullableFilter<"Blog"> | string | null
     content?: JsonFilter<"Blog">
+    contentAm?: JsonNullableFilter<"Blog">
+    contentOm?: JsonNullableFilter<"Blog">
     coverImage?: StringNullableFilter<"Blog"> | string | null
     status?: EnumBlogStatusFilter<"Blog"> | $Enums.BlogStatus
     publishedAt?: DateTimeNullableFilter<"Blog"> | Date | string | null
     viewCount?: IntFilter<"Blog"> | number
+    membersOnly?: BoolFilter<"Blog"> | boolean
     createdAt?: DateTimeFilter<"Blog"> | Date | string
     updatedAt?: DateTimeFilter<"Blog"> | Date | string
+    attachments?: BlogAttachmentListRelationFilter
   }, "id" | "slug">
 
   export type BlogOrderByWithAggregationInput = {
     id?: SortOrder
     slug?: SortOrder
     title?: SortOrder
+    titleAm?: SortOrderInput | SortOrder
+    titleOm?: SortOrderInput | SortOrder
     excerpt?: SortOrderInput | SortOrder
+    excerptAm?: SortOrderInput | SortOrder
+    excerptOm?: SortOrderInput | SortOrder
     content?: SortOrder
+    contentAm?: SortOrderInput | SortOrder
+    contentOm?: SortOrderInput | SortOrder
     coverImage?: SortOrderInput | SortOrder
     status?: SortOrder
     publishedAt?: SortOrderInput | SortOrder
     viewCount?: SortOrder
+    membersOnly?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: BlogCountOrderByAggregateInput
@@ -12042,14 +16389,81 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Blog"> | string
     slug?: StringWithAggregatesFilter<"Blog"> | string
     title?: StringWithAggregatesFilter<"Blog"> | string
+    titleAm?: StringNullableWithAggregatesFilter<"Blog"> | string | null
+    titleOm?: StringNullableWithAggregatesFilter<"Blog"> | string | null
     excerpt?: StringNullableWithAggregatesFilter<"Blog"> | string | null
+    excerptAm?: StringNullableWithAggregatesFilter<"Blog"> | string | null
+    excerptOm?: StringNullableWithAggregatesFilter<"Blog"> | string | null
     content?: JsonWithAggregatesFilter<"Blog">
+    contentAm?: JsonNullableWithAggregatesFilter<"Blog">
+    contentOm?: JsonNullableWithAggregatesFilter<"Blog">
     coverImage?: StringNullableWithAggregatesFilter<"Blog"> | string | null
     status?: EnumBlogStatusWithAggregatesFilter<"Blog"> | $Enums.BlogStatus
     publishedAt?: DateTimeNullableWithAggregatesFilter<"Blog"> | Date | string | null
     viewCount?: IntWithAggregatesFilter<"Blog"> | number
+    membersOnly?: BoolWithAggregatesFilter<"Blog"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Blog"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Blog"> | Date | string
+  }
+
+  export type BlogAttachmentWhereInput = {
+    AND?: BlogAttachmentWhereInput | BlogAttachmentWhereInput[]
+    OR?: BlogAttachmentWhereInput[]
+    NOT?: BlogAttachmentWhereInput | BlogAttachmentWhereInput[]
+    id?: StringFilter<"BlogAttachment"> | string
+    blogId?: StringFilter<"BlogAttachment"> | string
+    title?: StringNullableFilter<"BlogAttachment"> | string | null
+    storagePath?: StringFilter<"BlogAttachment"> | string
+    createdAt?: DateTimeFilter<"BlogAttachment"> | Date | string
+    updatedAt?: DateTimeFilter<"BlogAttachment"> | Date | string
+    blog?: XOR<BlogScalarRelationFilter, BlogWhereInput>
+  }
+
+  export type BlogAttachmentOrderByWithRelationInput = {
+    id?: SortOrder
+    blogId?: SortOrder
+    title?: SortOrderInput | SortOrder
+    storagePath?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    blog?: BlogOrderByWithRelationInput
+  }
+
+  export type BlogAttachmentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BlogAttachmentWhereInput | BlogAttachmentWhereInput[]
+    OR?: BlogAttachmentWhereInput[]
+    NOT?: BlogAttachmentWhereInput | BlogAttachmentWhereInput[]
+    blogId?: StringFilter<"BlogAttachment"> | string
+    title?: StringNullableFilter<"BlogAttachment"> | string | null
+    storagePath?: StringFilter<"BlogAttachment"> | string
+    createdAt?: DateTimeFilter<"BlogAttachment"> | Date | string
+    updatedAt?: DateTimeFilter<"BlogAttachment"> | Date | string
+    blog?: XOR<BlogScalarRelationFilter, BlogWhereInput>
+  }, "id">
+
+  export type BlogAttachmentOrderByWithAggregationInput = {
+    id?: SortOrder
+    blogId?: SortOrder
+    title?: SortOrderInput | SortOrder
+    storagePath?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: BlogAttachmentCountOrderByAggregateInput
+    _max?: BlogAttachmentMaxOrderByAggregateInput
+    _min?: BlogAttachmentMinOrderByAggregateInput
+  }
+
+  export type BlogAttachmentScalarWhereWithAggregatesInput = {
+    AND?: BlogAttachmentScalarWhereWithAggregatesInput | BlogAttachmentScalarWhereWithAggregatesInput[]
+    OR?: BlogAttachmentScalarWhereWithAggregatesInput[]
+    NOT?: BlogAttachmentScalarWhereWithAggregatesInput | BlogAttachmentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BlogAttachment"> | string
+    blogId?: StringWithAggregatesFilter<"BlogAttachment"> | string
+    title?: StringNullableWithAggregatesFilter<"BlogAttachment"> | string | null
+    storagePath?: StringWithAggregatesFilter<"BlogAttachment"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"BlogAttachment"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"BlogAttachment"> | Date | string
   }
 
   export type EventWhereInput = {
@@ -12063,6 +16477,7 @@ export namespace Prisma {
     storagePath?: StringNullableFilter<"Event"> | string | null
     active?: BoolFilter<"Event"> | boolean
     position?: IntFilter<"Event"> | number
+    membersOnly?: BoolFilter<"Event"> | boolean
     createdAt?: DateTimeFilter<"Event"> | Date | string
     updatedAt?: DateTimeFilter<"Event"> | Date | string
   }
@@ -12075,6 +16490,7 @@ export namespace Prisma {
     storagePath?: SortOrderInput | SortOrder
     active?: SortOrder
     position?: SortOrder
+    membersOnly?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12090,6 +16506,7 @@ export namespace Prisma {
     storagePath?: StringNullableFilter<"Event"> | string | null
     active?: BoolFilter<"Event"> | boolean
     position?: IntFilter<"Event"> | number
+    membersOnly?: BoolFilter<"Event"> | boolean
     createdAt?: DateTimeFilter<"Event"> | Date | string
     updatedAt?: DateTimeFilter<"Event"> | Date | string
   }, "id">
@@ -12102,6 +16519,7 @@ export namespace Prisma {
     storagePath?: SortOrderInput | SortOrder
     active?: SortOrder
     position?: SortOrder
+    membersOnly?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: EventCountOrderByAggregateInput
@@ -12122,6 +16540,7 @@ export namespace Prisma {
     storagePath?: StringNullableWithAggregatesFilter<"Event"> | string | null
     active?: BoolWithAggregatesFilter<"Event"> | boolean
     position?: IntWithAggregatesFilter<"Event"> | number
+    membersOnly?: BoolWithAggregatesFilter<"Event"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Event"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Event"> | Date | string
   }
@@ -12173,30 +16592,48 @@ export namespace Prisma {
     OR?: MembershipRequestWhereInput[]
     NOT?: MembershipRequestWhereInput | MembershipRequestWhereInput[]
     id?: StringFilter<"MembershipRequest"> | string
+    userId?: StringNullableFilter<"MembershipRequest"> | string | null
     fullName?: StringFilter<"MembershipRequest"> | string
     email?: StringFilter<"MembershipRequest"> | string
     phone?: StringFilter<"MembershipRequest"> | string
     telegram?: StringNullableFilter<"MembershipRequest"> | string | null
     message?: StringNullableFilter<"MembershipRequest"> | string | null
     status?: EnumMembershipStatusFilter<"MembershipRequest"> | $Enums.MembershipStatus
+    paymentMethod?: StringNullableFilter<"MembershipRequest"> | string | null
+    paymentProofStoragePath?: StringNullableFilter<"MembershipRequest"> | string | null
+    paymentSubmittedAt?: DateTimeNullableFilter<"MembershipRequest"> | Date | string | null
     approvedAt?: DateTimeNullableFilter<"MembershipRequest"> | Date | string | null
     approvedBy?: StringNullableFilter<"MembershipRequest"> | string | null
+    rejectionReason?: StringNullableFilter<"MembershipRequest"> | string | null
+    membershipStartsAt?: DateTimeNullableFilter<"MembershipRequest"> | Date | string | null
+    membershipExpiresAt?: DateTimeNullableFilter<"MembershipRequest"> | Date | string | null
+    renewedFromId?: StringNullableFilter<"MembershipRequest"> | string | null
     createdAt?: DateTimeFilter<"MembershipRequest"> | Date | string
     updatedAt?: DateTimeFilter<"MembershipRequest"> | Date | string
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type MembershipRequestOrderByWithRelationInput = {
     id?: SortOrder
+    userId?: SortOrderInput | SortOrder
     fullName?: SortOrder
     email?: SortOrder
     phone?: SortOrder
     telegram?: SortOrderInput | SortOrder
     message?: SortOrderInput | SortOrder
     status?: SortOrder
+    paymentMethod?: SortOrderInput | SortOrder
+    paymentProofStoragePath?: SortOrderInput | SortOrder
+    paymentSubmittedAt?: SortOrderInput | SortOrder
     approvedAt?: SortOrderInput | SortOrder
     approvedBy?: SortOrderInput | SortOrder
+    rejectionReason?: SortOrderInput | SortOrder
+    membershipStartsAt?: SortOrderInput | SortOrder
+    membershipExpiresAt?: SortOrderInput | SortOrder
+    renewedFromId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
   }
 
   export type MembershipRequestWhereUniqueInput = Prisma.AtLeast<{
@@ -12205,28 +16642,45 @@ export namespace Prisma {
     AND?: MembershipRequestWhereInput | MembershipRequestWhereInput[]
     OR?: MembershipRequestWhereInput[]
     NOT?: MembershipRequestWhereInput | MembershipRequestWhereInput[]
+    userId?: StringNullableFilter<"MembershipRequest"> | string | null
     fullName?: StringFilter<"MembershipRequest"> | string
     email?: StringFilter<"MembershipRequest"> | string
     phone?: StringFilter<"MembershipRequest"> | string
     telegram?: StringNullableFilter<"MembershipRequest"> | string | null
     message?: StringNullableFilter<"MembershipRequest"> | string | null
     status?: EnumMembershipStatusFilter<"MembershipRequest"> | $Enums.MembershipStatus
+    paymentMethod?: StringNullableFilter<"MembershipRequest"> | string | null
+    paymentProofStoragePath?: StringNullableFilter<"MembershipRequest"> | string | null
+    paymentSubmittedAt?: DateTimeNullableFilter<"MembershipRequest"> | Date | string | null
     approvedAt?: DateTimeNullableFilter<"MembershipRequest"> | Date | string | null
     approvedBy?: StringNullableFilter<"MembershipRequest"> | string | null
+    rejectionReason?: StringNullableFilter<"MembershipRequest"> | string | null
+    membershipStartsAt?: DateTimeNullableFilter<"MembershipRequest"> | Date | string | null
+    membershipExpiresAt?: DateTimeNullableFilter<"MembershipRequest"> | Date | string | null
+    renewedFromId?: StringNullableFilter<"MembershipRequest"> | string | null
     createdAt?: DateTimeFilter<"MembershipRequest"> | Date | string
     updatedAt?: DateTimeFilter<"MembershipRequest"> | Date | string
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id" | "email_status">
 
   export type MembershipRequestOrderByWithAggregationInput = {
     id?: SortOrder
+    userId?: SortOrderInput | SortOrder
     fullName?: SortOrder
     email?: SortOrder
     phone?: SortOrder
     telegram?: SortOrderInput | SortOrder
     message?: SortOrderInput | SortOrder
     status?: SortOrder
+    paymentMethod?: SortOrderInput | SortOrder
+    paymentProofStoragePath?: SortOrderInput | SortOrder
+    paymentSubmittedAt?: SortOrderInput | SortOrder
     approvedAt?: SortOrderInput | SortOrder
     approvedBy?: SortOrderInput | SortOrder
+    rejectionReason?: SortOrderInput | SortOrder
+    membershipStartsAt?: SortOrderInput | SortOrder
+    membershipExpiresAt?: SortOrderInput | SortOrder
+    renewedFromId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: MembershipRequestCountOrderByAggregateInput
@@ -12239,16 +16693,94 @@ export namespace Prisma {
     OR?: MembershipRequestScalarWhereWithAggregatesInput[]
     NOT?: MembershipRequestScalarWhereWithAggregatesInput | MembershipRequestScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"MembershipRequest"> | string
+    userId?: StringNullableWithAggregatesFilter<"MembershipRequest"> | string | null
     fullName?: StringWithAggregatesFilter<"MembershipRequest"> | string
     email?: StringWithAggregatesFilter<"MembershipRequest"> | string
     phone?: StringWithAggregatesFilter<"MembershipRequest"> | string
     telegram?: StringNullableWithAggregatesFilter<"MembershipRequest"> | string | null
     message?: StringNullableWithAggregatesFilter<"MembershipRequest"> | string | null
     status?: EnumMembershipStatusWithAggregatesFilter<"MembershipRequest"> | $Enums.MembershipStatus
+    paymentMethod?: StringNullableWithAggregatesFilter<"MembershipRequest"> | string | null
+    paymentProofStoragePath?: StringNullableWithAggregatesFilter<"MembershipRequest"> | string | null
+    paymentSubmittedAt?: DateTimeNullableWithAggregatesFilter<"MembershipRequest"> | Date | string | null
     approvedAt?: DateTimeNullableWithAggregatesFilter<"MembershipRequest"> | Date | string | null
     approvedBy?: StringNullableWithAggregatesFilter<"MembershipRequest"> | string | null
+    rejectionReason?: StringNullableWithAggregatesFilter<"MembershipRequest"> | string | null
+    membershipStartsAt?: DateTimeNullableWithAggregatesFilter<"MembershipRequest"> | Date | string | null
+    membershipExpiresAt?: DateTimeNullableWithAggregatesFilter<"MembershipRequest"> | Date | string | null
+    renewedFromId?: StringNullableWithAggregatesFilter<"MembershipRequest"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"MembershipRequest"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"MembershipRequest"> | Date | string
+  }
+
+  export type MembershipNotificationWhereInput = {
+    AND?: MembershipNotificationWhereInput | MembershipNotificationWhereInput[]
+    OR?: MembershipNotificationWhereInput[]
+    NOT?: MembershipNotificationWhereInput | MembershipNotificationWhereInput[]
+    id?: StringFilter<"MembershipNotification"> | string
+    userId?: StringFilter<"MembershipNotification"> | string
+    title?: StringFilter<"MembershipNotification"> | string
+    body?: StringNullableFilter<"MembershipNotification"> | string | null
+    type?: StringNullableFilter<"MembershipNotification"> | string | null
+    readAt?: DateTimeNullableFilter<"MembershipNotification"> | Date | string | null
+    createdAt?: DateTimeFilter<"MembershipNotification"> | Date | string
+    updatedAt?: DateTimeFilter<"MembershipNotification"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type MembershipNotificationOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    body?: SortOrderInput | SortOrder
+    type?: SortOrderInput | SortOrder
+    readAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type MembershipNotificationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MembershipNotificationWhereInput | MembershipNotificationWhereInput[]
+    OR?: MembershipNotificationWhereInput[]
+    NOT?: MembershipNotificationWhereInput | MembershipNotificationWhereInput[]
+    userId?: StringFilter<"MembershipNotification"> | string
+    title?: StringFilter<"MembershipNotification"> | string
+    body?: StringNullableFilter<"MembershipNotification"> | string | null
+    type?: StringNullableFilter<"MembershipNotification"> | string | null
+    readAt?: DateTimeNullableFilter<"MembershipNotification"> | Date | string | null
+    createdAt?: DateTimeFilter<"MembershipNotification"> | Date | string
+    updatedAt?: DateTimeFilter<"MembershipNotification"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type MembershipNotificationOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    body?: SortOrderInput | SortOrder
+    type?: SortOrderInput | SortOrder
+    readAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MembershipNotificationCountOrderByAggregateInput
+    _max?: MembershipNotificationMaxOrderByAggregateInput
+    _min?: MembershipNotificationMinOrderByAggregateInput
+  }
+
+  export type MembershipNotificationScalarWhereWithAggregatesInput = {
+    AND?: MembershipNotificationScalarWhereWithAggregatesInput | MembershipNotificationScalarWhereWithAggregatesInput[]
+    OR?: MembershipNotificationScalarWhereWithAggregatesInput[]
+    NOT?: MembershipNotificationScalarWhereWithAggregatesInput | MembershipNotificationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MembershipNotification"> | string
+    userId?: StringWithAggregatesFilter<"MembershipNotification"> | string
+    title?: StringWithAggregatesFilter<"MembershipNotification"> | string
+    body?: StringNullableWithAggregatesFilter<"MembershipNotification"> | string | null
+    type?: StringNullableWithAggregatesFilter<"MembershipNotification"> | string | null
+    readAt?: DateTimeNullableWithAggregatesFilter<"MembershipNotification"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"MembershipNotification"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MembershipNotification"> | Date | string
   }
 
   export type UserWhereInput = {
@@ -12266,6 +16798,8 @@ export namespace Prisma {
     banned?: BoolNullableFilter<"User"> | boolean | null
     banReason?: StringNullableFilter<"User"> | string | null
     banExpires?: DateTimeNullableFilter<"User"> | Date | string | null
+    membershipRequests?: MembershipRequestListRelationFilter
+    membershipNotifications?: MembershipNotificationListRelationFilter
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
   }
@@ -12282,6 +16816,8 @@ export namespace Prisma {
     banned?: SortOrderInput | SortOrder
     banReason?: SortOrderInput | SortOrder
     banExpires?: SortOrderInput | SortOrder
+    membershipRequests?: MembershipRequestOrderByRelationAggregateInput
+    membershipNotifications?: MembershipNotificationOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
     accounts?: AccountOrderByRelationAggregateInput
   }
@@ -12301,6 +16837,8 @@ export namespace Prisma {
     banned?: BoolNullableFilter<"User"> | boolean | null
     banReason?: StringNullableFilter<"User"> | string | null
     banExpires?: DateTimeNullableFilter<"User"> | Date | string | null
+    membershipRequests?: MembershipRequestListRelationFilter
+    membershipNotifications?: MembershipNotificationListRelationFilter
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
   }, "id" | "email">
@@ -12573,15 +17111,21 @@ export namespace Prisma {
     youtubeId: string
     thumbnailUrl?: string | null
     title: string
+    titleAm?: string | null
+    titleOm?: string | null
     description?: string | null
+    descriptionAm?: string | null
+    descriptionOm?: string | null
     durationSeconds?: number | null
     semesterLabel?: string | null
     scheduleLine?: string | null
     venueLine?: string | null
     position?: number
     published?: boolean
+    membersOnly?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    attachments?: TeachingAttachmentCreateNestedManyWithoutTeachingInput
   }
 
   export type TeachingUncheckedCreateInput = {
@@ -12591,15 +17135,21 @@ export namespace Prisma {
     youtubeId: string
     thumbnailUrl?: string | null
     title: string
+    titleAm?: string | null
+    titleOm?: string | null
     description?: string | null
+    descriptionAm?: string | null
+    descriptionOm?: string | null
     durationSeconds?: number | null
     semesterLabel?: string | null
     scheduleLine?: string | null
     venueLine?: string | null
     position?: number
     published?: boolean
+    membersOnly?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    attachments?: TeachingAttachmentUncheckedCreateNestedManyWithoutTeachingInput
   }
 
   export type TeachingUpdateInput = {
@@ -12609,15 +17159,21 @@ export namespace Prisma {
     youtubeId?: StringFieldUpdateOperationsInput | string
     thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
     title?: StringFieldUpdateOperationsInput | string
+    titleAm?: NullableStringFieldUpdateOperationsInput | string | null
+    titleOm?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionAm?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionOm?: NullableStringFieldUpdateOperationsInput | string | null
     durationSeconds?: NullableIntFieldUpdateOperationsInput | number | null
     semesterLabel?: NullableStringFieldUpdateOperationsInput | string | null
     scheduleLine?: NullableStringFieldUpdateOperationsInput | string | null
     venueLine?: NullableStringFieldUpdateOperationsInput | string | null
     position?: IntFieldUpdateOperationsInput | number
     published?: BoolFieldUpdateOperationsInput | boolean
+    membersOnly?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachments?: TeachingAttachmentUpdateManyWithoutTeachingNestedInput
   }
 
   export type TeachingUncheckedUpdateInput = {
@@ -12627,15 +17183,21 @@ export namespace Prisma {
     youtubeId?: StringFieldUpdateOperationsInput | string
     thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
     title?: StringFieldUpdateOperationsInput | string
+    titleAm?: NullableStringFieldUpdateOperationsInput | string | null
+    titleOm?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionAm?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionOm?: NullableStringFieldUpdateOperationsInput | string | null
     durationSeconds?: NullableIntFieldUpdateOperationsInput | number | null
     semesterLabel?: NullableStringFieldUpdateOperationsInput | string | null
     scheduleLine?: NullableStringFieldUpdateOperationsInput | string | null
     venueLine?: NullableStringFieldUpdateOperationsInput | string | null
     position?: IntFieldUpdateOperationsInput | number
     published?: BoolFieldUpdateOperationsInput | boolean
+    membersOnly?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachments?: TeachingAttachmentUncheckedUpdateManyWithoutTeachingNestedInput
   }
 
   export type TeachingCreateManyInput = {
@@ -12645,13 +17207,18 @@ export namespace Prisma {
     youtubeId: string
     thumbnailUrl?: string | null
     title: string
+    titleAm?: string | null
+    titleOm?: string | null
     description?: string | null
+    descriptionAm?: string | null
+    descriptionOm?: string | null
     durationSeconds?: number | null
     semesterLabel?: string | null
     scheduleLine?: string | null
     venueLine?: string | null
     position?: number
     published?: boolean
+    membersOnly?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12663,13 +17230,18 @@ export namespace Prisma {
     youtubeId?: StringFieldUpdateOperationsInput | string
     thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
     title?: StringFieldUpdateOperationsInput | string
+    titleAm?: NullableStringFieldUpdateOperationsInput | string | null
+    titleOm?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionAm?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionOm?: NullableStringFieldUpdateOperationsInput | string | null
     durationSeconds?: NullableIntFieldUpdateOperationsInput | number | null
     semesterLabel?: NullableStringFieldUpdateOperationsInput | string | null
     scheduleLine?: NullableStringFieldUpdateOperationsInput | string | null
     venueLine?: NullableStringFieldUpdateOperationsInput | string | null
     position?: IntFieldUpdateOperationsInput | number
     published?: BoolFieldUpdateOperationsInput | boolean
+    membersOnly?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12681,13 +17253,80 @@ export namespace Prisma {
     youtubeId?: StringFieldUpdateOperationsInput | string
     thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
     title?: StringFieldUpdateOperationsInput | string
+    titleAm?: NullableStringFieldUpdateOperationsInput | string | null
+    titleOm?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionAm?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionOm?: NullableStringFieldUpdateOperationsInput | string | null
     durationSeconds?: NullableIntFieldUpdateOperationsInput | number | null
     semesterLabel?: NullableStringFieldUpdateOperationsInput | string | null
     scheduleLine?: NullableStringFieldUpdateOperationsInput | string | null
     venueLine?: NullableStringFieldUpdateOperationsInput | string | null
     position?: IntFieldUpdateOperationsInput | number
     published?: BoolFieldUpdateOperationsInput | boolean
+    membersOnly?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TeachingAttachmentCreateInput = {
+    id?: string
+    title?: string | null
+    storagePath: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    teaching: TeachingCreateNestedOneWithoutAttachmentsInput
+  }
+
+  export type TeachingAttachmentUncheckedCreateInput = {
+    id?: string
+    teachingId: string
+    title?: string | null
+    storagePath: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TeachingAttachmentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    storagePath?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    teaching?: TeachingUpdateOneRequiredWithoutAttachmentsNestedInput
+  }
+
+  export type TeachingAttachmentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    teachingId?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    storagePath?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TeachingAttachmentCreateManyInput = {
+    id?: string
+    teachingId: string
+    title?: string | null
+    storagePath: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TeachingAttachmentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    storagePath?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TeachingAttachmentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    teachingId?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    storagePath?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12696,68 +17335,107 @@ export namespace Prisma {
     id?: string
     slug: string
     title: string
+    titleAm?: string | null
+    titleOm?: string | null
     excerpt?: string | null
+    excerptAm?: string | null
+    excerptOm?: string | null
     content: JsonNullValueInput | InputJsonValue
+    contentAm?: NullableJsonNullValueInput | InputJsonValue
+    contentOm?: NullableJsonNullValueInput | InputJsonValue
     coverImage?: string | null
     status?: $Enums.BlogStatus
     publishedAt?: Date | string | null
     viewCount?: number
+    membersOnly?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    attachments?: BlogAttachmentCreateNestedManyWithoutBlogInput
   }
 
   export type BlogUncheckedCreateInput = {
     id?: string
     slug: string
     title: string
+    titleAm?: string | null
+    titleOm?: string | null
     excerpt?: string | null
+    excerptAm?: string | null
+    excerptOm?: string | null
     content: JsonNullValueInput | InputJsonValue
+    contentAm?: NullableJsonNullValueInput | InputJsonValue
+    contentOm?: NullableJsonNullValueInput | InputJsonValue
     coverImage?: string | null
     status?: $Enums.BlogStatus
     publishedAt?: Date | string | null
     viewCount?: number
+    membersOnly?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    attachments?: BlogAttachmentUncheckedCreateNestedManyWithoutBlogInput
   }
 
   export type BlogUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    titleAm?: NullableStringFieldUpdateOperationsInput | string | null
+    titleOm?: NullableStringFieldUpdateOperationsInput | string | null
     excerpt?: NullableStringFieldUpdateOperationsInput | string | null
+    excerptAm?: NullableStringFieldUpdateOperationsInput | string | null
+    excerptOm?: NullableStringFieldUpdateOperationsInput | string | null
     content?: JsonNullValueInput | InputJsonValue
+    contentAm?: NullableJsonNullValueInput | InputJsonValue
+    contentOm?: NullableJsonNullValueInput | InputJsonValue
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     viewCount?: IntFieldUpdateOperationsInput | number
+    membersOnly?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachments?: BlogAttachmentUpdateManyWithoutBlogNestedInput
   }
 
   export type BlogUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    titleAm?: NullableStringFieldUpdateOperationsInput | string | null
+    titleOm?: NullableStringFieldUpdateOperationsInput | string | null
     excerpt?: NullableStringFieldUpdateOperationsInput | string | null
+    excerptAm?: NullableStringFieldUpdateOperationsInput | string | null
+    excerptOm?: NullableStringFieldUpdateOperationsInput | string | null
     content?: JsonNullValueInput | InputJsonValue
+    contentAm?: NullableJsonNullValueInput | InputJsonValue
+    contentOm?: NullableJsonNullValueInput | InputJsonValue
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     viewCount?: IntFieldUpdateOperationsInput | number
+    membersOnly?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attachments?: BlogAttachmentUncheckedUpdateManyWithoutBlogNestedInput
   }
 
   export type BlogCreateManyInput = {
     id?: string
     slug: string
     title: string
+    titleAm?: string | null
+    titleOm?: string | null
     excerpt?: string | null
+    excerptAm?: string | null
+    excerptOm?: string | null
     content: JsonNullValueInput | InputJsonValue
+    contentAm?: NullableJsonNullValueInput | InputJsonValue
+    contentOm?: NullableJsonNullValueInput | InputJsonValue
     coverImage?: string | null
     status?: $Enums.BlogStatus
     publishedAt?: Date | string | null
     viewCount?: number
+    membersOnly?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12766,12 +17444,19 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    titleAm?: NullableStringFieldUpdateOperationsInput | string | null
+    titleOm?: NullableStringFieldUpdateOperationsInput | string | null
     excerpt?: NullableStringFieldUpdateOperationsInput | string | null
+    excerptAm?: NullableStringFieldUpdateOperationsInput | string | null
+    excerptOm?: NullableStringFieldUpdateOperationsInput | string | null
     content?: JsonNullValueInput | InputJsonValue
+    contentAm?: NullableJsonNullValueInput | InputJsonValue
+    contentOm?: NullableJsonNullValueInput | InputJsonValue
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     viewCount?: IntFieldUpdateOperationsInput | number
+    membersOnly?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12780,12 +17465,81 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    titleAm?: NullableStringFieldUpdateOperationsInput | string | null
+    titleOm?: NullableStringFieldUpdateOperationsInput | string | null
     excerpt?: NullableStringFieldUpdateOperationsInput | string | null
+    excerptAm?: NullableStringFieldUpdateOperationsInput | string | null
+    excerptOm?: NullableStringFieldUpdateOperationsInput | string | null
     content?: JsonNullValueInput | InputJsonValue
+    contentAm?: NullableJsonNullValueInput | InputJsonValue
+    contentOm?: NullableJsonNullValueInput | InputJsonValue
     coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     viewCount?: IntFieldUpdateOperationsInput | number
+    membersOnly?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlogAttachmentCreateInput = {
+    id?: string
+    title?: string | null
+    storagePath: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    blog: BlogCreateNestedOneWithoutAttachmentsInput
+  }
+
+  export type BlogAttachmentUncheckedCreateInput = {
+    id?: string
+    blogId: string
+    title?: string | null
+    storagePath: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BlogAttachmentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    storagePath?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    blog?: BlogUpdateOneRequiredWithoutAttachmentsNestedInput
+  }
+
+  export type BlogAttachmentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    blogId?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    storagePath?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlogAttachmentCreateManyInput = {
+    id?: string
+    blogId: string
+    title?: string | null
+    storagePath: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BlogAttachmentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    storagePath?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlogAttachmentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    blogId?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    storagePath?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12798,6 +17552,7 @@ export namespace Prisma {
     storagePath?: string | null
     active?: boolean
     position?: number
+    membersOnly?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12810,6 +17565,7 @@ export namespace Prisma {
     storagePath?: string | null
     active?: boolean
     position?: number
+    membersOnly?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12822,6 +17578,7 @@ export namespace Prisma {
     storagePath?: NullableStringFieldUpdateOperationsInput | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     position?: IntFieldUpdateOperationsInput | number
+    membersOnly?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12834,6 +17591,7 @@ export namespace Prisma {
     storagePath?: NullableStringFieldUpdateOperationsInput | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     position?: IntFieldUpdateOperationsInput | number
+    membersOnly?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12846,6 +17604,7 @@ export namespace Prisma {
     storagePath?: string | null
     active?: boolean
     position?: number
+    membersOnly?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12858,6 +17617,7 @@ export namespace Prisma {
     storagePath?: NullableStringFieldUpdateOperationsInput | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     position?: IntFieldUpdateOperationsInput | number
+    membersOnly?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12870,6 +17630,7 @@ export namespace Prisma {
     storagePath?: NullableStringFieldUpdateOperationsInput | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     position?: IntFieldUpdateOperationsInput | number
+    membersOnly?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12924,22 +17685,38 @@ export namespace Prisma {
     telegram?: string | null
     message?: string | null
     status?: $Enums.MembershipStatus
+    paymentMethod?: string | null
+    paymentProofStoragePath?: string | null
+    paymentSubmittedAt?: Date | string | null
     approvedAt?: Date | string | null
     approvedBy?: string | null
+    rejectionReason?: string | null
+    membershipStartsAt?: Date | string | null
+    membershipExpiresAt?: Date | string | null
+    renewedFromId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    user?: UserCreateNestedOneWithoutMembershipRequestsInput
   }
 
   export type MembershipRequestUncheckedCreateInput = {
     id?: string
+    userId?: string | null
     fullName: string
     email: string
     phone: string
     telegram?: string | null
     message?: string | null
     status?: $Enums.MembershipStatus
+    paymentMethod?: string | null
+    paymentProofStoragePath?: string | null
+    paymentSubmittedAt?: Date | string | null
     approvedAt?: Date | string | null
     approvedBy?: string | null
+    rejectionReason?: string | null
+    membershipStartsAt?: Date | string | null
+    membershipExpiresAt?: Date | string | null
+    renewedFromId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12952,36 +17729,60 @@ export namespace Prisma {
     telegram?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofStoragePath?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentSubmittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    membershipStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    membershipExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    renewedFromId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutMembershipRequestsNestedInput
   }
 
   export type MembershipRequestUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
     fullName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     telegram?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofStoragePath?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentSubmittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    membershipStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    membershipExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    renewedFromId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MembershipRequestCreateManyInput = {
     id?: string
+    userId?: string | null
     fullName: string
     email: string
     phone: string
     telegram?: string | null
     message?: string | null
     status?: $Enums.MembershipStatus
+    paymentMethod?: string | null
+    paymentProofStoragePath?: string | null
+    paymentSubmittedAt?: Date | string | null
     approvedAt?: Date | string | null
     approvedBy?: string | null
+    rejectionReason?: string | null
+    membershipStartsAt?: Date | string | null
+    membershipExpiresAt?: Date | string | null
+    renewedFromId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12994,22 +17795,113 @@ export namespace Prisma {
     telegram?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofStoragePath?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentSubmittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    membershipStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    membershipExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    renewedFromId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MembershipRequestUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
     fullName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     telegram?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofStoragePath?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentSubmittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    membershipStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    membershipExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    renewedFromId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MembershipNotificationCreateInput = {
+    id?: string
+    title: string
+    body?: string | null
+    type?: string | null
+    readAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutMembershipNotificationsInput
+  }
+
+  export type MembershipNotificationUncheckedCreateInput = {
+    id?: string
+    userId: string
+    title: string
+    body?: string | null
+    type?: string | null
+    readAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MembershipNotificationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    readAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutMembershipNotificationsNestedInput
+  }
+
+  export type MembershipNotificationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    readAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MembershipNotificationCreateManyInput = {
+    id?: string
+    userId: string
+    title: string
+    body?: string | null
+    type?: string | null
+    readAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MembershipNotificationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    readAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MembershipNotificationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    readAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13026,6 +17918,8 @@ export namespace Prisma {
     banned?: boolean | null
     banReason?: string | null
     banExpires?: Date | string | null
+    membershipRequests?: MembershipRequestCreateNestedManyWithoutUserInput
+    membershipNotifications?: MembershipNotificationCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
   }
@@ -13042,6 +17936,8 @@ export namespace Prisma {
     banned?: boolean | null
     banReason?: string | null
     banExpires?: Date | string | null
+    membershipRequests?: MembershipRequestUncheckedCreateNestedManyWithoutUserInput
+    membershipNotifications?: MembershipNotificationUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
   }
@@ -13058,6 +17954,8 @@ export namespace Prisma {
     banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     banExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    membershipRequests?: MembershipRequestUpdateManyWithoutUserNestedInput
+    membershipNotifications?: MembershipNotificationUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
   }
@@ -13074,6 +17972,8 @@ export namespace Prisma {
     banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     banExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    membershipRequests?: MembershipRequestUncheckedUpdateManyWithoutUserNestedInput
+    membershipNotifications?: MembershipNotificationUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -13445,9 +18345,19 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type TeachingAttachmentListRelationFilter = {
+    every?: TeachingAttachmentWhereInput
+    some?: TeachingAttachmentWhereInput
+    none?: TeachingAttachmentWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type TeachingAttachmentOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type TeachingCountOrderByAggregateInput = {
@@ -13457,13 +18367,18 @@ export namespace Prisma {
     youtubeId?: SortOrder
     thumbnailUrl?: SortOrder
     title?: SortOrder
+    titleAm?: SortOrder
+    titleOm?: SortOrder
     description?: SortOrder
+    descriptionAm?: SortOrder
+    descriptionOm?: SortOrder
     durationSeconds?: SortOrder
     semesterLabel?: SortOrder
     scheduleLine?: SortOrder
     venueLine?: SortOrder
     position?: SortOrder
     published?: SortOrder
+    membersOnly?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13480,13 +18395,18 @@ export namespace Prisma {
     youtubeId?: SortOrder
     thumbnailUrl?: SortOrder
     title?: SortOrder
+    titleAm?: SortOrder
+    titleOm?: SortOrder
     description?: SortOrder
+    descriptionAm?: SortOrder
+    descriptionOm?: SortOrder
     durationSeconds?: SortOrder
     semesterLabel?: SortOrder
     scheduleLine?: SortOrder
     venueLine?: SortOrder
     position?: SortOrder
     published?: SortOrder
+    membersOnly?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13498,13 +18418,18 @@ export namespace Prisma {
     youtubeId?: SortOrder
     thumbnailUrl?: SortOrder
     title?: SortOrder
+    titleAm?: SortOrder
+    titleOm?: SortOrder
     description?: SortOrder
+    descriptionAm?: SortOrder
+    descriptionOm?: SortOrder
     durationSeconds?: SortOrder
     semesterLabel?: SortOrder
     scheduleLine?: SortOrder
     venueLine?: SortOrder
     position?: SortOrder
     published?: SortOrder
+    membersOnly?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13603,6 +18528,38 @@ export namespace Prisma {
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
+
+  export type TeachingScalarRelationFilter = {
+    is?: TeachingWhereInput
+    isNot?: TeachingWhereInput
+  }
+
+  export type TeachingAttachmentCountOrderByAggregateInput = {
+    id?: SortOrder
+    teachingId?: SortOrder
+    title?: SortOrder
+    storagePath?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TeachingAttachmentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    teachingId?: SortOrder
+    title?: SortOrder
+    storagePath?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TeachingAttachmentMinOrderByAggregateInput = {
+    id?: SortOrder
+    teachingId?: SortOrder
+    title?: SortOrder
+    storagePath?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
   export type JsonFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
@@ -13611,6 +18568,29 @@ export namespace Prisma {
     | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
 
   export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
     mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
@@ -13645,16 +18625,33 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type BlogAttachmentListRelationFilter = {
+    every?: BlogAttachmentWhereInput
+    some?: BlogAttachmentWhereInput
+    none?: BlogAttachmentWhereInput
+  }
+
+  export type BlogAttachmentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type BlogCountOrderByAggregateInput = {
     id?: SortOrder
     slug?: SortOrder
     title?: SortOrder
+    titleAm?: SortOrder
+    titleOm?: SortOrder
     excerpt?: SortOrder
+    excerptAm?: SortOrder
+    excerptOm?: SortOrder
     content?: SortOrder
+    contentAm?: SortOrder
+    contentOm?: SortOrder
     coverImage?: SortOrder
     status?: SortOrder
     publishedAt?: SortOrder
     viewCount?: SortOrder
+    membersOnly?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13667,11 +18664,16 @@ export namespace Prisma {
     id?: SortOrder
     slug?: SortOrder
     title?: SortOrder
+    titleAm?: SortOrder
+    titleOm?: SortOrder
     excerpt?: SortOrder
+    excerptAm?: SortOrder
+    excerptOm?: SortOrder
     coverImage?: SortOrder
     status?: SortOrder
     publishedAt?: SortOrder
     viewCount?: SortOrder
+    membersOnly?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13680,11 +18682,16 @@ export namespace Prisma {
     id?: SortOrder
     slug?: SortOrder
     title?: SortOrder
+    titleAm?: SortOrder
+    titleOm?: SortOrder
     excerpt?: SortOrder
+    excerptAm?: SortOrder
+    excerptOm?: SortOrder
     coverImage?: SortOrder
     status?: SortOrder
     publishedAt?: SortOrder
     viewCount?: SortOrder
+    membersOnly?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13718,6 +18725,32 @@ export namespace Prisma {
     _min?: NestedJsonFilter<$PrismaModel>
     _max?: NestedJsonFilter<$PrismaModel>
   }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
 
   export type EnumBlogStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.BlogStatus | EnumBlogStatusFieldRefInput<$PrismaModel>
@@ -13743,6 +18776,38 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type BlogScalarRelationFilter = {
+    is?: BlogWhereInput
+    isNot?: BlogWhereInput
+  }
+
+  export type BlogAttachmentCountOrderByAggregateInput = {
+    id?: SortOrder
+    blogId?: SortOrder
+    title?: SortOrder
+    storagePath?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BlogAttachmentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    blogId?: SortOrder
+    title?: SortOrder
+    storagePath?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BlogAttachmentMinOrderByAggregateInput = {
+    id?: SortOrder
+    blogId?: SortOrder
+    title?: SortOrder
+    storagePath?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type EventCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
@@ -13751,6 +18816,7 @@ export namespace Prisma {
     storagePath?: SortOrder
     active?: SortOrder
     position?: SortOrder
+    membersOnly?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13767,6 +18833,7 @@ export namespace Prisma {
     storagePath?: SortOrder
     active?: SortOrder
     position?: SortOrder
+    membersOnly?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13779,6 +18846,7 @@ export namespace Prisma {
     storagePath?: SortOrder
     active?: SortOrder
     position?: SortOrder
+    membersOnly?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13810,6 +18878,11 @@ export namespace Prisma {
     not?: NestedEnumMembershipStatusFilter<$PrismaModel> | $Enums.MembershipStatus
   }
 
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
   export type MembershipRequestEmailStatusCompoundUniqueInput = {
     email: string
     status: $Enums.MembershipStatus
@@ -13817,42 +18890,66 @@ export namespace Prisma {
 
   export type MembershipRequestCountOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     fullName?: SortOrder
     email?: SortOrder
     phone?: SortOrder
     telegram?: SortOrder
     message?: SortOrder
     status?: SortOrder
+    paymentMethod?: SortOrder
+    paymentProofStoragePath?: SortOrder
+    paymentSubmittedAt?: SortOrder
     approvedAt?: SortOrder
     approvedBy?: SortOrder
+    rejectionReason?: SortOrder
+    membershipStartsAt?: SortOrder
+    membershipExpiresAt?: SortOrder
+    renewedFromId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type MembershipRequestMaxOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     fullName?: SortOrder
     email?: SortOrder
     phone?: SortOrder
     telegram?: SortOrder
     message?: SortOrder
     status?: SortOrder
+    paymentMethod?: SortOrder
+    paymentProofStoragePath?: SortOrder
+    paymentSubmittedAt?: SortOrder
     approvedAt?: SortOrder
     approvedBy?: SortOrder
+    rejectionReason?: SortOrder
+    membershipStartsAt?: SortOrder
+    membershipExpiresAt?: SortOrder
+    renewedFromId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type MembershipRequestMinOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     fullName?: SortOrder
     email?: SortOrder
     phone?: SortOrder
     telegram?: SortOrder
     message?: SortOrder
     status?: SortOrder
+    paymentMethod?: SortOrder
+    paymentProofStoragePath?: SortOrder
+    paymentSubmittedAt?: SortOrder
     approvedAt?: SortOrder
     approvedBy?: SortOrder
+    rejectionReason?: SortOrder
+    membershipStartsAt?: SortOrder
+    membershipExpiresAt?: SortOrder
+    renewedFromId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13867,9 +18964,59 @@ export namespace Prisma {
     _max?: NestedEnumMembershipStatusFilter<$PrismaModel>
   }
 
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type MembershipNotificationCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    body?: SortOrder
+    type?: SortOrder
+    readAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MembershipNotificationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    body?: SortOrder
+    type?: SortOrder
+    readAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MembershipNotificationMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    body?: SortOrder
+    type?: SortOrder
+    readAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type BoolNullableFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type MembershipRequestListRelationFilter = {
+    every?: MembershipRequestWhereInput
+    some?: MembershipRequestWhereInput
+    none?: MembershipRequestWhereInput
+  }
+
+  export type MembershipNotificationListRelationFilter = {
+    every?: MembershipNotificationWhereInput
+    some?: MembershipNotificationWhereInput
+    none?: MembershipNotificationWhereInput
   }
 
   export type SessionListRelationFilter = {
@@ -13882,6 +19029,14 @@ export namespace Prisma {
     every?: AccountWhereInput
     some?: AccountWhereInput
     none?: AccountWhereInput
+  }
+
+  export type MembershipRequestOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MembershipNotificationOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type SessionOrderByRelationAggregateInput = {
@@ -13940,11 +19095,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedBoolNullableFilter<$PrismaModel>
     _max?: NestedBoolNullableFilter<$PrismaModel>
-  }
-
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
   }
 
   export type SessionCountOrderByAggregateInput = {
@@ -14058,6 +19208,20 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type TeachingAttachmentCreateNestedManyWithoutTeachingInput = {
+    create?: XOR<TeachingAttachmentCreateWithoutTeachingInput, TeachingAttachmentUncheckedCreateWithoutTeachingInput> | TeachingAttachmentCreateWithoutTeachingInput[] | TeachingAttachmentUncheckedCreateWithoutTeachingInput[]
+    connectOrCreate?: TeachingAttachmentCreateOrConnectWithoutTeachingInput | TeachingAttachmentCreateOrConnectWithoutTeachingInput[]
+    createMany?: TeachingAttachmentCreateManyTeachingInputEnvelope
+    connect?: TeachingAttachmentWhereUniqueInput | TeachingAttachmentWhereUniqueInput[]
+  }
+
+  export type TeachingAttachmentUncheckedCreateNestedManyWithoutTeachingInput = {
+    create?: XOR<TeachingAttachmentCreateWithoutTeachingInput, TeachingAttachmentUncheckedCreateWithoutTeachingInput> | TeachingAttachmentCreateWithoutTeachingInput[] | TeachingAttachmentUncheckedCreateWithoutTeachingInput[]
+    connectOrCreate?: TeachingAttachmentCreateOrConnectWithoutTeachingInput | TeachingAttachmentCreateOrConnectWithoutTeachingInput[]
+    createMany?: TeachingAttachmentCreateManyTeachingInputEnvelope
+    connect?: TeachingAttachmentWhereUniqueInput | TeachingAttachmentWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -14090,6 +19254,62 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type TeachingAttachmentUpdateManyWithoutTeachingNestedInput = {
+    create?: XOR<TeachingAttachmentCreateWithoutTeachingInput, TeachingAttachmentUncheckedCreateWithoutTeachingInput> | TeachingAttachmentCreateWithoutTeachingInput[] | TeachingAttachmentUncheckedCreateWithoutTeachingInput[]
+    connectOrCreate?: TeachingAttachmentCreateOrConnectWithoutTeachingInput | TeachingAttachmentCreateOrConnectWithoutTeachingInput[]
+    upsert?: TeachingAttachmentUpsertWithWhereUniqueWithoutTeachingInput | TeachingAttachmentUpsertWithWhereUniqueWithoutTeachingInput[]
+    createMany?: TeachingAttachmentCreateManyTeachingInputEnvelope
+    set?: TeachingAttachmentWhereUniqueInput | TeachingAttachmentWhereUniqueInput[]
+    disconnect?: TeachingAttachmentWhereUniqueInput | TeachingAttachmentWhereUniqueInput[]
+    delete?: TeachingAttachmentWhereUniqueInput | TeachingAttachmentWhereUniqueInput[]
+    connect?: TeachingAttachmentWhereUniqueInput | TeachingAttachmentWhereUniqueInput[]
+    update?: TeachingAttachmentUpdateWithWhereUniqueWithoutTeachingInput | TeachingAttachmentUpdateWithWhereUniqueWithoutTeachingInput[]
+    updateMany?: TeachingAttachmentUpdateManyWithWhereWithoutTeachingInput | TeachingAttachmentUpdateManyWithWhereWithoutTeachingInput[]
+    deleteMany?: TeachingAttachmentScalarWhereInput | TeachingAttachmentScalarWhereInput[]
+  }
+
+  export type TeachingAttachmentUncheckedUpdateManyWithoutTeachingNestedInput = {
+    create?: XOR<TeachingAttachmentCreateWithoutTeachingInput, TeachingAttachmentUncheckedCreateWithoutTeachingInput> | TeachingAttachmentCreateWithoutTeachingInput[] | TeachingAttachmentUncheckedCreateWithoutTeachingInput[]
+    connectOrCreate?: TeachingAttachmentCreateOrConnectWithoutTeachingInput | TeachingAttachmentCreateOrConnectWithoutTeachingInput[]
+    upsert?: TeachingAttachmentUpsertWithWhereUniqueWithoutTeachingInput | TeachingAttachmentUpsertWithWhereUniqueWithoutTeachingInput[]
+    createMany?: TeachingAttachmentCreateManyTeachingInputEnvelope
+    set?: TeachingAttachmentWhereUniqueInput | TeachingAttachmentWhereUniqueInput[]
+    disconnect?: TeachingAttachmentWhereUniqueInput | TeachingAttachmentWhereUniqueInput[]
+    delete?: TeachingAttachmentWhereUniqueInput | TeachingAttachmentWhereUniqueInput[]
+    connect?: TeachingAttachmentWhereUniqueInput | TeachingAttachmentWhereUniqueInput[]
+    update?: TeachingAttachmentUpdateWithWhereUniqueWithoutTeachingInput | TeachingAttachmentUpdateWithWhereUniqueWithoutTeachingInput[]
+    updateMany?: TeachingAttachmentUpdateManyWithWhereWithoutTeachingInput | TeachingAttachmentUpdateManyWithWhereWithoutTeachingInput[]
+    deleteMany?: TeachingAttachmentScalarWhereInput | TeachingAttachmentScalarWhereInput[]
+  }
+
+  export type TeachingCreateNestedOneWithoutAttachmentsInput = {
+    create?: XOR<TeachingCreateWithoutAttachmentsInput, TeachingUncheckedCreateWithoutAttachmentsInput>
+    connectOrCreate?: TeachingCreateOrConnectWithoutAttachmentsInput
+    connect?: TeachingWhereUniqueInput
+  }
+
+  export type TeachingUpdateOneRequiredWithoutAttachmentsNestedInput = {
+    create?: XOR<TeachingCreateWithoutAttachmentsInput, TeachingUncheckedCreateWithoutAttachmentsInput>
+    connectOrCreate?: TeachingCreateOrConnectWithoutAttachmentsInput
+    upsert?: TeachingUpsertWithoutAttachmentsInput
+    connect?: TeachingWhereUniqueInput
+    update?: XOR<XOR<TeachingUpdateToOneWithWhereWithoutAttachmentsInput, TeachingUpdateWithoutAttachmentsInput>, TeachingUncheckedUpdateWithoutAttachmentsInput>
+  }
+
+  export type BlogAttachmentCreateNestedManyWithoutBlogInput = {
+    create?: XOR<BlogAttachmentCreateWithoutBlogInput, BlogAttachmentUncheckedCreateWithoutBlogInput> | BlogAttachmentCreateWithoutBlogInput[] | BlogAttachmentUncheckedCreateWithoutBlogInput[]
+    connectOrCreate?: BlogAttachmentCreateOrConnectWithoutBlogInput | BlogAttachmentCreateOrConnectWithoutBlogInput[]
+    createMany?: BlogAttachmentCreateManyBlogInputEnvelope
+    connect?: BlogAttachmentWhereUniqueInput | BlogAttachmentWhereUniqueInput[]
+  }
+
+  export type BlogAttachmentUncheckedCreateNestedManyWithoutBlogInput = {
+    create?: XOR<BlogAttachmentCreateWithoutBlogInput, BlogAttachmentUncheckedCreateWithoutBlogInput> | BlogAttachmentCreateWithoutBlogInput[] | BlogAttachmentUncheckedCreateWithoutBlogInput[]
+    connectOrCreate?: BlogAttachmentCreateOrConnectWithoutBlogInput | BlogAttachmentCreateOrConnectWithoutBlogInput[]
+    createMany?: BlogAttachmentCreateManyBlogInputEnvelope
+    connect?: BlogAttachmentWhereUniqueInput | BlogAttachmentWhereUniqueInput[]
+  }
+
   export type EnumBlogStatusFieldUpdateOperationsInput = {
     set?: $Enums.BlogStatus
   }
@@ -14098,8 +19318,94 @@ export namespace Prisma {
     set?: Date | string | null
   }
 
+  export type BlogAttachmentUpdateManyWithoutBlogNestedInput = {
+    create?: XOR<BlogAttachmentCreateWithoutBlogInput, BlogAttachmentUncheckedCreateWithoutBlogInput> | BlogAttachmentCreateWithoutBlogInput[] | BlogAttachmentUncheckedCreateWithoutBlogInput[]
+    connectOrCreate?: BlogAttachmentCreateOrConnectWithoutBlogInput | BlogAttachmentCreateOrConnectWithoutBlogInput[]
+    upsert?: BlogAttachmentUpsertWithWhereUniqueWithoutBlogInput | BlogAttachmentUpsertWithWhereUniqueWithoutBlogInput[]
+    createMany?: BlogAttachmentCreateManyBlogInputEnvelope
+    set?: BlogAttachmentWhereUniqueInput | BlogAttachmentWhereUniqueInput[]
+    disconnect?: BlogAttachmentWhereUniqueInput | BlogAttachmentWhereUniqueInput[]
+    delete?: BlogAttachmentWhereUniqueInput | BlogAttachmentWhereUniqueInput[]
+    connect?: BlogAttachmentWhereUniqueInput | BlogAttachmentWhereUniqueInput[]
+    update?: BlogAttachmentUpdateWithWhereUniqueWithoutBlogInput | BlogAttachmentUpdateWithWhereUniqueWithoutBlogInput[]
+    updateMany?: BlogAttachmentUpdateManyWithWhereWithoutBlogInput | BlogAttachmentUpdateManyWithWhereWithoutBlogInput[]
+    deleteMany?: BlogAttachmentScalarWhereInput | BlogAttachmentScalarWhereInput[]
+  }
+
+  export type BlogAttachmentUncheckedUpdateManyWithoutBlogNestedInput = {
+    create?: XOR<BlogAttachmentCreateWithoutBlogInput, BlogAttachmentUncheckedCreateWithoutBlogInput> | BlogAttachmentCreateWithoutBlogInput[] | BlogAttachmentUncheckedCreateWithoutBlogInput[]
+    connectOrCreate?: BlogAttachmentCreateOrConnectWithoutBlogInput | BlogAttachmentCreateOrConnectWithoutBlogInput[]
+    upsert?: BlogAttachmentUpsertWithWhereUniqueWithoutBlogInput | BlogAttachmentUpsertWithWhereUniqueWithoutBlogInput[]
+    createMany?: BlogAttachmentCreateManyBlogInputEnvelope
+    set?: BlogAttachmentWhereUniqueInput | BlogAttachmentWhereUniqueInput[]
+    disconnect?: BlogAttachmentWhereUniqueInput | BlogAttachmentWhereUniqueInput[]
+    delete?: BlogAttachmentWhereUniqueInput | BlogAttachmentWhereUniqueInput[]
+    connect?: BlogAttachmentWhereUniqueInput | BlogAttachmentWhereUniqueInput[]
+    update?: BlogAttachmentUpdateWithWhereUniqueWithoutBlogInput | BlogAttachmentUpdateWithWhereUniqueWithoutBlogInput[]
+    updateMany?: BlogAttachmentUpdateManyWithWhereWithoutBlogInput | BlogAttachmentUpdateManyWithWhereWithoutBlogInput[]
+    deleteMany?: BlogAttachmentScalarWhereInput | BlogAttachmentScalarWhereInput[]
+  }
+
+  export type BlogCreateNestedOneWithoutAttachmentsInput = {
+    create?: XOR<BlogCreateWithoutAttachmentsInput, BlogUncheckedCreateWithoutAttachmentsInput>
+    connectOrCreate?: BlogCreateOrConnectWithoutAttachmentsInput
+    connect?: BlogWhereUniqueInput
+  }
+
+  export type BlogUpdateOneRequiredWithoutAttachmentsNestedInput = {
+    create?: XOR<BlogCreateWithoutAttachmentsInput, BlogUncheckedCreateWithoutAttachmentsInput>
+    connectOrCreate?: BlogCreateOrConnectWithoutAttachmentsInput
+    upsert?: BlogUpsertWithoutAttachmentsInput
+    connect?: BlogWhereUniqueInput
+    update?: XOR<XOR<BlogUpdateToOneWithWhereWithoutAttachmentsInput, BlogUpdateWithoutAttachmentsInput>, BlogUncheckedUpdateWithoutAttachmentsInput>
+  }
+
+  export type UserCreateNestedOneWithoutMembershipRequestsInput = {
+    create?: XOR<UserCreateWithoutMembershipRequestsInput, UserUncheckedCreateWithoutMembershipRequestsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMembershipRequestsInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type EnumMembershipStatusFieldUpdateOperationsInput = {
     set?: $Enums.MembershipStatus
+  }
+
+  export type UserUpdateOneWithoutMembershipRequestsNestedInput = {
+    create?: XOR<UserCreateWithoutMembershipRequestsInput, UserUncheckedCreateWithoutMembershipRequestsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMembershipRequestsInput
+    upsert?: UserUpsertWithoutMembershipRequestsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMembershipRequestsInput, UserUpdateWithoutMembershipRequestsInput>, UserUncheckedUpdateWithoutMembershipRequestsInput>
+  }
+
+  export type UserCreateNestedOneWithoutMembershipNotificationsInput = {
+    create?: XOR<UserCreateWithoutMembershipNotificationsInput, UserUncheckedCreateWithoutMembershipNotificationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMembershipNotificationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutMembershipNotificationsNestedInput = {
+    create?: XOR<UserCreateWithoutMembershipNotificationsInput, UserUncheckedCreateWithoutMembershipNotificationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMembershipNotificationsInput
+    upsert?: UserUpsertWithoutMembershipNotificationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMembershipNotificationsInput, UserUpdateWithoutMembershipNotificationsInput>, UserUncheckedUpdateWithoutMembershipNotificationsInput>
+  }
+
+  export type MembershipRequestCreateNestedManyWithoutUserInput = {
+    create?: XOR<MembershipRequestCreateWithoutUserInput, MembershipRequestUncheckedCreateWithoutUserInput> | MembershipRequestCreateWithoutUserInput[] | MembershipRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MembershipRequestCreateOrConnectWithoutUserInput | MembershipRequestCreateOrConnectWithoutUserInput[]
+    createMany?: MembershipRequestCreateManyUserInputEnvelope
+    connect?: MembershipRequestWhereUniqueInput | MembershipRequestWhereUniqueInput[]
+  }
+
+  export type MembershipNotificationCreateNestedManyWithoutUserInput = {
+    create?: XOR<MembershipNotificationCreateWithoutUserInput, MembershipNotificationUncheckedCreateWithoutUserInput> | MembershipNotificationCreateWithoutUserInput[] | MembershipNotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MembershipNotificationCreateOrConnectWithoutUserInput | MembershipNotificationCreateOrConnectWithoutUserInput[]
+    createMany?: MembershipNotificationCreateManyUserInputEnvelope
+    connect?: MembershipNotificationWhereUniqueInput | MembershipNotificationWhereUniqueInput[]
   }
 
   export type SessionCreateNestedManyWithoutUserInput = {
@@ -14114,6 +19420,20 @@ export namespace Prisma {
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
     createMany?: AccountCreateManyUserInputEnvelope
     connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+  }
+
+  export type MembershipRequestUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<MembershipRequestCreateWithoutUserInput, MembershipRequestUncheckedCreateWithoutUserInput> | MembershipRequestCreateWithoutUserInput[] | MembershipRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MembershipRequestCreateOrConnectWithoutUserInput | MembershipRequestCreateOrConnectWithoutUserInput[]
+    createMany?: MembershipRequestCreateManyUserInputEnvelope
+    connect?: MembershipRequestWhereUniqueInput | MembershipRequestWhereUniqueInput[]
+  }
+
+  export type MembershipNotificationUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<MembershipNotificationCreateWithoutUserInput, MembershipNotificationUncheckedCreateWithoutUserInput> | MembershipNotificationCreateWithoutUserInput[] | MembershipNotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MembershipNotificationCreateOrConnectWithoutUserInput | MembershipNotificationCreateOrConnectWithoutUserInput[]
+    createMany?: MembershipNotificationCreateManyUserInputEnvelope
+    connect?: MembershipNotificationWhereUniqueInput | MembershipNotificationWhereUniqueInput[]
   }
 
   export type SessionUncheckedCreateNestedManyWithoutUserInput = {
@@ -14132,6 +19452,34 @@ export namespace Prisma {
 
   export type NullableBoolFieldUpdateOperationsInput = {
     set?: boolean | null
+  }
+
+  export type MembershipRequestUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MembershipRequestCreateWithoutUserInput, MembershipRequestUncheckedCreateWithoutUserInput> | MembershipRequestCreateWithoutUserInput[] | MembershipRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MembershipRequestCreateOrConnectWithoutUserInput | MembershipRequestCreateOrConnectWithoutUserInput[]
+    upsert?: MembershipRequestUpsertWithWhereUniqueWithoutUserInput | MembershipRequestUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MembershipRequestCreateManyUserInputEnvelope
+    set?: MembershipRequestWhereUniqueInput | MembershipRequestWhereUniqueInput[]
+    disconnect?: MembershipRequestWhereUniqueInput | MembershipRequestWhereUniqueInput[]
+    delete?: MembershipRequestWhereUniqueInput | MembershipRequestWhereUniqueInput[]
+    connect?: MembershipRequestWhereUniqueInput | MembershipRequestWhereUniqueInput[]
+    update?: MembershipRequestUpdateWithWhereUniqueWithoutUserInput | MembershipRequestUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MembershipRequestUpdateManyWithWhereWithoutUserInput | MembershipRequestUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MembershipRequestScalarWhereInput | MembershipRequestScalarWhereInput[]
+  }
+
+  export type MembershipNotificationUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MembershipNotificationCreateWithoutUserInput, MembershipNotificationUncheckedCreateWithoutUserInput> | MembershipNotificationCreateWithoutUserInput[] | MembershipNotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MembershipNotificationCreateOrConnectWithoutUserInput | MembershipNotificationCreateOrConnectWithoutUserInput[]
+    upsert?: MembershipNotificationUpsertWithWhereUniqueWithoutUserInput | MembershipNotificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MembershipNotificationCreateManyUserInputEnvelope
+    set?: MembershipNotificationWhereUniqueInput | MembershipNotificationWhereUniqueInput[]
+    disconnect?: MembershipNotificationWhereUniqueInput | MembershipNotificationWhereUniqueInput[]
+    delete?: MembershipNotificationWhereUniqueInput | MembershipNotificationWhereUniqueInput[]
+    connect?: MembershipNotificationWhereUniqueInput | MembershipNotificationWhereUniqueInput[]
+    update?: MembershipNotificationUpdateWithWhereUniqueWithoutUserInput | MembershipNotificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MembershipNotificationUpdateManyWithWhereWithoutUserInput | MembershipNotificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MembershipNotificationScalarWhereInput | MembershipNotificationScalarWhereInput[]
   }
 
   export type SessionUpdateManyWithoutUserNestedInput = {
@@ -14160,6 +19508,34 @@ export namespace Prisma {
     update?: AccountUpdateWithWhereUniqueWithoutUserInput | AccountUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: AccountUpdateManyWithWhereWithoutUserInput | AccountUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[]
+  }
+
+  export type MembershipRequestUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MembershipRequestCreateWithoutUserInput, MembershipRequestUncheckedCreateWithoutUserInput> | MembershipRequestCreateWithoutUserInput[] | MembershipRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MembershipRequestCreateOrConnectWithoutUserInput | MembershipRequestCreateOrConnectWithoutUserInput[]
+    upsert?: MembershipRequestUpsertWithWhereUniqueWithoutUserInput | MembershipRequestUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MembershipRequestCreateManyUserInputEnvelope
+    set?: MembershipRequestWhereUniqueInput | MembershipRequestWhereUniqueInput[]
+    disconnect?: MembershipRequestWhereUniqueInput | MembershipRequestWhereUniqueInput[]
+    delete?: MembershipRequestWhereUniqueInput | MembershipRequestWhereUniqueInput[]
+    connect?: MembershipRequestWhereUniqueInput | MembershipRequestWhereUniqueInput[]
+    update?: MembershipRequestUpdateWithWhereUniqueWithoutUserInput | MembershipRequestUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MembershipRequestUpdateManyWithWhereWithoutUserInput | MembershipRequestUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MembershipRequestScalarWhereInput | MembershipRequestScalarWhereInput[]
+  }
+
+  export type MembershipNotificationUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MembershipNotificationCreateWithoutUserInput, MembershipNotificationUncheckedCreateWithoutUserInput> | MembershipNotificationCreateWithoutUserInput[] | MembershipNotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MembershipNotificationCreateOrConnectWithoutUserInput | MembershipNotificationCreateOrConnectWithoutUserInput[]
+    upsert?: MembershipNotificationUpsertWithWhereUniqueWithoutUserInput | MembershipNotificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MembershipNotificationCreateManyUserInputEnvelope
+    set?: MembershipNotificationWhereUniqueInput | MembershipNotificationWhereUniqueInput[]
+    disconnect?: MembershipNotificationWhereUniqueInput | MembershipNotificationWhereUniqueInput[]
+    delete?: MembershipNotificationWhereUniqueInput | MembershipNotificationWhereUniqueInput[]
+    connect?: MembershipNotificationWhereUniqueInput | MembershipNotificationWhereUniqueInput[]
+    update?: MembershipNotificationUpdateWithWhereUniqueWithoutUserInput | MembershipNotificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MembershipNotificationUpdateManyWithWhereWithoutUserInput | MembershipNotificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MembershipNotificationScalarWhereInput | MembershipNotificationScalarWhereInput[]
   }
 
   export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
@@ -14434,6 +19810,29 @@ export namespace Prisma {
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type NestedEnumBlogStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.BlogStatus | EnumBlogStatusFieldRefInput<$PrismaModel>
@@ -14487,6 +19886,572 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedBoolNullableFilter<$PrismaModel>
     _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
+  export type TeachingAttachmentCreateWithoutTeachingInput = {
+    id?: string
+    title?: string | null
+    storagePath: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TeachingAttachmentUncheckedCreateWithoutTeachingInput = {
+    id?: string
+    title?: string | null
+    storagePath: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TeachingAttachmentCreateOrConnectWithoutTeachingInput = {
+    where: TeachingAttachmentWhereUniqueInput
+    create: XOR<TeachingAttachmentCreateWithoutTeachingInput, TeachingAttachmentUncheckedCreateWithoutTeachingInput>
+  }
+
+  export type TeachingAttachmentCreateManyTeachingInputEnvelope = {
+    data: TeachingAttachmentCreateManyTeachingInput | TeachingAttachmentCreateManyTeachingInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TeachingAttachmentUpsertWithWhereUniqueWithoutTeachingInput = {
+    where: TeachingAttachmentWhereUniqueInput
+    update: XOR<TeachingAttachmentUpdateWithoutTeachingInput, TeachingAttachmentUncheckedUpdateWithoutTeachingInput>
+    create: XOR<TeachingAttachmentCreateWithoutTeachingInput, TeachingAttachmentUncheckedCreateWithoutTeachingInput>
+  }
+
+  export type TeachingAttachmentUpdateWithWhereUniqueWithoutTeachingInput = {
+    where: TeachingAttachmentWhereUniqueInput
+    data: XOR<TeachingAttachmentUpdateWithoutTeachingInput, TeachingAttachmentUncheckedUpdateWithoutTeachingInput>
+  }
+
+  export type TeachingAttachmentUpdateManyWithWhereWithoutTeachingInput = {
+    where: TeachingAttachmentScalarWhereInput
+    data: XOR<TeachingAttachmentUpdateManyMutationInput, TeachingAttachmentUncheckedUpdateManyWithoutTeachingInput>
+  }
+
+  export type TeachingAttachmentScalarWhereInput = {
+    AND?: TeachingAttachmentScalarWhereInput | TeachingAttachmentScalarWhereInput[]
+    OR?: TeachingAttachmentScalarWhereInput[]
+    NOT?: TeachingAttachmentScalarWhereInput | TeachingAttachmentScalarWhereInput[]
+    id?: StringFilter<"TeachingAttachment"> | string
+    teachingId?: StringFilter<"TeachingAttachment"> | string
+    title?: StringNullableFilter<"TeachingAttachment"> | string | null
+    storagePath?: StringFilter<"TeachingAttachment"> | string
+    createdAt?: DateTimeFilter<"TeachingAttachment"> | Date | string
+    updatedAt?: DateTimeFilter<"TeachingAttachment"> | Date | string
+  }
+
+  export type TeachingCreateWithoutAttachmentsInput = {
+    id?: string
+    slug?: string | null
+    youtubeUrl: string
+    youtubeId: string
+    thumbnailUrl?: string | null
+    title: string
+    titleAm?: string | null
+    titleOm?: string | null
+    description?: string | null
+    descriptionAm?: string | null
+    descriptionOm?: string | null
+    durationSeconds?: number | null
+    semesterLabel?: string | null
+    scheduleLine?: string | null
+    venueLine?: string | null
+    position?: number
+    published?: boolean
+    membersOnly?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TeachingUncheckedCreateWithoutAttachmentsInput = {
+    id?: string
+    slug?: string | null
+    youtubeUrl: string
+    youtubeId: string
+    thumbnailUrl?: string | null
+    title: string
+    titleAm?: string | null
+    titleOm?: string | null
+    description?: string | null
+    descriptionAm?: string | null
+    descriptionOm?: string | null
+    durationSeconds?: number | null
+    semesterLabel?: string | null
+    scheduleLine?: string | null
+    venueLine?: string | null
+    position?: number
+    published?: boolean
+    membersOnly?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TeachingCreateOrConnectWithoutAttachmentsInput = {
+    where: TeachingWhereUniqueInput
+    create: XOR<TeachingCreateWithoutAttachmentsInput, TeachingUncheckedCreateWithoutAttachmentsInput>
+  }
+
+  export type TeachingUpsertWithoutAttachmentsInput = {
+    update: XOR<TeachingUpdateWithoutAttachmentsInput, TeachingUncheckedUpdateWithoutAttachmentsInput>
+    create: XOR<TeachingCreateWithoutAttachmentsInput, TeachingUncheckedCreateWithoutAttachmentsInput>
+    where?: TeachingWhereInput
+  }
+
+  export type TeachingUpdateToOneWithWhereWithoutAttachmentsInput = {
+    where?: TeachingWhereInput
+    data: XOR<TeachingUpdateWithoutAttachmentsInput, TeachingUncheckedUpdateWithoutAttachmentsInput>
+  }
+
+  export type TeachingUpdateWithoutAttachmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    youtubeUrl?: StringFieldUpdateOperationsInput | string
+    youtubeId?: StringFieldUpdateOperationsInput | string
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    titleAm?: NullableStringFieldUpdateOperationsInput | string | null
+    titleOm?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionAm?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionOm?: NullableStringFieldUpdateOperationsInput | string | null
+    durationSeconds?: NullableIntFieldUpdateOperationsInput | number | null
+    semesterLabel?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduleLine?: NullableStringFieldUpdateOperationsInput | string | null
+    venueLine?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    published?: BoolFieldUpdateOperationsInput | boolean
+    membersOnly?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TeachingUncheckedUpdateWithoutAttachmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    youtubeUrl?: StringFieldUpdateOperationsInput | string
+    youtubeId?: StringFieldUpdateOperationsInput | string
+    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    titleAm?: NullableStringFieldUpdateOperationsInput | string | null
+    titleOm?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionAm?: NullableStringFieldUpdateOperationsInput | string | null
+    descriptionOm?: NullableStringFieldUpdateOperationsInput | string | null
+    durationSeconds?: NullableIntFieldUpdateOperationsInput | number | null
+    semesterLabel?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduleLine?: NullableStringFieldUpdateOperationsInput | string | null
+    venueLine?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    published?: BoolFieldUpdateOperationsInput | boolean
+    membersOnly?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlogAttachmentCreateWithoutBlogInput = {
+    id?: string
+    title?: string | null
+    storagePath: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BlogAttachmentUncheckedCreateWithoutBlogInput = {
+    id?: string
+    title?: string | null
+    storagePath: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BlogAttachmentCreateOrConnectWithoutBlogInput = {
+    where: BlogAttachmentWhereUniqueInput
+    create: XOR<BlogAttachmentCreateWithoutBlogInput, BlogAttachmentUncheckedCreateWithoutBlogInput>
+  }
+
+  export type BlogAttachmentCreateManyBlogInputEnvelope = {
+    data: BlogAttachmentCreateManyBlogInput | BlogAttachmentCreateManyBlogInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BlogAttachmentUpsertWithWhereUniqueWithoutBlogInput = {
+    where: BlogAttachmentWhereUniqueInput
+    update: XOR<BlogAttachmentUpdateWithoutBlogInput, BlogAttachmentUncheckedUpdateWithoutBlogInput>
+    create: XOR<BlogAttachmentCreateWithoutBlogInput, BlogAttachmentUncheckedCreateWithoutBlogInput>
+  }
+
+  export type BlogAttachmentUpdateWithWhereUniqueWithoutBlogInput = {
+    where: BlogAttachmentWhereUniqueInput
+    data: XOR<BlogAttachmentUpdateWithoutBlogInput, BlogAttachmentUncheckedUpdateWithoutBlogInput>
+  }
+
+  export type BlogAttachmentUpdateManyWithWhereWithoutBlogInput = {
+    where: BlogAttachmentScalarWhereInput
+    data: XOR<BlogAttachmentUpdateManyMutationInput, BlogAttachmentUncheckedUpdateManyWithoutBlogInput>
+  }
+
+  export type BlogAttachmentScalarWhereInput = {
+    AND?: BlogAttachmentScalarWhereInput | BlogAttachmentScalarWhereInput[]
+    OR?: BlogAttachmentScalarWhereInput[]
+    NOT?: BlogAttachmentScalarWhereInput | BlogAttachmentScalarWhereInput[]
+    id?: StringFilter<"BlogAttachment"> | string
+    blogId?: StringFilter<"BlogAttachment"> | string
+    title?: StringNullableFilter<"BlogAttachment"> | string | null
+    storagePath?: StringFilter<"BlogAttachment"> | string
+    createdAt?: DateTimeFilter<"BlogAttachment"> | Date | string
+    updatedAt?: DateTimeFilter<"BlogAttachment"> | Date | string
+  }
+
+  export type BlogCreateWithoutAttachmentsInput = {
+    id?: string
+    slug: string
+    title: string
+    titleAm?: string | null
+    titleOm?: string | null
+    excerpt?: string | null
+    excerptAm?: string | null
+    excerptOm?: string | null
+    content: JsonNullValueInput | InputJsonValue
+    contentAm?: NullableJsonNullValueInput | InputJsonValue
+    contentOm?: NullableJsonNullValueInput | InputJsonValue
+    coverImage?: string | null
+    status?: $Enums.BlogStatus
+    publishedAt?: Date | string | null
+    viewCount?: number
+    membersOnly?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BlogUncheckedCreateWithoutAttachmentsInput = {
+    id?: string
+    slug: string
+    title: string
+    titleAm?: string | null
+    titleOm?: string | null
+    excerpt?: string | null
+    excerptAm?: string | null
+    excerptOm?: string | null
+    content: JsonNullValueInput | InputJsonValue
+    contentAm?: NullableJsonNullValueInput | InputJsonValue
+    contentOm?: NullableJsonNullValueInput | InputJsonValue
+    coverImage?: string | null
+    status?: $Enums.BlogStatus
+    publishedAt?: Date | string | null
+    viewCount?: number
+    membersOnly?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BlogCreateOrConnectWithoutAttachmentsInput = {
+    where: BlogWhereUniqueInput
+    create: XOR<BlogCreateWithoutAttachmentsInput, BlogUncheckedCreateWithoutAttachmentsInput>
+  }
+
+  export type BlogUpsertWithoutAttachmentsInput = {
+    update: XOR<BlogUpdateWithoutAttachmentsInput, BlogUncheckedUpdateWithoutAttachmentsInput>
+    create: XOR<BlogCreateWithoutAttachmentsInput, BlogUncheckedCreateWithoutAttachmentsInput>
+    where?: BlogWhereInput
+  }
+
+  export type BlogUpdateToOneWithWhereWithoutAttachmentsInput = {
+    where?: BlogWhereInput
+    data: XOR<BlogUpdateWithoutAttachmentsInput, BlogUncheckedUpdateWithoutAttachmentsInput>
+  }
+
+  export type BlogUpdateWithoutAttachmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    titleAm?: NullableStringFieldUpdateOperationsInput | string | null
+    titleOm?: NullableStringFieldUpdateOperationsInput | string | null
+    excerpt?: NullableStringFieldUpdateOperationsInput | string | null
+    excerptAm?: NullableStringFieldUpdateOperationsInput | string | null
+    excerptOm?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: JsonNullValueInput | InputJsonValue
+    contentAm?: NullableJsonNullValueInput | InputJsonValue
+    contentOm?: NullableJsonNullValueInput | InputJsonValue
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    viewCount?: IntFieldUpdateOperationsInput | number
+    membersOnly?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlogUncheckedUpdateWithoutAttachmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    titleAm?: NullableStringFieldUpdateOperationsInput | string | null
+    titleOm?: NullableStringFieldUpdateOperationsInput | string | null
+    excerpt?: NullableStringFieldUpdateOperationsInput | string | null
+    excerptAm?: NullableStringFieldUpdateOperationsInput | string | null
+    excerptOm?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: JsonNullValueInput | InputJsonValue
+    contentAm?: NullableJsonNullValueInput | InputJsonValue
+    contentOm?: NullableJsonNullValueInput | InputJsonValue
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumBlogStatusFieldUpdateOperationsInput | $Enums.BlogStatus
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    viewCount?: IntFieldUpdateOperationsInput | number
+    membersOnly?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCreateWithoutMembershipRequestsInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    role?: string | null
+    banned?: boolean | null
+    banReason?: string | null
+    banExpires?: Date | string | null
+    membershipNotifications?: MembershipNotificationCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMembershipRequestsInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    role?: string | null
+    banned?: boolean | null
+    banReason?: string | null
+    banExpires?: Date | string | null
+    membershipNotifications?: MembershipNotificationUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMembershipRequestsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMembershipRequestsInput, UserUncheckedCreateWithoutMembershipRequestsInput>
+  }
+
+  export type UserUpsertWithoutMembershipRequestsInput = {
+    update: XOR<UserUpdateWithoutMembershipRequestsInput, UserUncheckedUpdateWithoutMembershipRequestsInput>
+    create: XOR<UserCreateWithoutMembershipRequestsInput, UserUncheckedCreateWithoutMembershipRequestsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMembershipRequestsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMembershipRequestsInput, UserUncheckedUpdateWithoutMembershipRequestsInput>
+  }
+
+  export type UserUpdateWithoutMembershipRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    membershipNotifications?: MembershipNotificationUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMembershipRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    membershipNotifications?: MembershipNotificationUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutMembershipNotificationsInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    role?: string | null
+    banned?: boolean | null
+    banReason?: string | null
+    banExpires?: Date | string | null
+    membershipRequests?: MembershipRequestCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMembershipNotificationsInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    role?: string | null
+    banned?: boolean | null
+    banReason?: string | null
+    banExpires?: Date | string | null
+    membershipRequests?: MembershipRequestUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMembershipNotificationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMembershipNotificationsInput, UserUncheckedCreateWithoutMembershipNotificationsInput>
+  }
+
+  export type UserUpsertWithoutMembershipNotificationsInput = {
+    update: XOR<UserUpdateWithoutMembershipNotificationsInput, UserUncheckedUpdateWithoutMembershipNotificationsInput>
+    create: XOR<UserCreateWithoutMembershipNotificationsInput, UserUncheckedCreateWithoutMembershipNotificationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMembershipNotificationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMembershipNotificationsInput, UserUncheckedUpdateWithoutMembershipNotificationsInput>
+  }
+
+  export type UserUpdateWithoutMembershipNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    membershipRequests?: MembershipRequestUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMembershipNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    membershipRequests?: MembershipRequestUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type MembershipRequestCreateWithoutUserInput = {
+    id?: string
+    fullName: string
+    email: string
+    phone: string
+    telegram?: string | null
+    message?: string | null
+    status?: $Enums.MembershipStatus
+    paymentMethod?: string | null
+    paymentProofStoragePath?: string | null
+    paymentSubmittedAt?: Date | string | null
+    approvedAt?: Date | string | null
+    approvedBy?: string | null
+    rejectionReason?: string | null
+    membershipStartsAt?: Date | string | null
+    membershipExpiresAt?: Date | string | null
+    renewedFromId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MembershipRequestUncheckedCreateWithoutUserInput = {
+    id?: string
+    fullName: string
+    email: string
+    phone: string
+    telegram?: string | null
+    message?: string | null
+    status?: $Enums.MembershipStatus
+    paymentMethod?: string | null
+    paymentProofStoragePath?: string | null
+    paymentSubmittedAt?: Date | string | null
+    approvedAt?: Date | string | null
+    approvedBy?: string | null
+    rejectionReason?: string | null
+    membershipStartsAt?: Date | string | null
+    membershipExpiresAt?: Date | string | null
+    renewedFromId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MembershipRequestCreateOrConnectWithoutUserInput = {
+    where: MembershipRequestWhereUniqueInput
+    create: XOR<MembershipRequestCreateWithoutUserInput, MembershipRequestUncheckedCreateWithoutUserInput>
+  }
+
+  export type MembershipRequestCreateManyUserInputEnvelope = {
+    data: MembershipRequestCreateManyUserInput | MembershipRequestCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MembershipNotificationCreateWithoutUserInput = {
+    id?: string
+    title: string
+    body?: string | null
+    type?: string | null
+    readAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MembershipNotificationUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    body?: string | null
+    type?: string | null
+    readAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MembershipNotificationCreateOrConnectWithoutUserInput = {
+    where: MembershipNotificationWhereUniqueInput
+    create: XOR<MembershipNotificationCreateWithoutUserInput, MembershipNotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type MembershipNotificationCreateManyUserInputEnvelope = {
+    data: MembershipNotificationCreateManyUserInput | MembershipNotificationCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type SessionCreateWithoutUserInput = {
@@ -14559,6 +20524,77 @@ export namespace Prisma {
   export type AccountCreateManyUserInputEnvelope = {
     data: AccountCreateManyUserInput | AccountCreateManyUserInput[]
     skipDuplicates?: boolean
+  }
+
+  export type MembershipRequestUpsertWithWhereUniqueWithoutUserInput = {
+    where: MembershipRequestWhereUniqueInput
+    update: XOR<MembershipRequestUpdateWithoutUserInput, MembershipRequestUncheckedUpdateWithoutUserInput>
+    create: XOR<MembershipRequestCreateWithoutUserInput, MembershipRequestUncheckedCreateWithoutUserInput>
+  }
+
+  export type MembershipRequestUpdateWithWhereUniqueWithoutUserInput = {
+    where: MembershipRequestWhereUniqueInput
+    data: XOR<MembershipRequestUpdateWithoutUserInput, MembershipRequestUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MembershipRequestUpdateManyWithWhereWithoutUserInput = {
+    where: MembershipRequestScalarWhereInput
+    data: XOR<MembershipRequestUpdateManyMutationInput, MembershipRequestUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type MembershipRequestScalarWhereInput = {
+    AND?: MembershipRequestScalarWhereInput | MembershipRequestScalarWhereInput[]
+    OR?: MembershipRequestScalarWhereInput[]
+    NOT?: MembershipRequestScalarWhereInput | MembershipRequestScalarWhereInput[]
+    id?: StringFilter<"MembershipRequest"> | string
+    userId?: StringNullableFilter<"MembershipRequest"> | string | null
+    fullName?: StringFilter<"MembershipRequest"> | string
+    email?: StringFilter<"MembershipRequest"> | string
+    phone?: StringFilter<"MembershipRequest"> | string
+    telegram?: StringNullableFilter<"MembershipRequest"> | string | null
+    message?: StringNullableFilter<"MembershipRequest"> | string | null
+    status?: EnumMembershipStatusFilter<"MembershipRequest"> | $Enums.MembershipStatus
+    paymentMethod?: StringNullableFilter<"MembershipRequest"> | string | null
+    paymentProofStoragePath?: StringNullableFilter<"MembershipRequest"> | string | null
+    paymentSubmittedAt?: DateTimeNullableFilter<"MembershipRequest"> | Date | string | null
+    approvedAt?: DateTimeNullableFilter<"MembershipRequest"> | Date | string | null
+    approvedBy?: StringNullableFilter<"MembershipRequest"> | string | null
+    rejectionReason?: StringNullableFilter<"MembershipRequest"> | string | null
+    membershipStartsAt?: DateTimeNullableFilter<"MembershipRequest"> | Date | string | null
+    membershipExpiresAt?: DateTimeNullableFilter<"MembershipRequest"> | Date | string | null
+    renewedFromId?: StringNullableFilter<"MembershipRequest"> | string | null
+    createdAt?: DateTimeFilter<"MembershipRequest"> | Date | string
+    updatedAt?: DateTimeFilter<"MembershipRequest"> | Date | string
+  }
+
+  export type MembershipNotificationUpsertWithWhereUniqueWithoutUserInput = {
+    where: MembershipNotificationWhereUniqueInput
+    update: XOR<MembershipNotificationUpdateWithoutUserInput, MembershipNotificationUncheckedUpdateWithoutUserInput>
+    create: XOR<MembershipNotificationCreateWithoutUserInput, MembershipNotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type MembershipNotificationUpdateWithWhereUniqueWithoutUserInput = {
+    where: MembershipNotificationWhereUniqueInput
+    data: XOR<MembershipNotificationUpdateWithoutUserInput, MembershipNotificationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MembershipNotificationUpdateManyWithWhereWithoutUserInput = {
+    where: MembershipNotificationScalarWhereInput
+    data: XOR<MembershipNotificationUpdateManyMutationInput, MembershipNotificationUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type MembershipNotificationScalarWhereInput = {
+    AND?: MembershipNotificationScalarWhereInput | MembershipNotificationScalarWhereInput[]
+    OR?: MembershipNotificationScalarWhereInput[]
+    NOT?: MembershipNotificationScalarWhereInput | MembershipNotificationScalarWhereInput[]
+    id?: StringFilter<"MembershipNotification"> | string
+    userId?: StringFilter<"MembershipNotification"> | string
+    title?: StringFilter<"MembershipNotification"> | string
+    body?: StringNullableFilter<"MembershipNotification"> | string | null
+    type?: StringNullableFilter<"MembershipNotification"> | string | null
+    readAt?: DateTimeNullableFilter<"MembershipNotification"> | Date | string | null
+    createdAt?: DateTimeFilter<"MembershipNotification"> | Date | string
+    updatedAt?: DateTimeFilter<"MembershipNotification"> | Date | string
   }
 
   export type SessionUpsertWithWhereUniqueWithoutUserInput = {
@@ -14639,6 +20675,8 @@ export namespace Prisma {
     banned?: boolean | null
     banReason?: string | null
     banExpires?: Date | string | null
+    membershipRequests?: MembershipRequestCreateNestedManyWithoutUserInput
+    membershipNotifications?: MembershipNotificationCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
   }
 
@@ -14654,6 +20692,8 @@ export namespace Prisma {
     banned?: boolean | null
     banReason?: string | null
     banExpires?: Date | string | null
+    membershipRequests?: MembershipRequestUncheckedCreateNestedManyWithoutUserInput
+    membershipNotifications?: MembershipNotificationUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -14685,6 +20725,8 @@ export namespace Prisma {
     banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     banExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    membershipRequests?: MembershipRequestUpdateManyWithoutUserNestedInput
+    membershipNotifications?: MembershipNotificationUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
   }
 
@@ -14700,6 +20742,8 @@ export namespace Prisma {
     banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     banExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    membershipRequests?: MembershipRequestUncheckedUpdateManyWithoutUserNestedInput
+    membershipNotifications?: MembershipNotificationUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -14715,6 +20759,8 @@ export namespace Prisma {
     banned?: boolean | null
     banReason?: string | null
     banExpires?: Date | string | null
+    membershipRequests?: MembershipRequestCreateNestedManyWithoutUserInput
+    membershipNotifications?: MembershipNotificationCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
   }
 
@@ -14730,6 +20776,8 @@ export namespace Prisma {
     banned?: boolean | null
     banReason?: string | null
     banExpires?: Date | string | null
+    membershipRequests?: MembershipRequestUncheckedCreateNestedManyWithoutUserInput
+    membershipNotifications?: MembershipNotificationUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -14761,6 +20809,8 @@ export namespace Prisma {
     banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     banExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    membershipRequests?: MembershipRequestUpdateManyWithoutUserNestedInput
+    membershipNotifications?: MembershipNotificationUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
   }
 
@@ -14776,7 +20826,104 @@ export namespace Prisma {
     banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     banExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    membershipRequests?: MembershipRequestUncheckedUpdateManyWithoutUserNestedInput
+    membershipNotifications?: MembershipNotificationUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type TeachingAttachmentCreateManyTeachingInput = {
+    id?: string
+    title?: string | null
+    storagePath: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TeachingAttachmentUpdateWithoutTeachingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    storagePath?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TeachingAttachmentUncheckedUpdateWithoutTeachingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    storagePath?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TeachingAttachmentUncheckedUpdateManyWithoutTeachingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    storagePath?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlogAttachmentCreateManyBlogInput = {
+    id?: string
+    title?: string | null
+    storagePath: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BlogAttachmentUpdateWithoutBlogInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    storagePath?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlogAttachmentUncheckedUpdateWithoutBlogInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    storagePath?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlogAttachmentUncheckedUpdateManyWithoutBlogInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    storagePath?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MembershipRequestCreateManyUserInput = {
+    id?: string
+    fullName: string
+    email: string
+    phone: string
+    telegram?: string | null
+    message?: string | null
+    status?: $Enums.MembershipStatus
+    paymentMethod?: string | null
+    paymentProofStoragePath?: string | null
+    paymentSubmittedAt?: Date | string | null
+    approvedAt?: Date | string | null
+    approvedBy?: string | null
+    rejectionReason?: string | null
+    membershipStartsAt?: Date | string | null
+    membershipExpiresAt?: Date | string | null
+    renewedFromId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MembershipNotificationCreateManyUserInput = {
+    id?: string
+    title: string
+    body?: string | null
+    type?: string | null
+    readAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type SessionCreateManyUserInput = {
@@ -14803,6 +20950,99 @@ export namespace Prisma {
     password?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type MembershipRequestUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    telegram?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofStoragePath?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentSubmittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    membershipStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    membershipExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    renewedFromId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MembershipRequestUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    telegram?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofStoragePath?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentSubmittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    membershipStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    membershipExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    renewedFromId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MembershipRequestUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    telegram?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProofStoragePath?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentSubmittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    membershipStartsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    membershipExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    renewedFromId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MembershipNotificationUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    readAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MembershipNotificationUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    readAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MembershipNotificationUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    readAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SessionUpdateWithoutUserInput = {

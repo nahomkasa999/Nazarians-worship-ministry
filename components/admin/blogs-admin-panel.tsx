@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { deleteAdminBlog } from "@/lib/api/admin-blogs-client";
 import { readApiErrorMessage } from "@/lib/api/error-message";
 import type { AdminBlogListItem } from "@/lib/contracts/blog";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getRelativeDateLabel } from "@/lib/relative-date";
 import {
@@ -74,12 +75,19 @@ export function BlogsAdminPanel({ initialBlogs }: BlogsAdminPanelProps) {
                   />
                 </div>
                 <div className="space-y-2 p-4">
-                  <p className="line-clamp-2 font-semibold">{b.title}</p>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <p className="line-clamp-2 font-semibold">{b.title}</p>
+                    {b.membersOnly ? (
+                      <Badge variant="secondary" className="text-[10px] uppercase tracking-wide">
+                        Members only
+                      </Badge>
+                    ) : null}
+                  </div>
                   {b.excerpt ? (
                     <p className="line-clamp-3 text-sm text-muted-foreground">{b.excerpt}</p>
                   ) : null}
                   <p className="text-xs text-muted-foreground">
-                    {b.status.toLowerCase()}
+                    {b.status === "PUBLISHED" ? "Published" : "Not published"}
                     {b.status === "PUBLISHED" && b.publishedAt
                       ? ` · ${new Intl.DateTimeFormat("en", { dateStyle: "medium" }).format(new Date(b.publishedAt))} · ${getRelativeDateLabel(b.publishedAt)}`
                       : ""}

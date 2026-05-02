@@ -77,6 +77,7 @@ export default async function ApprovedMembersPage() {
                       </div>
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <MembershipDetailTrigger
+                          id={membership.id}
                           fullName={membership.fullName}
                           email={membership.email}
                           phone={membership.phone}

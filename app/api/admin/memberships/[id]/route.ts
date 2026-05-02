@@ -101,6 +101,8 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
   }
 
   let updated;
+  const startsAt = new Date();
+  const expiresAt = new Date(startsAt.getTime() + 30 * 24 * 60 * 60 * 1000);
   try {
     updated = await db.membershipRequest.updateMany({
       where: {
@@ -111,6 +113,9 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
         status: "APPROVED",
         approvedAt: new Date(),
         approvedBy: session.user.email,
+        membershipStartsAt: startsAt,
+        membershipExpiresAt: expiresAt,
+        rejectionReason: null,
       },
     });
   } catch (err) {
@@ -132,7 +137,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
 
   const approved = await db.membershipRequest.findUnique({
     where: { id: parsedParams.data.id },
-    select: { email: true, fullName: true, telegram: true },
+    select: { email: true, fullName: true, telegram: true, userId: true, membershipExpiresAt: true },
   });
 
   let emailResult: { sent: true } | { sent: false; message: string } = {
@@ -150,6 +155,20 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
       outcome.sent ?
         { sent: true }
       : { sent: false, message: outcome.message };
+  }
+
+  if (approved?.userId) {
+    await db.membershipNotification.create({
+      data: {
+        userId: approved.userId,
+        title: "Membership approved",
+        body: approved.membershipExpiresAt
+          ? `Your membership is active until ${approved.membershipExpiresAt.toLocaleDateString()}.`
+          : "Your membership is now active.",
+        type: "membership.approved",
+      },
+      select: { id: true },
+    });
   }
 
   return NextResponse.json({

@@ -127,13 +127,27 @@ exports.Prisma.TeachingScalarFieldEnum = {
   youtubeId: 'youtubeId',
   thumbnailUrl: 'thumbnailUrl',
   title: 'title',
+  titleAm: 'titleAm',
+  titleOm: 'titleOm',
   description: 'description',
+  descriptionAm: 'descriptionAm',
+  descriptionOm: 'descriptionOm',
   durationSeconds: 'durationSeconds',
   semesterLabel: 'semesterLabel',
   scheduleLine: 'scheduleLine',
   venueLine: 'venueLine',
   position: 'position',
   published: 'published',
+  membersOnly: 'membersOnly',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TeachingAttachmentScalarFieldEnum = {
+  id: 'id',
+  teachingId: 'teachingId',
+  title: 'title',
+  storagePath: 'storagePath',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -142,12 +156,28 @@ exports.Prisma.BlogScalarFieldEnum = {
   id: 'id',
   slug: 'slug',
   title: 'title',
+  titleAm: 'titleAm',
+  titleOm: 'titleOm',
   excerpt: 'excerpt',
+  excerptAm: 'excerptAm',
+  excerptOm: 'excerptOm',
   content: 'content',
+  contentAm: 'contentAm',
+  contentOm: 'contentOm',
   coverImage: 'coverImage',
   status: 'status',
   publishedAt: 'publishedAt',
   viewCount: 'viewCount',
+  membersOnly: 'membersOnly',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BlogAttachmentScalarFieldEnum = {
+  id: 'id',
+  blogId: 'blogId',
+  title: 'title',
+  storagePath: 'storagePath',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -160,6 +190,7 @@ exports.Prisma.EventScalarFieldEnum = {
   storagePath: 'storagePath',
   active: 'active',
   position: 'position',
+  membersOnly: 'membersOnly',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -172,14 +203,33 @@ exports.Prisma.ManifestoScalarFieldEnum = {
 
 exports.Prisma.MembershipRequestScalarFieldEnum = {
   id: 'id',
+  userId: 'userId',
   fullName: 'fullName',
   email: 'email',
   phone: 'phone',
   telegram: 'telegram',
   message: 'message',
   status: 'status',
+  paymentMethod: 'paymentMethod',
+  paymentProofStoragePath: 'paymentProofStoragePath',
+  paymentSubmittedAt: 'paymentSubmittedAt',
   approvedAt: 'approvedAt',
   approvedBy: 'approvedBy',
+  rejectionReason: 'rejectionReason',
+  membershipStartsAt: 'membershipStartsAt',
+  membershipExpiresAt: 'membershipExpiresAt',
+  renewedFromId: 'renewedFromId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MembershipNotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  body: 'body',
+  type: 'type',
+  readAt: 'readAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -244,6 +294,11 @@ exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -267,15 +322,19 @@ exports.BlogStatus = exports.$Enums.BlogStatus = {
 exports.MembershipStatus = exports.$Enums.MembershipStatus = {
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',
+  EXPIRED: 'EXPIRED',
   REJECTED: 'REJECTED'
 };
 
 exports.Prisma.ModelName = {
   Teaching: 'Teaching',
+  TeachingAttachment: 'TeachingAttachment',
   Blog: 'Blog',
+  BlogAttachment: 'BlogAttachment',
   Event: 'Event',
   Manifesto: 'Manifesto',
   MembershipRequest: 'MembershipRequest',
+  MembershipNotification: 'MembershipNotification',
   User: 'User',
   Session: 'Session',
   Account: 'Account',

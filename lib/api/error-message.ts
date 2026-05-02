@@ -10,6 +10,7 @@ export const MEMBERSHIP_REQUEST_FIELD_KEYS = [
   "phone",
   "telegram",
   "message",
+  "paymentProof",
 ] as const;
 
 export type MembershipRequestFieldKey = (typeof MEMBERSHIP_REQUEST_FIELD_KEYS)[number];

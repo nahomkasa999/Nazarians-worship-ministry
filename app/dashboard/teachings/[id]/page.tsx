@@ -50,6 +50,7 @@ export default async function DashboardEditTeachingPage({ params }: { params: Pr
                 venueLine: row.venueLine,
                 position: row.position,
                 published: row.published,
+                membersOnly: row.membersOnly,
                 createdAt: row.createdAt.toISOString(),
                 updatedAt: row.updatedAt.toISOString(),
               }}

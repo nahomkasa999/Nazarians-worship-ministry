@@ -52,13 +52,17 @@ export async function GET(request: Request) {
       id: true,
       imageUrl: true,
       storagePath: true,
+      membersOnly: true,
       createdAt: true,
     },
   });
 
   return NextResponse.json({
     events: events.map((e) => ({
-      ...e,
+      id: e.id,
+      imageUrl: e.imageUrl,
+      storagePath: e.storagePath,
+      membersOnly: e.membersOnly,
       createdAt: e.createdAt.toISOString(),
     })),
   });

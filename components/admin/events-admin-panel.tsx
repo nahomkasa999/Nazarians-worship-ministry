@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import {
   createAdminEventPoster,
   deleteAdminEvent,
+  patchAdminEventMembersOnly,
   replaceAdminEventPoster,
 } from "@/lib/api/admin-events-client";
 import { readApiErrorMessage } from "@/lib/api/error-message";
@@ -45,8 +46,21 @@ export function EventsAdminPanel({ initialEvents }: EventsAdminPanelProps) {
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setEvents(initialEvents);
+    queueMicrotask(() => setEvents(initialEvents));
   }, [initialEvents]);
+
+  const toggleMembersOnly = async (id: string, next: boolean) => {
+    setBusy(true);
+    const res = await patchAdminEventMembersOnly(id, next);
+    setBusy(false);
+    if (res.error) {
+      toast.error(readApiErrorMessage(res.error));
+      return;
+    }
+    setEvents((prev) => prev.map((e) => (e.id === id ? { ...e, membersOnly: next } : e)));
+    toast.success(next ? "Poster is members-only." : "Poster is public.");
+    router.refresh();
+  };
 
   const openNew = () => {
     setEditingId(null);
@@ -88,7 +102,7 @@ export function EventsAdminPanel({ initialEvents }: EventsAdminPanelProps) {
       return;
     }
 
-    toast.success(editingId ? "Poster updated." : "Event poster added.");
+    toast.success(editingId ? "Poster published." : "Event published.");
     closeDialog();
     router.refresh();
   };
@@ -135,25 +149,42 @@ export function EventsAdminPanel({ initialEvents }: EventsAdminPanelProps) {
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
-              <div className="flex items-center justify-between gap-4 p-3">
-                <Button
-                  type="button"
-                  size="sm"
-                  variant="secondary"
-                  disabled={busy}
-                  onClick={() => openReplace(ev.id)}
-                >
-                  Replace image
-                </Button>
-                <Button
-                  type="button"
-                  size="sm"
-                  variant="destructive"
-                  disabled={busy}
-                  onClick={() => setDeleteTargetId(ev.id)}
-                >
-                  Delete
-                </Button>
+              <div className="space-y-3 p-3">
+                <label className="flex cursor-pointer items-start gap-2 text-xs leading-snug">
+                  <input
+                    type="checkbox"
+                    className="mt-0.5"
+                    checked={ev.membersOnly}
+                    disabled={busy}
+                    onChange={(e) => void toggleMembersOnly(ev.id, e.target.checked)}
+                  />
+                  <span>
+                    <span className="font-medium text-foreground">Members only</span>
+                    <span className="mt-0.5 block text-muted-foreground">
+                      Hidden from the home page events strip; members still see it in the portal.
+                    </span>
+                  </span>
+                </label>
+                <div className="flex items-center justify-between gap-4">
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="secondary"
+                    disabled={busy}
+                    onClick={() => openReplace(ev.id)}
+                  >
+                    Replace image
+                  </Button>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="destructive"
+                    disabled={busy}
+                    onClick={() => setDeleteTargetId(ev.id)}
+                  >
+                    Delete
+                  </Button>
+                </div>
               </div>
             </div>
           ))}
@@ -163,7 +194,7 @@ export function EventsAdminPanel({ initialEvents }: EventsAdminPanelProps) {
       <Dialog open={dialogOpen} onOpenChange={(o) => !o && closeDialog()}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>{editingId ? "Replace poster" : "New event poster"}</DialogTitle>
+            <DialogTitle>{editingId ? "Replace poster" : "Publish event poster"}</DialogTitle>
           </DialogHeader>
           <div className="space-y-2 py-2">
             <Label htmlFor="poster-file">Poster image</Label>
@@ -183,7 +214,7 @@ export function EventsAdminPanel({ initialEvents }: EventsAdminPanelProps) {
               Cancel
             </Button>
             <Button type="button" onClick={() => void onSubmitPoster()} disabled={busy}>
-              {busy ? "Uploading…" : "Upload"}
+              {busy ? "Publishing…" : "Publish"}
             </Button>
           </DialogFooter>
         </DialogContent>

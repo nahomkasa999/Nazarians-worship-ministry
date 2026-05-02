@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/prisma";
 import { getAdminSessionFromHeaders } from "@/lib/admin-session";
-import { eventIdParamsSchema } from "@/lib/contracts/events";
+import { adminEventPatchJsonSchema, eventIdParamsSchema } from "@/lib/contracts/events";
 import { removeEventPosterObject, uploadEventPoster } from "@/lib/supabase/storage";
 
 export const patchAdminEventRouteDoc = {
@@ -47,6 +47,31 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
   if (!existing) {
     return NextResponse.json({ error: "Event not found.", code: "NOT_FOUND" }, { status: 404 });
+  }
+
+  const contentType = request.headers.get("content-type") ?? "";
+  if (contentType.includes("application/json")) {
+    let json: unknown;
+    try {
+      json = await request.json();
+    } catch {
+      return NextResponse.json(
+        { error: "Invalid JSON.", code: "INVALID_JSON" },
+        { status: 400 }
+      );
+    }
+    const parsedJson = adminEventPatchJsonSchema.safeParse(json);
+    if (!parsedJson.success) {
+      return NextResponse.json(
+        { error: "Invalid request body.", code: "VALIDATION_FAILED" },
+        { status: 400 }
+      );
+    }
+    await db.event.update({
+      where: { id: existing.id },
+      data: { membersOnly: parsedJson.data.membersOnly },
+    });
+    return NextResponse.json({ ok: true as const });
   }
 
   let formData: FormData;

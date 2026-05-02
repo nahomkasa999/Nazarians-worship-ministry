@@ -332,3 +332,66 @@ export async function sendMembershipRequestReceivedEmail(input: {
     text,
   });
 }
+
+export type MembershipRejectedEmailResult = SmtpSendResult;
+
+export async function sendMembershipRejectedEmail(input: {
+  to: string;
+  fullName: string;
+  reason?: string | null;
+}): Promise<MembershipRejectedEmailResult> {
+  const logPrefix = "[membership-reject-email]";
+  const subject = "Membership request update";
+  const safeName = escapeHtml(input.fullName.trim() || "there");
+  const plainName = (input.fullName.trim() || "there").replace(/\r?\n/g, " ");
+  const safeReason =
+    input.reason?.trim()
+      ? `<p><strong>Reason:</strong> ${escapeHtml(input.reason.trim())}</p>`
+      : "";
+  const plainReason =
+    input.reason?.trim() ? `Reason: ${input.reason.trim()}\n\n` : "";
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<body style="margin:0; padding:24px; background:#f5f7fb; font-family:Inter,Segoe UI,Arial,sans-serif; color:#111827;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px; margin:0 auto; background:#ffffff; border:1px solid #e5e7eb; border-radius:12px; overflow:hidden;">
+    <tr>
+      <td style="padding:24px 28px; background:#0f172a; color:#f8fafc;">
+        <h1 style="margin:0; font-size:22px; line-height:1.3;">Nazarian Worship Ministry</h1>
+        <p style="margin:8px 0 0; font-size:14px; color:#cbd5e1;">Membership request update</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:28px; line-height:1.6; font-size:15px;">
+        <p style="margin-top:0;">Hi ${safeName},</p>
+        <p>Thank you for your membership request. After reviewing the submission, we could not approve it at this time.</p>
+        ${safeReason}
+        <p>If you believe this is a mistake, you can reply to this email and we’ll review again.</p>
+        <p style="margin-bottom:0;">- Nazarian Worship Ministry</p>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+`.trim();
+
+  const text = [
+    `Hi ${plainName},`,
+    "",
+    "Thank you for your membership request. After reviewing the submission, we could not approve it at this time.",
+    "",
+    plainReason,
+    "If you believe this is a mistake, you can reply to this email and we’ll review again.",
+    "",
+    "- Nazarian Worship Ministry",
+  ].join("\n");
+
+  return sendThroughSmtp({
+    logPrefix,
+    to: input.to,
+    subject,
+    html,
+    text,
+  });
+}

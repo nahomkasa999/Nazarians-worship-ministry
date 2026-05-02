@@ -26,6 +26,7 @@ export default async function DashboardTeachingsPage() {
     venueLine: t.venueLine,
     position: t.position,
     published: t.published,
+    membersOnly: t.membersOnly,
     createdAt: t.createdAt.toISOString(),
     updatedAt: t.updatedAt.toISOString(),
   }));

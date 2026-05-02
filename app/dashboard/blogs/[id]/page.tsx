@@ -26,6 +26,7 @@ export default async function DashboardEditBlogPage({ params }: { params: Promis
     status: row.status,
     publishedAt: row.publishedAt?.toISOString() ?? null,
     viewCount: row.viewCount,
+    membersOnly: row.membersOnly,
     createdAt: row.createdAt.toISOString(),
     updatedAt: row.updatedAt.toISOString(),
   };

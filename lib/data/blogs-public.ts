@@ -1,9 +1,14 @@
 import { BlogStatus } from "@/generated/prisma";
 import { db } from "@/lib/prisma";
 
+const publishedPublicWhere = {
+  status: BlogStatus.PUBLISHED,
+  membersOnly: false,
+} as const;
+
 export async function getPublishedBlogs(options?: { take?: number }) {
   return db.blog.findMany({
-    where: { status: BlogStatus.PUBLISHED },
+    where: publishedPublicWhere,
     orderBy: [{ publishedAt: "desc" }, { createdAt: "desc" }],
     take: options?.take,
     select: {

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { Prisma } from "@/generated/prisma";
 import { db } from "@/lib/prisma";
 import { sendMembershipRequestReceivedEmail } from "@/lib/email/send-membership-approved";
+import { uploadMembershipPaymentProof } from "@/lib/supabase/storage";
 import { membershipWriteSchema } from "@/lib/validation/schemas";
 import { flattenError } from "zod";
 
@@ -34,7 +35,14 @@ export const createMembershipRouteDoc = {
 } as const;
 
 export async function POST(request: Request) {
-  const payload = await request.json();
+  const formData = await request.formData();
+  const payload = {
+    fullName: formData.get("fullName"),
+    email: formData.get("email"),
+    phone: formData.get("phone"),
+    telegram: formData.get("telegram"),
+    message: formData.get("message"),
+  };
   const parsedBody = membershipWriteSchema.safeParse(payload);
   if (!parsedBody.success) {
     return NextResponse.json(
@@ -47,6 +55,26 @@ export async function POST(request: Request) {
   }
 
   const { fullName, email, phone, telegram, message } = parsedBody.data;
+
+  // Payment proof is handled as Step 2. We still accept it here for backwards compatibility.
+  const paymentProof = formData.get("paymentProof");
+  const upload =
+    paymentProof instanceof File
+      ? await uploadMembershipPaymentProof(paymentProof)
+      : null;
+
+  if (upload && !upload.ok) {
+    return NextResponse.json(
+      {
+        error: "Validation failed.",
+        details: {
+          formErrors: [] as string[],
+          fieldErrors: { paymentProof: [upload.message] },
+        },
+      },
+      { status: 400 },
+    );
+  }
 
   const approvedByEmail = await db.membershipRequest.findFirst({
     where: {
@@ -117,6 +145,12 @@ export async function POST(request: Request) {
         phone,
         telegram: telegram ?? null,
         message: message || null,
+        ...(upload?.ok
+          ? {
+              paymentProofStoragePath: upload.storagePath,
+              paymentSubmittedAt: new Date(),
+            }
+          : {}),
       },
       select: { id: true },
     });

@@ -3,7 +3,7 @@
 import type { JSONContent } from "@tiptap/core";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { ArrowLeftIcon } from "lucide-react";
 import { createTeaching, updateTeaching } from "@/lib/api/admin-teachings-client";
@@ -15,6 +15,9 @@ import { BlogRichTextEditor } from "@/components/blog/blog-rich-text-editor";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
+
+type Lang = "en" | "am" | "om";
 
 const emptyForm = {
   youtubeUrl: "",
@@ -25,7 +28,7 @@ const emptyForm = {
   venueLine: "",
   durationSeconds: "",
   position: "",
-  published: true,
+  membersOnly: false,
 };
 
 type TeachingEditorFormProps = {
@@ -33,9 +36,21 @@ type TeachingEditorFormProps = {
   initial?: AdminTeachingListItem;
 };
 
+type TeachingAttachmentDto = {
+  id: string;
+  title: string | null;
+  createdAt: string;
+};
+
 export function TeachingEditorForm({ mode, initial }: TeachingEditorFormProps) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
+  const [lang, setLang] = useState<Lang>("en");
+  const [titles, setTitles] = useState({
+    en: initial?.title ?? "",
+    am: initial?.titleAm ?? "",
+    om: initial?.titleOm ?? "",
+  });
   const [form, setForm] = useState(
     initial
       ? {
@@ -47,12 +62,18 @@ export function TeachingEditorForm({ mode, initial }: TeachingEditorFormProps) {
           venueLine: initial.venueLine ?? "",
           durationSeconds: initial.durationSeconds != null ? String(initial.durationSeconds) : "",
           position: String(initial.position),
-          published: initial.published,
+          membersOnly: initial.membersOnly,
         }
       : emptyForm
   );
-  const [descriptionDoc, setDescriptionDoc] = useState<JSONContent>(
+  const [descriptionDocEn, setDescriptionDocEn] = useState<JSONContent>(
     parseTeachingDescription(initial?.description) ?? BLOG_EMPTY_DOC
+  );
+  const [descriptionDocAm, setDescriptionDocAm] = useState<JSONContent>(
+    parseTeachingDescription(initial?.descriptionAm) ?? BLOG_EMPTY_DOC
+  );
+  const [descriptionDocOm, setDescriptionDocOm] = useState<JSONContent>(
+    parseTeachingDescription(initial?.descriptionOm) ?? BLOG_EMPTY_DOC
   );
   const [showAdvanced, setShowAdvanced] = useState(
     Boolean(
@@ -61,9 +82,34 @@ export function TeachingEditorForm({ mode, initial }: TeachingEditorFormProps) {
       initial?.venueLine ||
       initial?.durationSeconds != null ||
       (initial?.position ?? 0) > 0 ||
-      initial?.published === false
+      initial?.membersOnly === true
     )
   );
+
+  const [attachments, setAttachments] = useState<TeachingAttachmentDto[]>([]);
+  const [attachmentsBusy, setAttachmentsBusy] = useState(false);
+  const [attachmentTitle, setAttachmentTitle] = useState("");
+  const [attachmentFile, setAttachmentFile] = useState<File | null>(null);
+  const [showPdf, setShowPdf] = useState(false);
+
+  useEffect(() => {
+    if (mode !== "edit" || !initial?.id) return;
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await fetch(`/api/admin/teachings/${initial.id}/attachments`, { method: "GET" });
+        const data = (await res.json()) as { attachments?: TeachingAttachmentDto[]; error?: string };
+        if (cancelled) return;
+        if (!res.ok || !data.attachments) return;
+        setAttachments(data.attachments);
+      } catch {
+        // ignore
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [initial?.id, mode]);
 
   const submitForm = async () => {
     if (!form.youtubeUrl.trim()) {
@@ -85,23 +131,48 @@ export function TeachingEditorForm({ mode, initial }: TeachingEditorFormProps) {
 
     setBusy(true);
     if (mode === "create") {
-      const res = await createTeaching({
+      const { data, error } = await createTeaching({
         youtubeUrl: form.youtubeUrl.trim(),
-        title: form.title.trim() || undefined,
-        description: toTeachingDescriptionStorage(descriptionDoc),
+        title: titles.en.trim() || form.title.trim() || undefined,
+        titleAm: titles.am.trim() || null,
+        titleOm: titles.om.trim() || null,
+        description: toTeachingDescriptionStorage(descriptionDocEn),
+        descriptionAm: toTeachingDescriptionStorage(descriptionDocAm),
+        descriptionOm: toTeachingDescriptionStorage(descriptionDocOm),
         semesterLabel: form.semesterLabel.trim() || null,
         scheduleLine: form.scheduleLine.trim() || null,
         venueLine: form.venueLine.trim() || null,
         durationSeconds: durationParsed ?? null,
         position: positionParsed,
-        published: form.published,
+        published: true,
+        membersOnly: form.membersOnly,
       });
-      setBusy(false);
-      if (res.error) {
-        toast.error(readApiErrorMessage(res.error));
+      if (error) {
+        setBusy(false);
+        toast.error(readApiErrorMessage(error));
         return;
       }
-      toast.success("Teaching created.");
+
+      if (data?.teaching?.id && attachmentFile) {
+        toast.info("Uploading PDF attachment...");
+        const body = new FormData();
+        body.set("file", attachmentFile);
+        if (attachmentTitle.trim()) body.set("title", attachmentTitle.trim());
+        try {
+          const upRes = await fetch(`/api/admin/teachings/${data.teaching.id}/attachments`, {
+            method: "POST",
+            body,
+          });
+          if (!upRes.ok) {
+            toast.error("Teaching created, but PDF upload failed.");
+          }
+        } catch {
+          toast.error("Teaching created, but PDF upload failed.");
+        }
+      }
+
+      setBusy(false);
+      toast.success("Published.");
       router.replace("/dashboard/teachings");
       router.refresh();
       return;
@@ -114,24 +185,95 @@ export function TeachingEditorForm({ mode, initial }: TeachingEditorFormProps) {
 
     const res = await updateTeaching(initial.id, {
       youtubeUrl: form.youtubeUrl.trim(),
-      title: form.title.trim() || undefined,
-      description: toTeachingDescriptionStorage(descriptionDoc),
+      title: titles.en.trim() || undefined,
+      titleAm: titles.am.trim() || null,
+      titleOm: titles.om.trim() || null,
+      description: toTeachingDescriptionStorage(descriptionDocEn),
+      descriptionAm: toTeachingDescriptionStorage(descriptionDocAm),
+      descriptionOm: toTeachingDescriptionStorage(descriptionDocOm),
       semesterLabel: form.semesterLabel.trim() || null,
       scheduleLine: form.scheduleLine.trim() || null,
       venueLine: form.venueLine.trim() || null,
       durationSeconds: durationParsed ?? null,
       position: positionParsed,
-      published: form.published,
+      published: true,
+      membersOnly: form.membersOnly,
     });
-    setBusy(false);
     if (res.error) {
+      setBusy(false);
       toast.error(readApiErrorMessage(res.error));
       return;
     }
-    toast.success("Teaching updated.");
+
+    if (attachmentFile) {
+      toast.info("Uploading PDF attachment...");
+      const body = new FormData();
+      body.set("file", attachmentFile);
+      if (attachmentTitle.trim()) body.set("title", attachmentTitle.trim());
+      try {
+        const upRes = await fetch(`/api/admin/teachings/${initial.id}/attachments`, {
+          method: "POST",
+          body,
+        });
+        if (!upRes.ok) {
+          toast.error("Teaching updated, but PDF upload failed.");
+        }
+      } catch {
+        toast.error("Teaching updated, but PDF upload failed.");
+      }
+    }
+
+    setBusy(false);
+    toast.success("Published.");
     router.replace("/dashboard/teachings");
     router.refresh();
   };
+
+  const uploadAttachment = async () => {
+    if (mode !== "edit" || !initial?.id) return;
+    if (!attachmentFile) {
+      toast.error("Choose a PDF file first.");
+      return;
+    }
+
+    setAttachmentsBusy(true);
+    try {
+      const body = new FormData();
+      body.set("file", attachmentFile);
+      if (attachmentTitle.trim()) body.set("title", attachmentTitle.trim());
+      const res = await fetch(`/api/admin/teachings/${initial.id}/attachments`, {
+        method: "POST",
+        body,
+      });
+      const data = (await res.json()) as { attachment?: TeachingAttachmentDto; error?: string };
+      if (!res.ok || !data.attachment) {
+        toast.error(data.error || "Failed to upload PDF.");
+        return;
+      }
+      setAttachments((prev) => [data.attachment!, ...prev]);
+      setAttachmentFile(null);
+      setAttachmentTitle("");
+      toast.success("PDF attached.");
+    } catch {
+      toast.error("Failed to upload PDF.");
+    } finally {
+      setAttachmentsBusy(false);
+    }
+  };
+
+  const descriptionDoc =
+    lang === "en" ? descriptionDocEn : lang === "am" ? descriptionDocAm : descriptionDocOm;
+  const setDescriptionDoc = (json: JSONContent) => {
+    if (lang === "en") setDescriptionDocEn(json);
+    else if (lang === "am") setDescriptionDocAm(json);
+    else setDescriptionDocOm(json);
+  };
+
+  const langPills: { id: Lang; label: string }[] = [
+    { id: "en", label: "English" },
+    { id: "am", label: "አማርኛ" },
+    { id: "om", label: "Afaan Oromoo" },
+  ];
 
   return (
     <div className="mx-auto w-full max-w-6xl space-y-6">
@@ -153,25 +295,50 @@ export function TeachingEditorForm({ mode, initial }: TeachingEditorFormProps) {
             disabled={busy}
           />
         </div>
-        <div className="space-y-1">
-          <Label htmlFor="yt-title">Title (optional override)</Label>
+        <div className="space-y-2 lg:col-span-2">
+          <Label className="text-muted-foreground">Language</Label>
+          <div className="flex flex-wrap gap-2">
+            {langPills.map((p) => (
+              <Button
+                key={p.id}
+                type="button"
+                size="sm"
+                variant={lang === p.id ? "default" : "outline"}
+                className={cn("rounded-full", lang !== p.id && "text-muted-foreground")}
+                onClick={() => setLang(p.id)}
+                disabled={busy}
+              >
+                {p.label}
+              </Button>
+            ))}
+          </div>
+        </div>
+        <div className="space-y-1 lg:col-span-2">
+          <Label htmlFor="yt-title">
+            Title {lang === "en" ? "(optional override from YouTube)" : "(optional)"}
+          </Label>
           <Input
             id="yt-title"
-            value={form.title}
-            onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
+            value={lang === "en" ? titles.en : lang === "am" ? titles.am : titles.om}
+            onChange={(e) => {
+              const v = e.target.value;
+              setTitles((t) => ({ ...t, [lang]: v }));
+              if (lang === "en") setForm((f) => ({ ...f, title: v }));
+            }}
             disabled={busy}
           />
         </div>
         <div className="space-y-2 lg:col-span-2">
-          <Label>Description</Label>
+          <Label>Description / notes</Label>
           <BlogRichTextEditor
+            key={lang}
             content={descriptionDoc}
             onChange={(json) => setDescriptionDoc(json)}
             onUploadImage={async () => null}
             disabled={busy}
           />
         </div>
-        <div className="lg:col-span-2">
+        <div className="flex flex-wrap gap-x-6 gap-y-2 lg:col-span-2">
           <label className="flex items-center gap-2 text-sm">
             <input
               type="checkbox"
@@ -180,6 +347,15 @@ export function TeachingEditorForm({ mode, initial }: TeachingEditorFormProps) {
               disabled={busy}
             />
             Add optional details (semester, schedule, venue, ordering)
+          </label>
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={showPdf}
+              onChange={(e) => setShowPdf(e.target.checked)}
+              disabled={busy}
+            />
+            Attach PDF (optional)
           </label>
         </div>
         {showAdvanced ? (
@@ -238,22 +414,97 @@ export function TeachingEditorForm({ mode, initial }: TeachingEditorFormProps) {
             </div>
           </>
         ) : null}
-        <label className="flex items-center gap-2 text-sm lg:col-span-2">
+
+        {showPdf ? (
+          <div className="space-y-4 rounded-lg border p-4 lg:col-span-2">
+            <div className="space-y-1">
+              <p className="text-sm font-medium">PDF attachment</p>
+              <p className="text-sm text-muted-foreground">
+                Select a PDF (exercises, notes, sheet music) to attach to this teaching.
+              </p>
+            </div>
+
+            <div className="grid gap-2 md:grid-cols-3">
+              <div className="space-y-1 md:col-span-1">
+                <Label htmlFor="pdf-title">Title (optional)</Label>
+                <Input
+                  id="pdf-title"
+                  value={attachmentTitle}
+                  onChange={(e) => setAttachmentTitle(e.target.value)}
+                  disabled={busy || attachmentsBusy}
+                  placeholder="e.g. Vocal exercise sheet"
+                />
+              </div>
+              <div className="space-y-1 md:col-span-2">
+                <Label htmlFor="pdf-file">PDF file</Label>
+                <Input
+                  id="pdf-file"
+                  type="file"
+                  accept="application/pdf"
+                  disabled={busy || attachmentsBusy}
+                  onChange={(e) => setAttachmentFile(e.target.files?.[0] ?? null)}
+                />
+              </div>
+            </div>
+            {mode === "edit" && initial?.id && (
+              <div>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => void uploadAttachment()}
+                  disabled={busy || attachmentsBusy}
+                >
+                  {attachmentsBusy ? "Uploading…" : "Upload & attach now"}
+                </Button>
+              </div>
+            )}
+          </div>
+        ) : null}
+        <label className="flex cursor-pointer items-start gap-2 text-sm lg:col-span-2">
           <input
             type="checkbox"
-            checked={form.published}
-            onChange={(e) => setForm((f) => ({ ...f, published: e.target.checked }))}
+            className="mt-0.5"
+            checked={form.membersOnly}
+            onChange={(e) => setForm((f) => ({ ...f, membersOnly: e.target.checked }))}
             disabled={busy}
           />
-          Published on site
+          <span>
+            <span className="font-medium">Members only</span>
+            <span className="mt-1 block text-muted-foreground">
+              The embedded video, notes, and PDFs appear only to active members and signed-in admins; everyone else sees a short invitation to join.
+            </span>
+          </span>
         </label>
       </div>
+
+      {mode === "edit" && initial?.id && attachments.length > 0 ? (
+        <div className="space-y-4 rounded-lg border p-4">
+          <div className="space-y-1">
+            <p className="text-sm font-medium">Existing PDF attachments</p>
+          </div>
+
+          <div className="space-y-2">
+              {attachments.map((a) => (
+                <div key={a.id} className="flex items-center justify-between rounded-md border px-3 py-2 text-sm">
+                  <div className="min-w-0">
+                    <p className="truncate font-medium">{a.title || "PDF attachment"}</p>
+                    <p className="text-xs text-muted-foreground">
+                      Uploaded {new Date(a.createdAt).toLocaleString()}
+                    </p>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
+      ) : null}
+
       <div className="flex gap-2">
         <Button type="button" variant="outline" onClick={() => router.push("/dashboard/teachings")} disabled={busy}>
           Cancel
         </Button>
         <Button type="button" onClick={() => void submitForm()} disabled={busy}>
-          {busy ? "Saving…" : "Save"}
+          {busy ? "Publishing…" : "Publish"}
         </Button>
       </div>
     </div>

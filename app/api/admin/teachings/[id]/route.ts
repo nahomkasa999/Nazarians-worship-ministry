@@ -5,6 +5,7 @@ import { teachingIdParamsSchema, teachingPatchBodySchema } from "@/lib/contracts
 import { generateUniqueTeachingSlug } from "@/lib/teachings/slug";
 import { fetchYoutubeVideoMetadata } from "@/lib/youtube/fetch-metadata";
 import { canonicalWatchUrl, parseYoutubeVideoId } from "@/lib/youtube/parse-id";
+import { notifyMembersNewTeaching } from "@/lib/members/notify-new-content";
 
 export const patchAdminTeachingRouteDoc = {
   method: "patch",
@@ -131,6 +132,8 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     );
   }
 
+  const wasPublished = row.published;
+
   const updated = await db.teaching.update({
     where: { id: row.id },
     data: {
@@ -138,16 +141,27 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       youtubeUrl,
       youtubeId,
       title,
+      ...(body.titleAm !== undefined ? { titleAm: body.titleAm?.trim() || null } : {}),
+      ...(body.titleOm !== undefined ? { titleOm: body.titleOm?.trim() || null } : {}),
       description,
+      ...(body.descriptionAm !== undefined ? { descriptionAm: body.descriptionAm?.trim() || null } : {}),
+      ...(body.descriptionOm !== undefined ? { descriptionOm: body.descriptionOm?.trim() || null } : {}),
       thumbnailUrl,
       durationSeconds,
       semesterLabel: body.semesterLabel !== undefined ? body.semesterLabel : row.semesterLabel,
       scheduleLine: body.scheduleLine !== undefined ? body.scheduleLine : row.scheduleLine,
       venueLine: body.venueLine !== undefined ? body.venueLine : row.venueLine,
       published: body.published !== undefined ? body.published : row.published,
+      membersOnly: body.membersOnly !== undefined ? body.membersOnly : row.membersOnly,
       position: body.position !== undefined ? body.position : row.position,
     },
   });
+
+  if (!wasPublished && updated.published) {
+    void notifyMembersNewTeaching({ title: updated.title }).catch((err) =>
+      console.error("[notifyMembersNewTeaching]", err)
+    );
+  }
 
   return NextResponse.json({
     teaching: {

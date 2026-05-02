@@ -22,6 +22,7 @@ export default async function DashboardBlogsPage() {
     status: b.status,
     publishedAt: b.publishedAt?.toISOString() ?? null,
     viewCount: b.viewCount,
+    membersOnly: b.membersOnly,
     createdAt: b.createdAt.toISOString(),
     updatedAt: b.updatedAt.toISOString(),
   }));

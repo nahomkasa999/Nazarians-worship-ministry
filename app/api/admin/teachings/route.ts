@@ -5,6 +5,7 @@ import { teachingCreateBodySchema } from "@/lib/contracts/teachings";
 import { generateUniqueTeachingSlug } from "@/lib/teachings/slug";
 import { fetchYoutubeVideoMetadata } from "@/lib/youtube/fetch-metadata";
 import { canonicalWatchUrl, parseYoutubeVideoId } from "@/lib/youtube/parse-id";
+import { notifyMembersNewTeaching } from "@/lib/members/notify-new-content";
 
 export const getAdminTeachingsRouteDoc = {
   method: "get",
@@ -125,15 +126,26 @@ export async function POST(request: Request) {
       youtubeId: meta.data.youtubeId,
       thumbnailUrl,
       title,
+      titleAm: body.titleAm?.trim() || null,
+      titleOm: body.titleOm?.trim() || null,
       description,
+      descriptionAm: body.descriptionAm?.trim() || null,
+      descriptionOm: body.descriptionOm?.trim() || null,
       durationSeconds,
       semesterLabel: body.semesterLabel ?? null,
       scheduleLine: body.scheduleLine ?? null,
       venueLine: body.venueLine ?? null,
       position,
       published: body.published ?? true,
+      membersOnly: body.membersOnly ?? false,
     },
   });
+
+  if (created.published) {
+    void notifyMembersNewTeaching({ title: created.title }).catch((err) =>
+      console.error("[notifyMembersNewTeaching]", err)
+    );
+  }
 
   return NextResponse.json({
     teaching: {

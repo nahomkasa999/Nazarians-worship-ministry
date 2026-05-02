@@ -1,7 +1,10 @@
 "use client";
 
 import { type FormEvent, useState } from "react";
-import { submitMembershipRequest } from "@/lib/api/community-memberships-client";
+import {
+  createMembershipRequest,
+  submitMembershipPaymentProof,
+} from "@/lib/api/community-memberships-client";
 import {
   parseMembershipValidationDetails,
   readApiErrorMessage,
@@ -23,11 +26,14 @@ function FieldError({ id, message }: { id: string; message?: string }) {
 }
 
 export function MembershipRequestForm() {
+  const [step, setStep] = useState<1 | 2>(1);
+  const [requestId, setRequestId] = useState<string>("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [telegram, setTelegram] = useState("");
   const [message, setMessage] = useState("");
+  const [paymentProof, setPaymentProof] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -51,13 +57,44 @@ export function MembershipRequestForm() {
     setErrorMessage("");
     setFieldErrors({});
 
-    const response = await submitMembershipRequest({
+    const payload = {
       fullName,
       email,
       phone,
       telegram: telegram.trim() || undefined,
       message,
-    });
+    };
+
+    const response =
+      step === 1
+        ? await createMembershipRequest(payload)
+        : requestId
+          ? await (async () => {
+              if (!paymentProof) {
+                return {
+                  data: null as unknown,
+                  error: {
+                    error: "Validation failed.",
+                    details: {
+                      formErrors: [] as string[],
+                      fieldErrors: {
+                        paymentProof: ["Upload a screenshot of your payment confirmation."],
+                      },
+                    },
+                  },
+                };
+              }
+              return submitMembershipPaymentProof({
+                id: requestId,
+                email,
+                phone,
+                paymentProof,
+              });
+            })()
+          : {
+              data: null as unknown,
+              error: { error: "Missing request id. Please go back and try again." },
+            };
 
     setIsSubmitting(false);
 
@@ -85,34 +122,72 @@ export function MembershipRequestForm() {
       return;
     }
 
+    if (step === 1) {
+      const data = response.data as { id: string; email?: { sent: true } | { sent: false; message: string } };
+      setRequestId(data.id);
+      setStep(2);
+      if (data?.email && !data.email.sent) {
+        setSuccessMessage(
+          `Step 1 complete. We could not send your confirmation email right now: ${data.email.message}`,
+        );
+      } else {
+        setSuccessMessage("Step 1 complete. Now submit your payment proof to finish.");
+      }
+      return;
+    }
+
     setFullName("");
     setEmail("");
     setPhone("");
     setTelegram("");
     setMessage("");
+    setPaymentProof(null);
     setFieldErrors({});
-    const data = response.data;
-    if (data?.email && !data.email.sent) {
-      setSuccessMessage(
-        `Membership request submitted. We could not send your confirmation email right now: ${data.email.message}`,
-      );
-    } else {
-      setSuccessMessage(
-        "Membership request submitted. We sent a confirmation email and our admin team will review it soon.",
-      );
-    }
+    setRequestId("");
+    setStep(1);
+    setSuccessMessage(
+      "Membership request submitted. Our admin team will review it soon.",
+    );
   };
 
   return (
     <Card className="mx-auto w-full max-w-2xl">
       <CardHeader>
         <CardTitle className="text-xl sm:text-2xl">Join Our Community</CardTitle>
+        <div className="space-y-2 pt-1">
+          <div className="flex items-center justify-between text-xs">
+            <span className={cn("font-medium", step === 1 ? "text-foreground" : "text-muted-foreground")}>
+              1. Details
+            </span>
+            <span className={cn("font-medium", step === 2 ? "text-foreground" : "text-muted-foreground")}>
+              2. Payment
+            </span>
+          </div>
+          <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
+            <div
+              className={cn(
+                "h-full rounded-full bg-primary transition-all duration-300",
+                step === 1 ? "w-1/2" : "w-full",
+              )}
+            />
+          </div>
+        </div>
         <CardDescription>
-          Fill in your details and submit your membership request.
+          {step === 1
+            ? "Step 1: fill in your details."
+            : "Step 2: send payment and upload your payment screenshot."}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={onSubmit} className="space-y-4" noValidate>
+          {step === 2 ? (
+            <div className="rounded-md border bg-muted/30 p-3 text-sm text-muted-foreground">
+              <p className="font-medium text-foreground">Payment instructions</p>
+              <p className="mt-1">
+                Make your membership payment, then upload a screenshot of the payment confirmation below.
+              </p>
+            </div>
+          ) : null}
           <div className="space-y-2">
             <label className="text-sm font-medium" htmlFor="membership-fullName">
               Full name
@@ -126,6 +201,7 @@ export function MembershipRequestForm() {
               }}
               placeholder="John Doe"
               required
+              disabled={step === 2}
               aria-invalid={!!fieldErrors.fullName}
               aria-describedby={
                 fieldErrors.fullName ? "membership-fullName-error" : undefined
@@ -148,6 +224,7 @@ export function MembershipRequestForm() {
               }}
               placeholder="you@example.com"
               required
+              disabled={step === 2}
               aria-invalid={!!fieldErrors.email}
               aria-describedby={fieldErrors.email ? "membership-email-error" : undefined}
               className={cn(fieldErrors.email && "border-destructive")}
@@ -170,6 +247,7 @@ export function MembershipRequestForm() {
               inputMode="tel"
               autoComplete="tel"
               required
+              disabled={step === 2}
               aria-invalid={!!fieldErrors.phone}
               aria-describedby={fieldErrors.phone ? "membership-phone-error" : undefined}
               className={cn(fieldErrors.phone && "border-destructive")}
@@ -192,6 +270,7 @@ export function MembershipRequestForm() {
               }}
               placeholder="@username or username"
               autoComplete="off"
+              disabled={step === 2}
               aria-invalid={!!fieldErrors.telegram}
               aria-describedby={
                 fieldErrors.telegram ? "membership-telegram-error" : undefined
@@ -216,6 +295,7 @@ export function MembershipRequestForm() {
               }}
               placeholder="Tell us a bit about yourself."
               className="min-h-24"
+              disabled={step === 2}
               aria-invalid={!!fieldErrors.message}
               aria-describedby={
                 fieldErrors.message ? "membership-message-error" : undefined
@@ -223,15 +303,64 @@ export function MembershipRequestForm() {
             />
             <FieldError id="membership-message-error" message={fieldErrors.message} />
           </div>
+          {step === 2 ? (
+            <div className="space-y-2">
+              <label className="text-sm font-medium" htmlFor="membership-paymentProof">
+                Payment screenshot
+              </label>
+              <Input
+                id="membership-paymentProof"
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                required
+                aria-invalid={!!fieldErrors.paymentProof}
+                aria-describedby={
+                  fieldErrors.paymentProof ? "membership-paymentProof-error" : undefined
+                }
+                className={cn(fieldErrors.paymentProof && "border-destructive")}
+                onChange={(event) => {
+                  const file = event.target.files?.[0] ?? null;
+                  setPaymentProof(file);
+                  clearFieldError("paymentProof");
+                }}
+              />
+              <p className="text-xs text-muted-foreground">
+                Upload a screenshot of your payment confirmation (JPEG/PNG/WebP).
+              </p>
+              <FieldError id="membership-paymentProof-error" message={fieldErrors.paymentProof} />
+            </div>
+          ) : null}
           {errorMessage ? (
             <p className="text-sm text-destructive" role="alert">
               {errorMessage}
             </p>
           ) : null}
           {successMessage ? <p className="text-sm text-emerald-600">{successMessage}</p> : null}
-          <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto">
-            {isSubmitting ? "Submitting..." : "Submit request"}
-          </Button>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+            {step === 2 ? (
+              <Button
+                type="button"
+                variant="outline"
+                disabled={isSubmitting}
+                onClick={() => {
+                  setStep(1);
+                  setPaymentProof(null);
+                  setErrorMessage("");
+                  setSuccessMessage("");
+                  setFieldErrors({});
+                }}
+              >
+                Back
+              </Button>
+            ) : null}
+            <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto">
+              {isSubmitting
+                ? "Submitting..."
+                : step === 1
+                  ? "Continue to payment"
+                  : "Submit payment proof"}
+            </Button>
+          </div>
         </form>
       </CardContent>
     </Card>

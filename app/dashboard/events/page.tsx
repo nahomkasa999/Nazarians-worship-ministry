@@ -14,6 +14,7 @@ export default async function DashboardEventsPage() {
       id: true,
       imageUrl: true,
       storagePath: true,
+      membersOnly: true,
       createdAt: true,
     },
   });
@@ -22,6 +23,7 @@ export default async function DashboardEventsPage() {
     id: e.id,
     imageUrl: e.imageUrl,
     storagePath: e.storagePath,
+    membersOnly: e.membersOnly,
     createdAt: e.createdAt.toISOString(),
   }));
 

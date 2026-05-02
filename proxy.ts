@@ -5,7 +5,10 @@ export async function proxy(request: NextRequest) {
   const sessionCookie = getSessionCookie(request);
 
   if (request.nextUrl.pathname.startsWith("/dashboard") && !sessionCookie) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    const nextPath = `${request.nextUrl.pathname}${request.nextUrl.search}`;
+    const loginUrl = new URL("/login", request.url);
+    loginUrl.searchParams.set("next", nextPath);
+    return NextResponse.redirect(loginUrl);
   }
 
   return NextResponse.next();

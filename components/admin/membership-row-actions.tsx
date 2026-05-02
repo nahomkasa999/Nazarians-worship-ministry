@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { approveMembership, rejectMembership } from "@/lib/api/admin-memberships-client";
+import { approveMembership, rejectMembershipWithReason } from "@/lib/api/admin-memberships-client";
 import { readApiErrorMessage } from "@/lib/api/error-message";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +15,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Textarea } from "@/components/ui/textarea";
 
 type MembershipRowActionsProps = {
   id: string;
@@ -25,6 +26,7 @@ export function MembershipRowActions({ id }: MembershipRowActionsProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [approveOpen, setApproveOpen] = useState(false);
   const [rejectOpen, setRejectOpen] = useState(false);
+  const [rejectReason, setRejectReason] = useState("");
 
   const runApprove = async () => {
     setIsLoading(true);
@@ -48,7 +50,7 @@ export function MembershipRowActions({ id }: MembershipRowActionsProps) {
 
   const runReject = async () => {
     setIsLoading(true);
-    const response = await rejectMembership(id);
+    const response = await rejectMembershipWithReason(id, rejectReason.trim() || undefined);
     setIsLoading(false);
 
     if (response.error) {
@@ -58,6 +60,7 @@ export function MembershipRowActions({ id }: MembershipRowActionsProps) {
 
     toast.success("Membership rejected.");
     setRejectOpen(false);
+    setRejectReason("");
     router.refresh();
   };
 
@@ -100,9 +103,22 @@ export function MembershipRowActions({ id }: MembershipRowActionsProps) {
           <AlertDialogHeader>
             <AlertDialogTitle>Reject membership</AlertDialogTitle>
             <AlertDialogDescription>
-              Reject this request? You can still see past activity; the applicant stays out of the approved list.
+              Reject this request? You can optionally include a reason. If provided, it will be emailed to the applicant.
             </AlertDialogDescription>
           </AlertDialogHeader>
+          <div className="space-y-2">
+            <label className="text-sm font-medium" htmlFor="reject-reason">
+              Reason (optional)
+            </label>
+            <Textarea
+              id="reject-reason"
+              value={rejectReason}
+              onChange={(e) => setRejectReason(e.target.value)}
+              placeholder="Explain why the request was rejected (optional)."
+              disabled={isLoading}
+              className="min-h-24"
+            />
+          </div>
           <AlertDialogFooter>
             <AlertDialogCancel disabled={isLoading}>Cancel</AlertDialogCancel>
             <Button

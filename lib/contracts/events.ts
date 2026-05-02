@@ -10,6 +10,7 @@ export const adminEventListItemSchema = z.object({
   id: z.string(),
   imageUrl: z.string(),
   storagePath: z.string().nullable(),
+  membersOnly: z.boolean(),
   createdAt: z.string(),
 });
 
@@ -18,6 +19,12 @@ export const adminEventsListResponseSchema = z.object({
 });
 
 export type AdminEventListItem = z.infer<typeof adminEventListItemSchema>;
+
+export const adminEventPatchJsonSchema = z.object({
+  membersOnly: z.boolean(),
+});
+
+export type AdminEventPatchJson = z.infer<typeof adminEventPatchJsonSchema>;
 
 export const adminEventCreateResponseSchema = z.object({
   id: z.string(),

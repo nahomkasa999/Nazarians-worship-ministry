@@ -30,6 +30,15 @@ export async function replaceAdminEventPoster(id: string, formData: FormData) {
   });
 }
 
+export async function patchAdminEventMembersOnly(id: string, membersOnly: boolean) {
+  return betterFetch<{ ok: true }, ApiErrorBody>(`/api/admin/events/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ membersOnly }),
+    credentials: "include",
+  });
+}
+
 export async function deleteAdminEvent(id: string) {
   return betterFetch<{ ok: true }, ApiErrorBody>(`/api/admin/events/${id}`, {
     method: "DELETE",

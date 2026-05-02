@@ -47,7 +47,7 @@ export function NavUser({
     await signOut({
       fetchOptions: {
         onSuccess: () => {
-          router.push("/login")
+          router.push("/login?next=/members")
         },
       },
     })
@@ -80,9 +80,12 @@ export function NavUser({
             align="end"
             sideOffset={4}
           >
-            <DropdownMenuItem onClick={handleSignOut} disabled={isSigningOut}>
-              <LogOutIcon
-              />
+            <DropdownMenuItem
+              onClick={handleSignOut}
+              disabled={isSigningOut}
+              className="text-rose-600 focus:text-rose-700 focus:bg-rose-50 dark:text-rose-400 dark:focus:bg-rose-950/40"
+            >
+              <LogOutIcon className="text-rose-600 dark:text-rose-400" />
               {isSigningOut ? "Signing out..." : "Log out"}
             </DropdownMenuItem>
           </DropdownMenuContent>
