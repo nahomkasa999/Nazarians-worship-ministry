@@ -30,7 +30,7 @@ export default async function MembershipCheckoutPage() {
         {/* Background Image & Overlay */}
         <div className="absolute inset-0 z-0">
           <Image 
-            src="/images/membership-bg.png"
+            src="/images/membership-bg.webp"
             alt="Ministry Impact Background" 
             fill
             className="object-cover"

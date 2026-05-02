@@ -63,7 +63,7 @@ export function RegisterForm({ defaultNext }: RegisterFormProps) {
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/background.jpg')" }}
+        style={{ backgroundImage: "url('/images/background.webp')" }}
       />
       <div aria-hidden="true" className="absolute inset-0 bg-black/55 backdrop-blur-md" />
 
@@ -145,7 +145,7 @@ export function RegisterForm({ defaultNext }: RegisterFormProps) {
             <div
               className="relative hidden md:flex md:flex-col md:justify-between md:p-8"
               style={{
-                backgroundImage: "url('/images/background.jpg')",
+                backgroundImage: "url('/images/background.webp')",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}

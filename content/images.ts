@@ -1,8 +1,8 @@
 export const figmaAssets = {
   // Local assets (served from /public)
-  imgPlatformTelegramColorNegative: "/images/telegram.png",
-  imgVectorTikTok: "/images/tiktok.png",
-  imgVectorYouTube: "/images/youtube.png",
-  imgVectorFacebook: "/images/facebook.png",
-  imgHeroImage: "/images/hero-image.jpg",
+  imgPlatformTelegramColorNegative: "/images/telegram.webp",
+  imgVectorTikTok: "/images/tiktok.webp",
+  imgVectorYouTube: "/images/youtube.webp",
+  imgVectorFacebook: "/images/facebook.webp",
+  imgHeroImage: "/images/hero-image.webp",
 } as const;

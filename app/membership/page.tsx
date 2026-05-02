@@ -41,7 +41,7 @@ export default async function MembershipLandingPage() {
         {/* Hero Section */}
         <section className="relative h-[60vh] min-h-[400px] w-full overflow-hidden">
           <img
-            src="/images/membership-bg.png"
+            src="/images/membership-bg.webp"
             alt="Worship community"
             className="absolute inset-0 h-full w-full object-cover brightness-[0.3]"
           />

@@ -67,7 +67,7 @@ export function BlogsAdminPanel({ initialBlogs }: BlogsAdminPanelProps) {
               <Link href={`/blog/${b.slug}`} className="block">
                 <div className="relative aspect-[16/9] w-full bg-muted">
                   <Image
-                    src={b.coverImage || "/images/defult-image.jpg"}
+                    src={b.coverImage || "/defult-image.webp"}
                     alt={b.title}
                     fill
                     className="object-cover"

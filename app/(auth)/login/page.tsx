@@ -60,7 +60,7 @@ function LoginContent() {
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/background.jpg')" }}
+        style={{ backgroundImage: "url('/images/background.webp')" }}
       />
       <div aria-hidden="true" className="absolute inset-0 bg-black/55 backdrop-blur-md" />
 
@@ -145,7 +145,7 @@ function LoginContent() {
             </form>
             <div
               className="relative hidden md:flex md:flex-col md:justify-between md:p-8"
-              style={{ backgroundImage: "url('/images/background.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}
+              style={{ backgroundImage: "url('/images/background.webp')", backgroundSize: "cover", backgroundPosition: "center" }}
             >
               <div className="absolute inset-0 bg-black/45 backdrop-blur-[1px]" />
               <div className="relative space-y-3 text-white">
