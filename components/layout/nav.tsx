@@ -129,7 +129,7 @@ export function Nav() {
                      className="relative flex h-11 w-full items-center justify-center rounded-md border border-transparent bg-foreground text-background hover:bg-foreground/80"
                      aria-label={unreadCount > 0 ? `Notifications, ${unreadCount} unread` : "Notifications"}
                    >
-                     <Bell className="h-8 w-8 color-foreground" aria-hidden />
+                     <Bell className="h-6 w-6 color-foreground" aria-hidden />
                     {unreadCount > 0 ? (
                       <span className="absolute right-4 top-1/2 flex h-6 min-w-6 -translate-y-1/2 items-center justify-center rounded-full bg-foreground px-1.5 text-xs font-medium text-background">
                         {unreadCount > 99 ? "99+" : unreadCount}

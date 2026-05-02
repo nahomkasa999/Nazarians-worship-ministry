@@ -19,7 +19,7 @@ export function JoinSection() {
         <div className="join-block__actions">
           {/* Replaced hardcoded styles with .btn classes */}
           <Button className="btn btn--secondary" asChild>
-            <Link href="/community">Join Us</Link>
+            <Link href="/membership">Join Us</Link>
           </Button>
 
           <div className="flex gap-4">

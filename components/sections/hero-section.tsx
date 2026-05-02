@@ -26,7 +26,7 @@ export function HeroSection() {
             to override its internal styles with these global classes.
           */}
           <Button className="btn btn--primary" asChild>
-            <Link href="/community">
+            <Link href="/membership">
             JOIN OUR MINISTRY
             </Link>
           </Button>
