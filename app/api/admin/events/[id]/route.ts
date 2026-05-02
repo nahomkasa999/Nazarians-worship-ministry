@@ -3,6 +3,7 @@ import { db } from "@/lib/prisma";
 import { getAdminSessionFromHeaders } from "@/lib/admin-session";
 import { adminEventPatchJsonSchema, eventIdParamsSchema } from "@/lib/contracts/events";
 import { removeEventPosterObject, uploadEventPoster } from "@/lib/supabase/storage";
+import { notifyMembersNewEvent } from "@/lib/members/notify-new-content";
 
 export const patchAdminEventRouteDoc = {
   method: "patch",
@@ -42,7 +43,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
   const existing = await db.event.findUnique({
     where: { id: parsedParams.data.id },
-    select: { id: true, storagePath: true },
+    select: { id: true, storagePath: true, membersOnly: true, title: true },
   });
 
   if (!existing) {
@@ -71,6 +72,11 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       where: { id: existing.id },
       data: { membersOnly: parsedJson.data.membersOnly },
     });
+    if (!existing.membersOnly && parsedJson.data.membersOnly) {
+      void notifyMembersNewEvent({ title: existing.title }).catch((err) =>
+        console.error("[notifyMembersNewEvent]", err)
+      );
+    }
     return NextResponse.json({ ok: true as const });
   }
 

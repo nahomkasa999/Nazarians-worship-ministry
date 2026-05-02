@@ -9,6 +9,12 @@ import { Button } from "@/components/ui/button";
 export default async function NotificationsPage() {
   const session = await requireUserPage("/members/notifications");
   const userId = session.user.id;
+  const readAt = new Date();
+
+  await db.membershipNotification.updateMany({
+    where: { userId, readAt: null },
+    data: { readAt },
+  });
 
   const notifications = await db.membershipNotification.findMany({
     where: { userId },

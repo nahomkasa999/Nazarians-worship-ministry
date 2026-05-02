@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/prisma";
 import { getAdminSessionFromHeaders } from "@/lib/admin-session";
 import { uploadEventPoster } from "@/lib/supabase/storage";
+import { notifyMembersNewEvent } from "@/lib/members/notify-new-content";
 
 export const getAdminEventsRouteDoc = {
   method: "get",
@@ -109,6 +110,10 @@ export async function POST(request: Request) {
     },
     select: { id: true, imageUrl: true },
   });
+
+  void notifyMembersNewEvent({ title: null }).catch((err) =>
+    console.error("[notifyMembersNewEvent]", err)
+  );
 
   return NextResponse.json(created);
 }

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { navLinks } from "@/content/nav";
 import { useSession, signOut } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,7 @@ import { MenuIcon, Bell, LogOut } from "lucide-react";
 
 export function Nav() {
   const { data } = useSession();
+  const pathname = usePathname();
   const isAdmin = data?.user?.role === "admin";
   const dashboardHref = isAdmin ? "/dashboard" : "/members";
   const [unreadCount, setUnreadCount] = useState(0);
@@ -19,8 +21,13 @@ export function Nav() {
       setUnreadCount(0);
       return;
     }
+
+    if (pathname === "/members/notifications") {
+      setUnreadCount(0);
+    }
+
     let cancelled = false;
-    void (async () => {
+    const fetchUnreadCount = async () => {
       try {
         const res = await fetch("/api/members/notifications/unread-count", { credentials: "include" });
         const json = (await res.json()) as { count?: number };
@@ -28,11 +35,13 @@ export function Nav() {
       } catch {
         if (!cancelled) setUnreadCount(0);
       }
-    })();
+    };
+
+    void fetchUnreadCount();
     return () => {
       cancelled = true;
     };
-  }, [data?.user]);
+  }, [data?.user, pathname]);
 
   const logoutClass =
     "nav__cta nav__cta--desktop border-rose-200 bg-transparent text-rose-600 hover:bg-rose-50 hover:text-rose-700 dark:border-rose-900/60 dark:text-rose-400 dark:hover:bg-rose-950/40";

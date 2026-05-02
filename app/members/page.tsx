@@ -11,6 +11,7 @@ import { getRelativeDateLabel } from "@/lib/relative-date";
 import { Calendar, Clock, PlayCircle, BookOpen } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { teachingDescriptionPreview } from "@/lib/teaching-description";
+import { Button } from "@/components/ui/button";
 
 export default async function MembersHomePage() {
   const session = await requireUserPage("/members");
@@ -72,13 +73,16 @@ export default async function MembersHomePage() {
 
   const isPending = membership?.status === "PENDING";
   const isAdmin = session.user.role === "admin";
+  const requiresMembershipPayment = !isAdmin && !isActive && !isPending;
 
   const portalSubtitle =
     isAdmin && !isActive
       ? "Signed in as staff: use this space to preview everything marked members-only before members ever see it."
       : isAdmin && isActive
         ? "You have member access and administrator tools—the catalog below stays off the public site."
-        : "Welcome back. Lessons, articles, and posters here are reserved for people with an active Nazarian membership.";
+        : requiresMembershipPayment
+          ? "Member resources are unlocked only after your membership payment is submitted and approved."
+          : "Welcome back. Lessons, articles, and posters here are reserved for people with an active Nazarian membership.";
 
   const memberTeachings = isActive || isAdmin
     ? await db.teaching.findMany({
@@ -164,6 +168,30 @@ export default async function MembersHomePage() {
                 <Badge variant="outline" className="px-4 py-2 text-sm rounded-none">
                   Submitted: {membership?.paymentSubmittedAt ? membership.paymentSubmittedAt.toLocaleDateString() : membership?.createdAt?.toLocaleDateString()}
                 </Badge>
+              </div>
+            </Card>
+          ) : requiresMembershipPayment ? (
+            <Card className="rounded-none border-2 border-dashed bg-muted/30 p-12 text-center">
+              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-muted">
+                <BookOpen className="h-10 w-10 text-muted-foreground" />
+              </div>
+              <h2 className="mt-6 text-2xl font-medium">Membership payment required</h2>
+              <p className="mx-auto mt-2 max-w-2xl text-muted-foreground">
+                This portal contains member-only teachings, blogs, and events. To access this content, please submit
+                your membership payment first.
+              </p>
+              {membership?.status === "REJECTED" && membership.rejectionReason ? (
+                <p className="mx-auto mt-4 max-w-2xl text-sm text-foreground/80">
+                  Previous submission note: {membership.rejectionReason}
+                </p>
+              ) : null}
+              <div className="mt-8 flex items-center justify-center gap-3">
+                <Button asChild>
+                  <Link href="/membership/checkout">Complete payment</Link>
+                </Button>
+                <Button variant="outline" asChild>
+                  <Link href="/membership">View membership details</Link>
+                </Button>
               </div>
             </Card>
           ) : (

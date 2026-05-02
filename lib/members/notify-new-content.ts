@@ -47,3 +47,19 @@ export async function notifyMembersNewTeaching(opts: { title: string }) {
     })),
   });
 }
+
+/** Notify approved members when a new event poster is released. */
+export async function notifyMembersNewEvent(opts: { title?: string | null }) {
+  const userIds = await activeMemberUserIds();
+  if (userIds.length === 0) return;
+
+  const normalizedTitle = opts.title?.trim();
+  await db.membershipNotification.createMany({
+    data: userIds.map((userId) => ({
+      userId,
+      title: normalizedTitle ? `New event: ${normalizedTitle}` : "New member event released",
+      body: "A new event update is available in the member portal.",
+      type: "event",
+    })),
+  });
+}
