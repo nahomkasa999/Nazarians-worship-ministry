@@ -2,6 +2,8 @@
 
 A website for the Nazarians worship ministry, with teaching, blog posts, events, and a way to join — plus sign-in and a content editor for managing the site's content.
 
+**Status:** website for a worship ministry — Hero, Mission, Teaching, Blog, Events, Join sections.
+
 > The ministry's location, service times, and live link are not recorded in the repo — add them here before sharing this README publicly.
 
 ## What it does
