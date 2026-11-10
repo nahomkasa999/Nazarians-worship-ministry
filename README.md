@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nazarians Worship Ministry
 
-## Getting Started
+A website for the Nazarians worship ministry, with teaching, blog posts, events, and a way to join — plus sign-in and a content editor for managing the site's content.
 
-First, run the development server:
+> The ministry's location, service times, and live link are not recorded in the repo — add them here before sharing this README publicly.
+
+## What it does
+
+Home page sections:
+
+- Hero and Mission
+- Teaching
+- Blog
+- Events
+- Join
+
+Behind the scenes (from the code):
+
+- Sign-in with Better Auth, backed by Prisma and Supabase (Postgres).
+- A rich-text editor (Tiptap) for teaching and blog content.
+- Email via Resend (and Nodemailer), with a test script: `bun run scripts/test-resend-email.ts`.
+
+## Stack
+
+- Next.js 16 / React 19 / TypeScript
+- Prisma 7 + Supabase (Postgres)
+- Better Auth
+- Tiptap (rich-text editing)
+- Resend + Nodemailer (email)
+- Tailwind CSS 4, Radix UI, shadcn/ui
+
+## Run it
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The `dev` script runs `next dev` (with `NODE_OPTIONS=--dns-result-order=ipv4first`). Other scripts (from `package.json`):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm run start
+npm run lint
+npm run test:email   # bun run scripts/test-resend-email.ts
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+You can also run it with Bun: `npm run dev:bun`.
 
-## Learn More
+## Setup
 
-To learn more about Next.js, take a look at the following resources:
+Set up the database first — the `postinstall` script runs `prisma generate`. You will need the database and auth/email environment variables the app expects.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `app/page.tsx` — home page (Hero, Mission, Teaching, Blog, Events, Join sections)
+- `app/` — routes, including auth and content pages
+- `components/` — layout, sections, and UI components
+- `prisma/` — database schema
